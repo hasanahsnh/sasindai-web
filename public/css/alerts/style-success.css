@@ -1,0 +1,45 @@
+.custom-alert-success {
+    display: flex;
+    align-items: center;
+    background-color: #FFFFFF; /* Warna background merah muda */
+    color: #000000; /* Warna teks merah */
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    margin-left: 12px;
+    margin-right: 12px;
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+.alert-icon-success {
+    display: inline-block;
+    background-color: #155724; /* Warna merah */
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 24px;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.alert-message-success {
+    flex: 1;
+    font-size: 12px;
+}
+
+.alert-close-success {
+    background: none;
+    border: none;
+    color: #9B9B9B;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    margin-left: 10px;
+}
+.alert-close-success:hover {
+    color: #000000;
+}
