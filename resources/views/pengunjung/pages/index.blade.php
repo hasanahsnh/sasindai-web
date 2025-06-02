@@ -5,7 +5,7 @@
     <!--- basic page needs
     ================================================== -->
     <meta charset="utf-8">
-    <title>SASCODE</title>
+    <title>SASINDAI</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -63,22 +63,21 @@
 
                 <div class="home-content__left">
                     <h1>
-                        Bersama Pelajari & Lestarikan Budaya Kain Sasirangan
+                        Belajar motif Sasirangan dengan cara seru dan interaktif.
                     </h1>
     
                     <h3>
-                        SASCODE (Sasirangan QR Code) adalah aplikasi inovatif yang menghadirkan pengalaman baru dalam mengeksplorasi keindahan kain tradisional Sasirangan. 
-                        Temukan keunikan budaya dalam genggaman Anda!                    
+                        Sasindai hadir untuk kamu yang ingin mengenal motif Sasirangan dengan cara asik dan interaktif. Lewat aplikasi ini, kamu bisa belajar sejarah dan makna tiap motif tanpa bosan, langsung dari ponselmu. Yuk, lestarikan budaya Banua bareng Sasindai!                   
                     </h3>
                     <div class="home-content__btn-wrap">
-                        <a href="https://mega.nz/folder/Mb9lkLZR#eCEZQ00czyLNB2c16eRgQg" target="_blank" class="btn btn--primary home-content__btn" style="background: #8C3061; border:none; outline:none">
+                        <a href="https://mega.nz/folder/Mb9lkLZR#eCEZQ00czyLNB2c16eRgQg" target="_blank" class="btn btn--primary home-content__btn" style="background: #8D0B41; border:none; outline:none">
                             Dapatkan Aplikasi
                         </a>
                     </div>
                 </div> <!-- end home-content__left-->
 
                 <div class="home-content__right">
-                    <img src="{{ asset('pengunjung/images/hero_app_img.png') }}" style="width: 100%; height: auto; object-fit: cover;" srcset="{{ asset('pengunjung/images/hero_app_img.png 1x, pengunjung/images/hero_app_img.png 2x') }}">
+                    <img src="{{ asset('pengunjung/images/sasindai-hp4.png') }}" style="width: 600px; height: auto; object-fit: cover;" srcset="{{ asset('pengunjung/images/sasindai-hp4.png 1x, pengunjung/images/sasindai-hp4.png 2x') }}">
                 </div> <!-- end home-content__right -->
 
             </div> <!-- end home-content__main -->
@@ -101,16 +100,17 @@
 
     <!-- about
     ================================================== -->
-    <section id="tentang" class="s-about target-section" style="background: #8C3061">
+    <section id="tentang" class="s-about target-section" style="background: #8D0B41">
 
         <div class="row section-header has-bottom-sep" data-aos="fade-up">
             <div class="col-full">
                 <h1 class="display-1">
-                    Apa itu SASCODE ?
+                    Apa itu SASINDAI ?
                 </h1>
                 <p class="lead">
-                    SASCODE (Sasirangan QR Code) adalah aplikasi modern yang menggabungkan teknologi dengan budaya lokal untuk melestarikan dan memperkenalkan kekayaan tradisional kain Sasirangan. 
-                    Dengan SASCODE, setiap motif kain Sasirangan tidak hanya menjadi karya seni yang indah tetapi juga menyimpan cerita dan filosofi yang dapat diungkap melalui teknologi QR Code.
+                    Sasindai adalah aplikasi edukatif berbasis Android yang dirancang untuk memperkenalkan motif kain Sasirangan, 
+                    warisan budaya khas Kalimantan Selatan. Aplikasi ini menggabungkan teknologi modern seperti Augmented Reality (AR) untuk memberikan pengalaman 
+                    interaktif dan menarik bagi pengguna dalam mempelajari filosofi, jenis, serta penggunaan motif-motif Sasirangan.
                 </p>
             </div>
         </div> <!-- end section-header -->
@@ -255,8 +255,8 @@
                     Program yang ditujukan untuk menciptakan sinergi antara 
                     SASCODE dan toko Sasirangan dalam mengembangkan potensi bisnis lokal.
                 </p>
-                <a href="{{ route('register-mitra') }}" class="btn btn--primary" style="background: #8C3061; border:none; outline:none">Bergabung</a>
-                <a href="" class="btn btn--primary" style="margin-left:10px; background: #8C3061; border:none; outline:none">Konsultasikan</a>
+                <a href="{{ route('register-mitra') }}" class="btn btn--primary" style="background: #8D0B41; border:none; outline:none">Bergabung</a>
+                <a href="" class="btn btn--primary" style="margin-left:10px; background: #8D0B41; border:none; outline:none">Konsultasikan</a>
             </div>
         </div> <!-- end section-header -->
 

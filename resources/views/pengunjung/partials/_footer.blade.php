@@ -26,7 +26,7 @@
                     <ul class="footer__site-links">
                         <li><a href="#home" class="smoothscroll">Ringkasan</a></li>
                         <li><a href="#tentang" class="smoothscroll">Tentang</a></li>
-                        <li><a href="#mitraxsascode" class="smoothscroll">Mitra x SASCODE</a></li>
+                        <li><a href="#mitraxsascode" class="smoothscroll">Mitra x SASINDAI</a></li>
                     </ul>
                 </div>
 

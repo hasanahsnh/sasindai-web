@@ -3,7 +3,7 @@
     <div class="row">
         <div class="header-logo">
             <a class="current" href="">
-                <img src="{{ asset('pengunjung/images/sascode-big-logo-2.png') }}" alt="logo"/>
+                <img src="{{ asset('pengunjung/images/sasindai-removebg.png') }}" alt="logo"/>
             </a>
         </div>
 
@@ -17,7 +17,7 @@
             </ul>
 
             <div class="header-cta">
-                <a href="https://mega.nz/folder/Mb9lkLZR#eCEZQ00czyLNB2c16eRgQg" target="_blank" class="btn btn--primary header-cta__btn" style="background: #8C3061; border:none; outline:none">Dapatkan Aplikasi</a>
+                <a href="https://mega.nz/folder/Mb9lkLZR#eCEZQ00czyLNB2c16eRgQg" target="_blank" class="btn btn--primary header-cta__btn" style="background: #8D0B41; border:none; outline:none">Dapatkan Aplikasi</a>
             </div>
         </nav> <!-- end header-nav-wrap -->
 
