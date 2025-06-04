@@ -72,43 +72,43 @@
                       <!-- Kolom email (berdasar uid (users) session) -->
                       <label for="email" class="col-sm-3 col-form-label">Email (Terverifikasi)</label>
                       <div class="col-sm-9">
-                        <input type="email" class="form-control" id="email" name="email" value="{{ $dataMitraData['email'] ?? 'Email tidak ditemukan' }}" placeholder="E-Mail toko terverifikasi" readonly>
+                        <input type="email" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="email" name="email" value="{{ $dataMitraData['email'] ?? 'Email tidak ditemukan' }}" placeholder="E-Mail toko terverifikasi" readonly>
                       </div>
 
                       <!-- Kolom nama owner (berdasar uid (users) session) -->
                       <label for="owner" class="col-sm-3 col-form-label">Nama Owner</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="owner" name="owner" value="{{ $dataMitraData['namaLengkap'] ?? 'Nama lengkap tidak ditemukan' }}" placeholder="Nama owner toko" readonly>
+                        <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="owner" name="owner" value="{{ $dataMitraData['namaLengkap'] ?? 'Nama lengkap tidak ditemukan' }}" placeholder="Nama owner toko" readonly>
                       </div>
 
                       <!-- Kolom nama owner (berdasar uid (users) session) -->
                       <label for="nama_toko" class="col-sm-3 col-form-label">Nama Toko</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="nama_toko" name="nama_toko" value="{{ $dataMitraProfile['namaToko'] ?? 'Nama toko tidak ditemukan' }}" placeholder="Nama toko" readonly>
+                        <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="nama_toko" name="nama_toko" value="{{ $dataMitraProfile['namaToko'] ?? 'Nama toko tidak ditemukan' }}" placeholder="Nama toko" readonly>
                       </div>
 
                       <!-- Kolom alamat toko -->
                       <label for="alamat_toko" class="col-sm-3 col-form-label">Alamat Toko</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="alamat_toko" name="alamat_toko" value="{{ $dataMitraProfile['alamatToko'] ?? 'Alamat toko tidak ditemukan' }}" placeholder="Nama toko" readonly>
+                        <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="alamat_toko" name="alamat_toko" value="{{ $dataMitraProfile['alamatToko'] ?? 'Alamat toko tidak ditemukan' }}" placeholder="Nama toko" readonly>
                       </div>
 
                       <!-- Kolom Phone -->
                       <label for="phone" class="col-sm-3 col-form-label">Nomor Telepon</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="phone" name="phone" value="{{ $dataMitraProfile['noTelp'] ?? 'Nomor telepon tidak ditemukan' }}" placeholder="Nomor telepon tidak ditemukan" readonly>
+                        <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="phone" name="phone" value="{{ $dataMitraProfile['noTelp'] ?? 'Nomor telepon tidak ditemukan' }}" placeholder="Nomor telepon tidak ditemukan" readonly>
                       </div>
 
                       <!-- Bank yang dipilih -->
                       <label for="phone" class="col-sm-3 col-form-label">Bank Tujuan</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="bank" name="bank" value="{{ $dataMitraProfile['bank'] ?? 'Bank tidak ditemukan' }}" placeholder="Bank tujuan penerimaan dana" readonly>
+                        <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="bank" name="bank" value="{{ $dataMitraProfile['bank'] ?? 'Bank tidak ditemukan' }}" placeholder="Bank tujuan penerimaan dana" readonly>
                       </div>
 
                       <!-- Nomor rekening -->
                       <label for="phone" class="col-sm-3 col-form-label">Nomor Rekening</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="no_rekening" name="no_rekening"
+                        <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="no_rekening" name="no_rekening"
                           placeholder="Masukkan nomor rekening"
                           value="{{ substr($dataMitraProfile['noRekening'] ?? '1234567890', 0, 4) . str_repeat('*', 4)}}" maxlength="20" readonly>
                       </div>
@@ -116,19 +116,19 @@
                       <!-- Kolom alamat toko -->
                       <label for="role" class="col-sm-3 col-form-label">Role</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="role" name="role" value="{{ $dataMitraRole ?? 'Role pengguna tidak ditemukan '}}" placeholder="Role" readonly>
+                        <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="role" name="role" value="{{ $dataMitraRole ?? 'Role pengguna tidak ditemukan '}}" placeholder="Role" readonly>
                       </div>
 
                       <!-- Kolom Auth Method (berdasar uid (users) session)-->
                       <label for="auth_method" class="col-sm-3 col-form-label">Metode Autentikasi</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="auth_method" name="auth_method" value="{{ $dataMitraData['authMethod'] }}" placeholder="Metode autentikasi" readonly>
+                        <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="auth_method" name="auth_method" value="{{ $dataMitraData['authMethod'] }}" placeholder="Metode autentikasi" readonly>
                       </div>
 
                       <!-- Kolom status verifikasi toko-->
                       <label for="auth_method" class="col-sm-3 col-form-label">Status Verifikasi Toko</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="auth_method" name="auth_method" value="{{ $dataMitraProfile['statusVerifikasiToko'] ?? 'Status verifikasi tidak ditemukan' }}" placeholder="Status verifikasi toko" readonly>
+                        <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="auth_method" name="auth_method" value="{{ $dataMitraProfile['statusVerifikasiToko'] ?? 'Status verifikasi tidak ditemukan' }}" placeholder="Status verifikasi toko" readonly>
                       </div>
                     </div>
 
