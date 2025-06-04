@@ -47,7 +47,6 @@ class BeritaController extends Controller
             'judul_artikel' => 'required|string|max:255',
             'jurnalis' => 'required|string|max:255',
             'konten_berita' => 'required|string|max:1000',
-            'tanggal_terbit' => 'required|date',
         ]);
     
         if ($request->hasFile('foto_berita')) {
@@ -68,14 +67,17 @@ class BeritaController extends Controller
             $newId = max($existingIds) + 1;
         }
 
-        $tanggalTerbitFormatted = Carbon::parse($request->tanggal_terbit)->translatedFormat('d F Y');
-    
+        $tanggalTerbitFormatted = Carbon::now()->translatedFormat('d F Y');
+        $updatedAt = Carbon::now()->format('Y-m-d H:i:s');
+
         $postData = [
             'judulArtikel' => $request->judul_artikel,
             'jurnalis' => $request->jurnalis,
             'kontenBerita' => $request->konten_berita,
             'tanggalTerbit' =>$tanggalTerbitFormatted,
             'fotoBeritaUrl' => $fotoBeritaUrl,
+            'createAt' => now()->toDateTimeString(),
+            'updateAt' => $updatedAt
         ];
 
         //dd($postData);
@@ -101,16 +103,15 @@ class BeritaController extends Controller
             'judul_artikel' => 'required|string|max:255',
             'jurnalis' => 'required|string|max:255',
             'konten_berita' => 'required|string|max:1000',
-            'tanggal_terbit' => 'date',
         ]);
 
-        $tanggalTerbitFormatted = Carbon::parse($request->tanggal_terbit)->translatedFormat('d F Y');
+        $updatedAt = Carbon::now()->format('Y-m-d H:i:s');
 
         $updateData = [
             'judulArtikel' => $request->judul_artikel,
             'jurnalis' => $request->jurnalis,
             'kontenBerita' => $request->konten_berita,
-            'tanggalTerbit' => $tanggalTerbitFormatted
+            'updateAt' => $updatedAt
         ];
 
         if($request->hasFile('foto_berita')) {
