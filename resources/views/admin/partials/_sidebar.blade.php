@@ -15,41 +15,39 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#post" aria-expanded="false" aria-controls="ui-basic">
               <i class="mdi mdi-newspaper menu-icon"></i>
-              <span class="menu-title">Postingan</span>
+              <span class="menu-title">Post</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="post">
               <ul class="nav flex-column sub-menu">                
-                <li class="nav-item"> <a class="nav-link" href="{{ route('berita') }}">Artikel</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{ route('katalog') }}">Katalog Motif</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('katalog') }}">S-Katalog</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('objek.3d') }}">Objek 3D Produk (AR)</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('berita') }}">Rilis Media</a></li>
               </ul>
             </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#partner-management" aria-expanded="false" aria-controls="ui-basic">
               <i class="mdi mdi-briefcase-outline menu-icon"></i>
-              <span class="menu-title">Mitra Management</span>
+              <span class="menu-title">Mitra</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="partner-management">
               <ul class="nav flex-column sub-menu">           
                 <li class="nav-item"> <a class="nav-link" href="{{ url('/ka-pasar') }}">Mitra</a></li> <!-- Data mitra (ID) -->
-                <li class="nav-item"> <a class="nav-link" href="">Produk</a></li> <!-- Relasi ke ID Mitra bersangkutan -->
-                <li class="nav-item"> <a class="nav-link" href="">Pengiriman Barang</a></li> <!-- Apakah barang sudah dikirim? supplier unggah resi atau kirim bukti untuk penerusan dana-->
-                <li class="nav-item"> <a class="nav-link" href="">Penerusan Dana</a></li> <!-- Jika ya, uang bisa diteruskan -->
               </ul>
             </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#user-management" aria-expanded="false" aria-controls="ui-basic">
               <i class="mdi mdi-account-multiple menu-icon"></i>
-              <span class="menu-title">User Management</span>
+              <span class="menu-title">Pengguna Aplikasi</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="user-management">
               <ul class="nav flex-column sub-menu">                
-                <li class="nav-item"> <a class="nav-link" href="{{ url('roles') }}">Roles</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{ url('/users') }}">Users</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ url('/users') }}">Pengguna Aplikasi</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ url('roles') }}">Level Pengguna</a></li>
               </ul>
             </div>
           </li>
