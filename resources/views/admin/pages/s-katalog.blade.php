@@ -64,11 +64,6 @@
                       <i class="mdi mdi-plus-box" style="font-size: 20px; vertical-align: middle; margin-right: 5px; color:#8D0B41"></i>
                         TAMBAH MOTIF
                     </a>
-                    <a href="{{ route('download-data-katalog') }}" type="button"
-                    style="font-size:14px; color:#757575; display: flex; align-items: center; text-decoration: none;">
-                      <i class="mdi mdi-download text-muted" style="font-size: 20px; vertical-align: middle; margin-right: 5px;"></i>
-                        UNDUH DATA
-                    </a>
                   </div>
 
                   <!-- Dropdown Menu for smaller screens -->
@@ -82,10 +77,6 @@
                               <i class="mdi mdi-plus-box" style="font-size: 20px; vertical-align: middle; margin-right: 5px; color:#8D0B41"></i>
                               TAMBAH MOTIF
                           </a>
-                          <a href="{{ route('download-data-katalog') }}" class="dropdown-item" type="button" style="font-size:14px; color:#757575; display: flex; align-items: center; text-decoration: none;">
-                              <i class="mdi mdi-download text-muted" style="font-size: 20px; vertical-align: middle; margin-right: 5px;"></i>
-                              UNDUH DATA
-                          </a>
                       </div>
                     </div>
                   </div>
@@ -95,13 +86,11 @@
                   <table class="table table-hover w-100">
                     <thead>
                       <tr>
-                        <th>Lihat</th>
                         <th>Nama Motif</th>
                         <th>Arti Motif</th>
-                        <th>Sumber Arti Motif</th>
+                        <th>Sumber Arti</th>
                         <th>Gambar Motif</th>
-                        <th>Sumber Gambar Motif</th>
-                        <th>QR Code Motif</th>
+                        <th>Sumber Gambar</th>
                         <th>Tindakan</th>
                       </tr>
                     </thead>
@@ -111,9 +100,6 @@
                         @foreach ($katalogs as $key => $item)
                         @if(!empty($item['motif']) || !empty($item['filosofi']) || !empty($item['sumber']) || !empty($item['gambarUrl']))
                           <tr>
-                            <td>
-                              <a href="" data-toggle="modal" data-target="#modalLihat{{ $key }}" title="Detail"><i class="mdi mdi-eye" style="margin-right: 15px;"></i></a>    
-                            </td>
                             <td>{{ $item['motif'] }}</td>
                             <td>{{ $item['filosofi'] }}</td>
                             <td>{{ $item['sumberFilosofi'] }}</td>
@@ -121,9 +107,6 @@
                               <a href="{{ $item['gambarUrl'] }}" target="_blank" title="Unduh gambar motif">{{ $item['gambarUrl'] }}</a>
                             </td>
                             <td>{{ $item['sumberGambar'] }}</td>
-                            <td>
-                              <a href="{{ $item['qrCodeUrl'] }}" target="_blank" title="Unduh QR Code Motif">{{ $item['qrCodeUrl'] }}</a>
-                            </td>
                             <td>
                               <a href="" data-toggle="modal" data-target="#modalEdit{{ $key }}" title="Edit"><i class="fas fa-edit" style="margin-right: 15px;"></i></a>    
                               <a href="" data-toggle="modal" data-target="#modalHapus{{ $key }}" title="Hapus"><i class="fa-solid fa-trash" style="color: red"></i></a>     
@@ -144,47 +127,41 @@
                                         </a>
                                       <div class="card-body">
                                         <h4 class="card-title">Edit Motif</h4>
-                                        <p class="card-description">
-                                          <i class="fas fa-exclamation-triangle" style="color: red;"></i>
-                                          Isi semua field, dan sertakan sumber filosofi yang valid!
-                                        </p>
                                         <form class="forms-sample" id="formEdit{{ $key }}" action="{{ route('update-motif', ['id' => $key]) }}" method="POST" enctype="multipart/form-data">
                                           @csrf
                                           @method('PUT')
                                           <div class="form-group row">
                                             <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Motif</label>
                                             <div class="col-sm-9">
-                                              <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" class="form-control" value="{{ $item['motif'] }}" id="nama_motif" name="nama_motif" placeholder="Nama motif" required>
+                                              <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" value="{{ $item['motif'] }}" id="nama_motif" name="nama_motif" placeholder="Nama motif" required>
                                             </div>
                                           </div>
                                           <div class="form-group row">
-                                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Filosofi Motif</label>
+                                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Arti Motif</label>
                                             <div class="col-sm-9">
-                                              <textarea class="form-control" style="border: 2px solid #8D0B41; border-radius: 4px;" id="filosofi_motif" name="filosofi_motif" placeholder="Filosofi motif" required>{{ $item['filosofi'] }}</textarea>
+                                              <textarea class="form-control" style="border: 1px solid #8D0B41; border-radius: 4px;" id="filosofi_motif" name="filosofi_motif" placeholder="Filosofi motif" required>{{ $item['filosofi'] }}</textarea>
                                             </div>
                                           </div>
                                           <div class="form-group row">
-                                            <label for="exampleInputMobile" class="col-sm-3 col-form-label">Sumber Filosofi</label>
+                                            <label for="exampleInputMobile" class="col-sm-3 col-form-label">Sumber Arti Motif</label>
                                             <div class="col-sm-9">
-                                              <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" class="form-control" value="{{ $item['sumberFilosofi'] }}" id="sumber_filosofi" name="sumber_filosofi" placeholder="Mobile number" required>
-                                              <div class="note" style="color: gray; font-size:11px; padding-top: 5px;">
-                                                <strong>Format penulisan sumber:</strong> [Jurnal/situs]
-                                              </div>
+                                              <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" value="{{ $item['sumberFilosofi'] }}" id="sumber_filosofi" name="sumber_filosofi" placeholder="Mobile number" required>
+                                            
                                             </div>
                                           </div>
                                           <div class="form-group row">
                                             <label for="exampleInputMobile" class="col-sm-3 col-form-label">Gambar Motif</label>
                                             <div class="col-sm-9">
-                                              <input type="file" style="border: 2px solid #8D0B41; border-radius: 4px;" class="form-control" value="{{ $item['gambarUrl'] }}" id="gambar_motif" name="gambar_motif" placeholder="Pilih gambar">
+                                              <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" value="{{ $item['gambarUrl'] }}" id="gambar_motif" name="gambar_motif" placeholder="Pilih gambar">
+                                              <div class="note" style="color: gray; font-size:11px; padding-top: 5px;">
+                                                <strong>Tidak usah diinput jika tidak ingin memperbarui gambar</strong>
+                                              </div>
                                             </div>
                                           </div>
                                           <div class="form-group row">
-                                            <label for="exampleInputMobile" class="col-sm-3 col-form-label">Sumber Filosofi</label>
+                                            <label for="exampleInputMobile" class="col-sm-3 col-form-label">Sumber Gambar</label>
                                             <div class="col-sm-9">
-                                              <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" class="form-control" value="{{ $item['sumberGambar'] }}" id="sumber_gambar" name="sumber_gambar" placeholder="Mobile number" required>
-                                              <div class="note" style="color: gray; font-size:11px; padding-top: 5px;">
-                                                <strong>Format penulisan sumber:</strong> [Jurnal/situs]
-                                              </div>
+                                              <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" value="{{ $item['sumberGambar'] }}" id="sumber_gambar" name="sumber_gambar" placeholder="Mobile number" required>
                                             </div>
                                           </div>
                                           <button type="submit" class="btn btn-primary mr-2">Update</button>
@@ -228,73 +205,6 @@
                             </div>
                           </div>
 
-                          <!-- Modal Lihat -->
-                          <div class="modal fade" id="modalLihat{{ $key }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 700px; width: 100%;">
-                              <div class="modal-content rounded-0">
-                                <div class="modal-body p-4 px-5">
-                        
-                                  
-                                  <div class="main-content text-center">
-                                      
-                                      <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true"><span class="icon-close2"></span></span>
-                                        </a>
-                                      <div class="card-body">
-                                        <h4 class="card-title">Motif {{ $item['motif'] }}</h4>
-                                        <form class="forms-sample" id="formEdit{{ $key }}" action="" method="">
-                                          @csrf
-                                          <div class="form-group row">
-                                            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Motif</label>
-                                            <div class="col-sm-9">
-                                              <input type="text" class="form-control" value="{{ $item['motif'] }}" id="nama_motif" name="nama_motif" placeholder="Nama motif" readonly>
-                                            </div>
-                                          </div>
-                                          <div class="form-group row">
-                                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Filosofi Motif</label>
-                                            <div class="col-sm-9">
-                                              <textarea class="form-control" id="filosofi_motif" name="filosofi_motif" placeholder="Filosofi motif" readonly>{{ $item['filosofi'] }}</textarea>
-                                            </div>
-                                          </div>
-                                          <div class="form-group row">
-                                            <label for="exampleInputMobile" class="col-sm-3 col-form-label">Sumber Filosofi</label>
-                                            <div class="col-sm-9">
-                                              <input type="text" class="form-control" value="{{ $item['sumberFilosofi'] }}" id="sumber_filosofi" name="sumber_filosofi" readonly>
-                                              <div class="note" style="color: gray; font-size:11px; padding-top: 5px;">
-                                                <strong>Format penulisan sumber:</strong> [Jurnal/situs]
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="form-group row">
-                                            <label for="exampleInputMobile" class="col-sm-3 col-form-label">Gambar Motif</label>
-                                            <div class="col-sm-9">
-                                              <img src="{{ $item['gambarUrl'] }}" alt="Preview Foto Toko" style="max-width: 100%; height: auto; margin-bottom: 10px;">
-                                            </div>
-                                          </div>
-                                          <div class="form-group row">
-                                            <label for="exampleInputMobile" class="col-sm-3 col-form-label">Sumber Filosofi</label>
-                                            <div class="col-sm-9">
-                                              <input type="text" class="form-control" value="{{ $item['sumberGambar'] }}" id="sumber_gambar" name="sumber_gambar" readonly>
-                                              <div class="note" style="color: gray; font-size:11px; padding-top: 5px;">
-                                                <strong>Format penulisan sumber:</strong> [Jurnal/situs]
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="form-group row">
-                                            <label for="exampleInputMobile" class="col-sm-3 col-form-label">QR Code Motif</label>
-                                            <div class="col-sm-9">
-                                              <img src="{{ $item['qrCodeUrl'] }}" alt="Preview QR Code Motif" style="max-width: 50%; height: auto; margin-bottom: 10px;">
-                                            </div>
-                                          </div>
-                                          <button class="btn btn-light" data-dismiss="modal">Cancel</button>
-                                        </form>
-                                      </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
                         @endif
                         @endforeach
                       @else
@@ -319,46 +229,38 @@
                               </a>
                             <div class="card-body">
                               <h4 class="card-title">Tambah Motif</h4>
-                              <p class="card-description">
-                                <i class="fas fa-exclamation-triangle" style="color: red;"></i>
-                                  Isi semua field, dan sertakan sumber filosofi yang valid!
-                              </p>
                               <form class="forms-sample" id="formTambah" action="{{ url('simpan-motif') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group row">
                                   <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Motif</label>
                                   <div class="col-sm-9">
-                                    <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" class="form-control" id="nama_motif" name="nama_motif" placeholder="Nama motif" required>
+                                    <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="nama_motif" name="nama_motif" placeholder="Nama motif" required>
                                   </div>
                                 </div>
                                 <div class="form-group row">
                                   <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Arti Motif</label>
                                   <div class="col-sm-9">
-                                    <textarea class="form-control" style="border: 2px solid #8D0B41; border-radius: 4px;" id="filosofi_motif" name="filosofi_motif" rows="4" placeholder="Filosofi motif" required></textarea>
+                                    <textarea class="form-control" style="border: 1px solid #8D0B41; border-radius: 4px;" id="filosofi_motif" name="filosofi_motif" rows="4" placeholder="Filosofi motif" required></textarea>
                                   </div>
                                 </div>
                                 <div class="form-group row">
                                   <label for="exampleInputMobile" class="col-sm-3 col-form-label">Sumber Arti Motif</label>
                                   <div class="col-sm-9">
-                                    <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" class="form-control" id="sumber_filosofi" name="sumber_filosofi" placeholder="Sumber filosofi" required>
-                                    <div class="note" style="color: gray; font-size:11px; padding-top: 5px;">
-                                      <strong>Format penulisan sumber:</strong> [Jurnal/Situs]
-                                    </div>
+                                    <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="sumber_filosofi" name="sumber_filosofi" placeholder="Sumber filosofi" required>
+                                   
                                   </div>
                                 </div>
                                 <div class="form-group row">
                                   <label for="exampleInputMobile" class="col-sm-3 col-form-label">Gambar Motif</label>
                                   <div class="col-sm-9">
-                                    <input type="file" style="border: 2px solid #8D0B41; border-radius: 4px;" class="form-control" id="gambar_motif" name="gambar_motif" placeholder="Pilih gambar" required>
+                                    <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="gambar_motif" name="gambar_motif" placeholder="Pilih gambar" required>
                                   </div>
                                 </div>
                                 <div class="form-group row">
                                   <label for="exampleInputMobile" class="col-sm-3 col-form-label">Sumber Gambar Motif</label>
                                   <div class="col-sm-9">
-                                    <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" class="form-control" id="sumber_gambar" name="sumber_gambar" placeholder="Sumber gambar motif" required>
-                                    <div class="note" style="color: gray; font-size:11px; padding-top: 5px;">
-                                      <strong>Format penulisan sumber:</strong> [Jurnal/Situs]
-                                    </div>
+                                    <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="sumber_gambar" name="sumber_gambar" placeholder="Sumber gambar motif" required>
+                                    
                                   </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
