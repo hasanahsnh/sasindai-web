@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Roles</title>
+  <title>Level Pengguna</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{ asset('vendors/mdi/css/materialdesignicons.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/base/vendor.bundle.base.css') }}">
@@ -71,7 +71,7 @@
               <div class="card-body">
                 <div class="d-flex align-items-center mb-3">
                   <h1 class="card-title" style="font-size:16px; color:black; display: inline-block; border-bottom: 2px solid #522258; padding-bottom: 10px;">
-                    DATA ROLE
+                    Level Pengguna
                   </h1>
                   
                   <!-- Dropdown menu layar lebar 
@@ -113,8 +113,8 @@
                   <table class="table table-hover w-100">
                     <thead>
                       <tr>
-                        <th>ID Role</th>
-                        <th>Role</th>
+                        <th>ID Level</th>
+                        <th>Level</th>
                       </tr>
                     </thead>
                     <tbody>
