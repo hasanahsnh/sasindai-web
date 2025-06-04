@@ -16,7 +16,7 @@ class MitraController extends Controller
     //
     protected $auth;
     protected $database;
-    protected $refTableNameUsers, $refTableNameMitras;
+    protected $refTableNameUsers, $refTableNameMitras, $refTableNameOrders;
 
     public function __construct(Auth $auth, Database $database) {
 
@@ -24,6 +24,7 @@ class MitraController extends Controller
         $this->database = $database;
         $this->refTableNameUsers = 'users';
         $this->refTableNameMitras = 'mitras';
+        $this->refTableNameOrders = 'orders';
 
     }
 
@@ -46,6 +47,26 @@ class MitraController extends Controller
         $mitraProfileRef = $this->database->getReference($this->refTableNameMitras . '/' . $uid);
         $mitraProfile = $mitraProfileRef->getValue();
 
+        // Ambil data pesanan dengan status pesanan = "dikemas"
+        $dataPesanans = $this->database->getReference($this->refTableNameOrders);
+        $pesanansSnapshot = $dataPesanans->getValue();
+        $pesanans = $pesanansSnapshot ?? [];
+
+        $filteredPesanans = [];
+
+        if ($pesanans) {
+            foreach ($pesanans as $orderId => $pesanan) {
+                if (isset($pesanan['statusPesanan']) && (strtolower($pesanan['statusPesanan']) === 'dikemas')) {
+                    $filteredPesanan[$orderId] = $pesanan;
+                }
+            }
+        }
+
+        if (empty($filteredPesanans)) {
+            $filteredPesanans = [];
+            error_log("Tidak ada pesanan dengan status 'Dikemas'.");
+        }
+
         // Cek apakah data mitra belum tersedia
         $tokoBelumLengkap = false;
         $statusVerifikasi = null;
@@ -62,7 +83,13 @@ class MitraController extends Controller
             }
         }
         
-        return view('mitra.pages.index', compact('uid', 'mitraData', 'mitraRole', 'tokoBelumLengkap', 'statusVerifikasi'));
+        return view('mitra.pages.index', compact(
+        'uid',
+        'mitraData',
+        'mitraRole',
+        'tokoBelumLengkap',
+        'statusVerifikasi',
+        'filteredPesanans'));
         
     }
 
