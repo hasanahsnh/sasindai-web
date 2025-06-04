@@ -7,9 +7,6 @@ use Kreait\Firebase\Contract\Database;
 use Kreait\Firebase\Contract\Storage;
 use Kreait\Firebase\Exception\FirebaseException;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Maatwebsite\Excel\Facades\Excel;
-use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
-
 
 class KatalogController extends Controller
 {
