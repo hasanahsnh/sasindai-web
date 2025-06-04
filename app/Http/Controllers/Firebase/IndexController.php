@@ -8,7 +8,6 @@ use App\Http\Controllers\Firebase\UserController;
 use App\Http\Controllers\Firebase\KatalogController;
 use App\Http\Controllers\Firebase\PasarController;
 use App\Http\Controllers\Firebase\BeritaController;
-use App\Services\FirebaseService;
 use Kreait\Firebase\Contract\Database;
 
 class IndexController extends Controller
