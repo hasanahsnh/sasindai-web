@@ -58,13 +58,6 @@
                   <h1 class="card-title" style="font-size:16px; color:black; display: inline-block; border-bottom: 2px solid #522258; padding-bottom: 10px;">
                     DATA MITRA
                   </h1>
-                  <div class="d-none d-md-flex ms-3" style="margin-left: 60px;">
-                    <a href="{{ route('download-data-pasar') }}" type="button"
-                    style="font-size:14px; color:#757575; display: flex; align-items: center; text-decoration: none;">
-                      <i class="mdi mdi-download text-muted" style="font-size: 20px; vertical-align: middle; margin-right: 5px;"></i>
-                        UNDUH DATA
-                    </a>
-                  </div>
 
                   <!-- Dropdown Menu for smaller screens -->
                   <div class="ms-3 d-md-none">
@@ -72,12 +65,6 @@
                       <a class="mdi mdi-dots-vertical" href="#" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                       style="font-size: 20px; margin-left:20px">
                       </a>
-                      <div id="dropdownMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a href="{{ route('download-data-pasar') }}" class="dropdown-item" type="button" style="font-size:14px; color:#757575; display: flex; align-items: center; text-decoration: none;">
-                              <i class="mdi mdi-download text-muted" style="font-size: 20px; vertical-align: middle; margin-right: 5px;"></i>
-                              UNDUH DATA
-                          </a>
-                      </div>
                     </div>
                   </div>
                 </div>
