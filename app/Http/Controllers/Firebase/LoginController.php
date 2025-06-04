@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Kreait\Firebase\Contract\Auth;
 use Kreait\Firebase\Contract\Database;
 use Kreait\Firebase\Exception\AuthException;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\Firebase\ResetFirebasePasswordEmail;
 
 class LoginController extends Controller
 {
