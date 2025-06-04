@@ -46,7 +46,7 @@
                           @php
                             $Data = session('session');    
                           @endphp
-                          <span class="nav-profile-name">{{ $Data['email'] ?? 'Email tidak ditemukan' }}</span>
+                          <span class="nav-profile-name">{{ $Data['namaLengkap'] ?? 'Email tidak ditemukan' }}</span>
                       @endif
                       ({{ $adminRole ?? 'Role tidak ditemukan'}})
                     </h4>
@@ -67,10 +67,13 @@
                       <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">RINGKASAN</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="sales-tab" data-toggle="tab" href="#petunjuk" role="tab" aria-controls="sales" aria-selected="false">PETUNJUK</a>
+                      <a class="nav-link" id="sales-tab" data-toggle="tab" href="#petunjuk" role="tab" aria-controls="sales" aria-selected="false">ARAHKAN</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" id="akun-tab" data-toggle="tab" href="#akun" role="tab" aria-controls="akun" aria-selected="false">TENTANG AKUN</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="riwayat-tab" data-toggle="tab" href="#riwayat" role="tab" aria-controls="akun" aria-selected="false">RIWAYAT LOGIN</a>
                     </li>
                   </ul>
                   <div class="tab-content py-0 px-0">
@@ -80,29 +83,22 @@
                         <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                           <i class="mdi mdi-account-multiple mr-3 icon-lg text-danger"></i>
                           <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Pengguna Aktif</small>
+                            <small class="mb-1 text-muted">Pengguna Sasindai</small>
                             <h5 class="mr-2 mb-0">{{ $totalActiveUsers}} pengguna</h5>
                           </div>
                         </div>
                         <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                           <i class="mdi mdi-barley mr-3 icon-lg text-success"></i>
                           <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Konten Motif</small>
+                            <small class="mb-1 text-muted">Motif Sasirangan</small>
                             <h5 class="mr-2 mb-0">{{ $totalKatalogs}} motif</h5>
                           </div>
                         </div>
                         <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-basket mr-3 icon-lg text-warning"></i>
+                          <i class="mdi mdi-barley mr-3 icon-lg text-success"></i>
                           <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Mitra x SASCODE</small>
-                            <h5 class="mr-2 mb-0">{{ $totalPasars}} toko</h5>
-                          </div>
-                        </div>
-                        <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-basket mr-3 icon-lg text-warning"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Mitra x SASCODE (Pending)</small>
-                            <h5 class="mr-2 mb-0">{{ $totalPasars}} toko</h5>
+                            <small class="mb-1 text-muted">Objek 3D Produk</small>
+                            <h5 class="mr-2 mb-0">{{ $totalKatalogs}} motif</h5>
                           </div>
                         </div>
                         <div class="d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
@@ -112,13 +108,66 @@
                             <h5 class="mr-2 mb-0">{{ $totalArtikels}} artikel</h5>
                           </div>
                         </div>
+                        <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                          <i class="mdi mdi-basket mr-3 icon-lg text-warning"></i>
+                          <div class="d-flex flex-column justify-content-around">
+                            <small class="mb-1 text-muted">Mitra</small>
+                            <h5 class="mr-2 mb-0">{{ $totalPasars}} toko</h5>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
                     <!-- Bagian Pentunjuk -->
                     <div class="tab-pane fade" id="petunjuk" role="tabpanel" aria-labelledby="sales-tab">
-                      <h4 style="margin-left: 20px; margin-top: 20px; color: #522258;">Publikasi</h4>
+                      <h4 style="margin-left: 20px; margin-top: 20px; color: #522258;">Arahkan cepat</h4>
                       <div class="d-flex flex-wrap justify-content-xl-between">
+
+                        <!-- Petunjuk mitra -->
+                        <div class="card-card">
+                          <div class="card-card-header">
+                            <h4>Data Mitra</h4>
+                          </div>
+                          <div class="card-card-body">
+                            <p><strong>Ringkasan:</strong> S-Katalog disusun untuk mempublikasikan berbagai motif kain sasirangan beserta arti motif. Informasi lebih lanjut lihat <a href="{{ url('/faq') }}">FAQ</a>.</p>
+                          </div>
+                          <div class="card-card-footer" onclick="window.location.href='{{ route('ka-pasar') }}';" style="cursor: pointer;">
+                            <i class="fas fa-arrow-right" style="margin-right: 7px"></i> Arahkan ke Data Mitra
+                          </div>
+                        </div>
+
+                        <!-- Petunjuk pengambilan barang -->
+                        <div class="card-card">
+                          <div class="card-card-body">
+                            <iframe width="100%" height="200" src="https://www.youtube.com/embed/usUbg4Zs-LI?si=G5fZX-YHHJj3Q_uI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                          </div>
+                        </div>
+
+                        <!-- Petunjuk ka pasran -->
+                        <div class="card-card">
+                          <div class="card-card-header">
+                            <h4>Objek 3D Produk (AR)</h4>
+                          </div>
+                          <div class="card-card-body">
+                            <p><strong>Ringkasan:</strong> Ka Pasaran disusun untuk mempublikasikan pasar yang menjalin kerja sama melalui fitur <strong>Mitra x SASCODE</strong>. Informasi lebih lanjut dapat ditemukan pada bagian <a href="{{ url('/faq') }}">FAQ</a>.</p>
+                          </div>
+                          <div class="card-card-footer" onclick="window.location.href='{{ route('objek.3d') }}';" style="cursor: pointer;">
+                            <i class="fas fa-arrow-right" style="margin-right: 7px"></i> Arahkan ke Objek 3D Produk (AR)
+                          </div>
+                        </div>
+
+                        <!-- Petunjuk artikel -->
+                        <div class="card-card">
+                          <div class="card-card-header">
+                            <h4>Rilis Media</h4>
+                          </div>
+                          <div class="card-card-body">
+                            <p><strong>Ringkasan:</strong> Artikel disusun untuk mempublikasikan informasi seputar kegiatan dan event terkait sasirangan melalui media. Informasi lebih lanjut lihat <a href="{{ url('/faq') }}">FAQ</a>.</p>
+                          </div>
+                          <div class="card-card-footer" onclick="window.location.href='{{ route('berita') }}';" style="cursor: pointer;">
+                            <i class="fas fa-arrow-right" style="margin-right: 7px"></i> Arahkan ke Rilis Media
+                          </div>
+                        </div>
 
                         <!-- Petunjuk s-katalog -->
                         <div class="card-card">
@@ -126,36 +175,10 @@
                             <h4>S-Katalog</h4>
                           </div>
                           <div class="card-card-body">
-                            <p><strong>Ringkasan:</strong> S-Katalog disusun untuk mempublikasikan berbagai motif kain sasirangan beserta filosofi motif, mulai dari motif dasar hingga yang terbaru. Informasi lebih lanjut lihat <a href="{{ url('/faq') }}">FAQ</a>.</p>
+                            <p><strong>Ringkasan:</strong> S-Katalog disusun untuk mempublikasikan berbagai motif kain sasirangan beserta arti motif. Informasi lebih lanjut lihat <a href="{{ url('/faq') }}">FAQ</a>.</p>
                           </div>
                           <div class="card-card-footer" onclick="window.location.href='{{ route('katalog') }}';" style="cursor: pointer;">
-                            <i class="fas fa-arrow-right" style="margin-right: 7px"></i> Arahkan ke "S-Katalog"
-                          </div>
-                        </div>
-
-                        <!-- Petunjuk ka pasran -->
-                        <div class="card-card">
-                          <div class="card-card-header">
-                            <h4>Ka Pasaran</h4>
-                          </div>
-                          <div class="card-card-body">
-                            <p><strong>Ringkasan:</strong> Ka Pasar disusun untuk mempublikasikan pasar yang menjalin kerja sama melalui fitur <strong>Mitra x SASCODE</strong>. Informasi lebih lanjut dapat ditemukan pada bagian <a href="{{ url('/faq') }}">FAQ</a>.</p>
-                          </div>
-                          <div class="card-card-footer" onclick="window.location.href='{{ route('ka-pasar') }}';" style="cursor: pointer;">
-                            <i class="fas fa-arrow-right" style="margin-right: 7px"></i> Arahkan ke "Ka Pasar"
-                          </div>
-                        </div>
-
-                        <!-- Petunjuk artikel -->
-                        <div class="card-card">
-                          <div class="card-card-header">
-                            <h4>Artikel</h4>
-                          </div>
-                          <div class="card-card-body">
-                            <p><strong>Ringkasan:</strong> Artikel disusun untuk mempublikasikan informasi seputar kegiatan dan event terkait sasirangan melalui media. Informasi lebih lanjut lihat <a href="{{ url('/faq') }}">FAQ</a>.</p>
-                          </div>
-                          <div class="card-card-footer" onclick="window.location.href='{{ route('berita') }}';" style="cursor: pointer;">
-                            <i class="fas fa-arrow-right" style="margin-right: 7px"></i> Arahkan ke "Artikel"
+                            <i class="fas fa-arrow-right" style="margin-right: 7px"></i> Arahkan ke S-Katalog
                           </div>
                         </div>
                         
@@ -171,31 +194,54 @@
                             <!-- Kolom E-Mail -->
                             <label for="email" class="col-sm-3 col-form-label">E-Mail</label>
                             <div class="col-sm-9">
-                              <input type="email" class="form-control" id="email" name="email" value="{{ $adminData['email'] ?? '' }}" placeholder="E-Mail" readonly>
+                              <input type="email" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="email" name="email" value="{{ $adminData['email'] ?? '' }}" placeholder="E-Mail" readonly>
                             </div>
 
                             <!-- Kolom Phone -->
                             <label for="phone" class="col-sm-3 col-form-label">Nomor Telepon</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" id="phone" name="phone" value="{{ $adminData['noTelp'] ?? '' }}" placeholder="Nomor telepon tidak ditemukan" readonly>
+                              <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="phone" name="phone" value="{{ $adminData['noTelp'] ?? '' }}" placeholder="Nomor telepon tidak ditemukan" readonly>
                             </div>
 
                             <!-- Kolom Role -->
                             <label for="role" class="col-sm-3 col-form-label">Role</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" id="role" name="role" value="{{ $adminRole}}" placeholder="Role" readonly>
+                              <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="role" name="role" value="{{ $adminRole}}" placeholder="Role" readonly>
                             </div>
 
                             <!-- Kolom Auth Method -->
                             <label for="auth_method" class="col-sm-3 col-form-label">Metode Autentikasi</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" id="auth_method" name="auth_method" value="{{ $adminData['authMethod'] ?? '' }}" placeholder="Metode Autentikasi" readonly>
+                              <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="auth_method" name="auth_method" value="{{ $adminData['authMethod'] ?? '' }}" placeholder="Metode Autentikasi" readonly>
                             </div>
 
                           </div>
                         </form>
                       </div>
                     </div>
+
+                    <!-- Bagian aktivitas login -->
+                    <div class="tab-pane fade" id="riwayat" role="tabpanel" aria-labelledby="riwayat-tab">
+                      <h4 style="margin-left: 20px; margin-top: 20px; color: #522258;">Riwayat Login</h4>
+                      <div class="d-flex flex-wrap justify-content-xl-between" style="padding: 20px">
+                        <div class="table-responsive">
+                          <table class="table table-hover w-100">
+                            <thead>
+                              <tr>
+                                <th>ID</th>
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th>Perangkat</th>
+                                <th>IP Address</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
               </div>
