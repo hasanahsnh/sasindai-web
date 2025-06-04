@@ -6,17 +6,17 @@
               <span class="menu-title">Overview</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="" onclick="return">
+              <i class="mdi mdi-cube menu-icon"></i>
+              <span class="menu-title">Unggah Model 3D Produk</span>
+            </a>
+          </li>
           <!-- Mitra Management -->
           <li class="nav-item">
             <a class="nav-link" href="{{ url('/produk') }}" onclick="return checkTokoStatus('{{ $statusVerifikasi }}')">
               <i class="mdi mdi-package menu-icon"></i>
               <span class="menu-title">Daftar Produk</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">
-              <i class="mdi mdi-chart-bar menu-icon"></i>
-              <span class="menu-title">Statistik</span>
             </a>
           </li>
           <li class="nav-item">
@@ -32,28 +32,9 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">
-              <i class="mdi mdi-cash menu-icon"></i>
-              <span class="menu-title">Riwayat Penerimaan Dana</span>
-            </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="{{ url('/data-toko') }}">
               <i class="mdi mdi-store menu-icon"></i>
               <span class="menu-title">Informasi Toko</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">
-              <i class="mdi mdi-library-books menu-icon"></i>
-              <span class="menu-title">Tutorial</span>
-            </a>
-          </li>
-          <!-- End Mitra Management -->
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url('/faq') }}">
-              <i class="mdi mdi-comment-question-outline menu-icon"></i>
-              <span class="menu-title">FAQ</span>
             </a>
           </li>
           <li class="nav-item">
