@@ -7,12 +7,6 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">
-              <i class="mdi mdi-chart-bar menu-icon"></i>
-              <span class="menu-title">Statistik</span>
-            </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#post" aria-expanded="false" aria-controls="ui-basic">
               <i class="mdi mdi-newspaper menu-icon"></i>
               <span class="menu-title">Post</span>
@@ -21,7 +15,7 @@
             <div class="collapse" id="post">
               <ul class="nav flex-column sub-menu">                
                 <li class="nav-item"> <a class="nav-link" href="{{ route('katalog') }}">S-Katalog</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{ route('objek.3d') }}">Objek 3D Produk (AR)</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('objek.3d') }}">Unggah Model 3D Produk (AR)</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{ route('berita') }}">Rilis Media</a></li>
               </ul>
             </div>
@@ -62,18 +56,6 @@
               </ul>
             </div>
           </li>-->
-          <li class="nav-item">
-            <a class="nav-link" href="">
-              <i class="mdi mdi-library-books menu-icon"></i>
-              <span class="menu-title">Tutorial</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url('/faq') }}">
-              <i class="mdi mdi-comment-question-outline menu-icon"></i>
-              <span class="menu-title">FAQ</span>
-            </a>
-          </li>
           <li class="nav-item">
             <form id="logout-form" action="{{ route('keluar') }}" method="POST" style="display: none;">
                 @csrf

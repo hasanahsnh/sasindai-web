@@ -16,7 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
         //
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
-            'mitra' => \App\Http\Middleware\MitraMiddleware::class
+            'mitra' => \App\Http\Middleware\MitraMiddleware::class,
+            'admin_or_mitra' => \App\Http\Middleware\AdminOrMitraMiddleware::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

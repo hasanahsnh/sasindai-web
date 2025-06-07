@@ -136,7 +136,7 @@
                             <td>
                               <a href="" data-toggle="modal" data-target="#modalLihat{{ $key }}" title="Detail">Lihat Varian</a>    
                             </td>
-                            <td>{{ $item['Terjual'] ?? '0'}}</td>
+                            <td>{{ $item['terjual'] ?? '0'}}</td>
                             <td>{{ $item['sisaStok'] ?? '0'}}</td>
                             <td>{{ $item['createAt'] ?? 'Jejak waktu tidak ditemukan'}}</td>
                             <td>{{ $item['updateAt'] ?? 'Jejak waktu tidak ditemukan'}}</td>
@@ -418,6 +418,27 @@
   <!-- container-scroller -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
+  <script>
+    function checkTokoStatus(status) {
+        if (status !== 'accepted') {
+            const alertBox = document.getElementById('statusAlert');
+            alertBox.style.display = 'block';
+    
+            // Auto close after 4s
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 4000);
+
+            return false;
+        } else {
+            // Redirect ke halaman tambah produk
+            window.location.href = "{{ route('produk') }}";
+            return true;
+        }
+    }
+
+  </script>
+  
   <script>
     function tambahVarian() {
       const container = document.getElementById('varianContainer');

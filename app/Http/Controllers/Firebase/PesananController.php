@@ -27,10 +27,12 @@ class PesananController extends Controller
     }
 
     function index() {
-        $dataPesanans = $this->database->getReference($this->refTableName)->getValue();
+        /*$dataPesanans = $this->database->getReference($this->refTableName)->getValue();
         return response()->json([
             'success' => true,
             'data' => $dataPesanans
-        ]);
+        ]);*/
+
+        return view('mitra.pages.pesanan');
     }
 }

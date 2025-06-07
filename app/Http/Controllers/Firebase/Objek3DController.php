@@ -23,12 +23,19 @@ class Objek3DController extends Controller
 
     function index() {
         $objek3d = $this->database->getReference($this->refTableName)->getValue();
-        return view('admin.pages.input-objek-3d', compact('objek3d'));
+            if ($objek3d === null) {
+                $objek3d = [];
+            }
 
-        if ($objek3d === null) {
-            $objek3d = [];
-        }
-        dd($objek3d);
+            $role = session('session.idRole');
+
+            if ($role === 'ROLE_ADMIN') {
+                return view('admin.pages.input-objek-3d', compact('objek3d'));
+            } elseif ($role === 'ROLE_MITRA') {
+                return view('mitra.pages.input-objek-3d', compact('objek3d'));
+            }
+
+            abort(403);
     }
 
     function store(Request $request) {

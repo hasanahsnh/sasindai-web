@@ -5,7 +5,10 @@ use App\Http\Controllers\Firebase\IndexController;
 use App\Http\Controllers\Firebase\KatalogController;
 use App\Http\Controllers\Firebase\LoginController;
 use App\Http\Controllers\Firebase\MitraController;
+use App\Http\Controllers\Firebase\Objek3DController;
 use App\Http\Controllers\Firebase\PasarController;
+use App\Http\Controllers\Firebase\PengirimanController;
+use App\Http\Controllers\Firebase\PesananController;
 use App\Http\Controllers\Firebase\ProdukController;
 use App\Http\Controllers\Firebase\RolesController;
 use App\Http\Controllers\Firebase\UserController;
@@ -133,4 +136,18 @@ Route::middleware(['mitra'])->group(function () {
     // Halaman informasi toko
     Route::get('data-toko', [MitraController::class, 'dataToko'])->name('data-toko');
     Route::post('/perbarui-data-toko', [MitraController::class, 'perbaruiDataToko'])->name('perbarui-data-toko');
+
+    // Halaman pesanan
+    Route::get('pesanan', [PesananController::class, 'index'])->name('total.pesanan');
+
+    // Halaman semu pengiriman
+    Route::get('pengiriman', [PengirimanController::class, 'index'])->name('semua.pengiriman');
+});
+
+// Middleware admin atau mitra untuk input model 3d
+Route::middleware(['admin_or_mitra'])->group(function() {
+    // Input objek 3d
+    Route::get('/objek-3d', [Objek3DController::class, 'index'])->name('objek.3d');
+    Route::get('/tambah-objek-3d', [Objek3DController::class, 'create'])->name('input.objek.3d');
+    Route::post('/simpan-objek-3d', [Objek3DController::class, 'store'])->name('simpan.objek.3d');
 });
