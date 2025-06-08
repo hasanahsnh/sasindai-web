@@ -23,20 +23,32 @@ class Objek3DController extends Controller
 
     function index() {
         $objek3d = $this->database->getReference($this->refTableName)->getValue();
-            if ($objek3d === null) {
-                $objek3d = [];
-            }
+        if ($objek3d === null) {
+            $objek3d = [];
+        }
 
-            $role = session('session.idRole');
+        $role = session('session.idRole');
+        $uid = session('session.uid');
 
-            if ($role === 'ROLE_ADMIN') {
-                return view('admin.pages.input-objek-3d', compact('objek3d'));
-            } elseif ($role === 'ROLE_MITRA') {
-                return view('mitra.pages.input-objek-3d', compact('objek3d'));
-            }
+        $statusVerifikasi = null;
 
-            abort(403);
+        if ($role === 'ROLE_MITRA') {
+            // Ambil status verifikasi toko
+            $dataMitraProfileRef = $this->database->getReference('mitra/' . $uid);
+            $dataMitraProfile = $dataMitraProfileRef->getValue();
+
+            $statusVerifikasi = $dataMitraProfile['statusVerifikasiToko'] ?? 'pending';
+
+            return view('mitra.pages.input-objek-3d', compact('objek3d', 'statusVerifikasi'));
+        }
+
+        if ($role === 'ROLE_ADMIN') {
+            return view('admin.pages.input-objek-3d', compact('objek3d'));
+        }
+
+        abort(403);
     }
+
 
     function store(Request $request) {
 
@@ -83,7 +95,7 @@ class Objek3DController extends Controller
         $postData = [
             'idObjek' => $uniqueIdProduk,
             'namaObjek' => $request->nama_objek,
-            'deskripsiObjek' => $request->deskripsi,
+            'deskripsiObjek' => $request->deskripsi_objek,
             'glbUrl' => $glbUrl,
             'previewObjek' => $previewObjekUrl,
             'createdAt' => now()->toDateTimeString(),
@@ -93,5 +105,9 @@ class Objek3DController extends Controller
         $this->database->getReference($this->refTableName . '/' . $uniqueIdProduk)->set($postData);
 
         return redirect()->route('objek.3d')->with('success', 'Objek berhasil disimpan.');
+    }
+
+    public function delete() {
+        
     }
 }

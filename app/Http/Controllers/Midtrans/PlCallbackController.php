@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Log;
 use Kreait\Firebase\Contract\Database;
 use Kreait\Firebase\Contract\Messaging;
 use Kreait\Firebase\Messaging\CloudMessage;
-use Midtrans\Notification;
 use Midtrans\Config;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 
 class PlCallbackController extends Controller
 {
@@ -95,6 +95,34 @@ class PlCallbackController extends Controller
             ];
 
             $status = $statusMap[$transactionStatus] ?? $transactionStatus;
+
+            // Kirim notifikasi jika status pembayaran sukses:
+            if ($status === 'success') {
+                try {
+                    $waNumber = $order['no_telp']; // pastikan field ini ada di database order
+                    $message = 
+                    "Halo {$order['namaLengkap']}, pembayaran Anda berhasil! Pesanan sedang dikemas.\n\n" .
+                    "📦 Order ID: {$orderId}\n" .
+                    "🛍  Produk: {$order['produk'][0]['nama_produk']} (x{$order['produk'][0]['qty']})\n" .
+                    "💰 Total Bayar: Rp" . number_format($order['total'], 0, ',', '.') . "\n" .
+                    "💳 Metode: {$order['metode_pembayaran']}\n" .
+                    "🚚 Kurir: {$order['kurir']} - {$order['layanan']}\n" .
+                    "🏠 Alamat: {$order['alamat']}\n\n" .
+                    "Terima kasih telah berbelanja di toko kami 🙏😊";
+
+                    $response = Http::withHeaders([
+                        'Authorization' => config('services.fonnte.token_fonnte'),
+                    ])->post('https://api.fonnte.com/send', [
+                        'target' => $waNumber,
+                        'message' => $message,
+                        'countryCode' => '62'
+                    ]);
+
+                    Log::info('Fonnte WA sent: ' . $response->body());
+                } catch (\Exception $e) {
+                    Log::error('Fonnte WA error: ' . $e->getMessage());
+                }
+            }
 
             $statusPesananMap = [
                 'pending' => 'menunggu pembayaran',

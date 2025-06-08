@@ -13,6 +13,10 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'fonnte' => [
+        'token_fonnte' => env('TOKEN_FONNTE'),
+    ],
+
     'midtrans' => [
         'server_key' => env('SERVER_KEY'),
     ],

@@ -26,7 +26,7 @@ class PesananController extends Controller
         $this->storage = $storage;
     }
 
-    function index() {
+    public function index() {
         /*$dataPesanans = $this->database->getReference($this->refTableName)->getValue();
         return response()->json([
             'success' => true,
@@ -34,5 +34,9 @@ class PesananController extends Controller
         ]);*/
 
         return view('mitra.pages.pesanan');
+    }
+
+    public function callbackPesananMasuk() {
+        
     }
 }

@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Objek 3D</title>
+  <title>Model 3D</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{ asset('vendors/mdi/css/materialdesignicons.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/base/vendor.bundle.base.css') }}">
@@ -58,13 +58,13 @@
               <div class="card-body">
                 <div class="d-flex align-items-center mb-3">
                   <h1 class="card-title" style="font-size:16px; color:black; display: inline-block; border-bottom: 2px solid #522258; padding-bottom: 10px;">
-                    DATA OBJEK 3D
+                    DATA MODEL 3D
                   </h1>
                   <div class="d-none d-md-flex ms-3" style="margin-left: 60px;">
                     <a type="button" data-toggle="modal" data-target="#modalTambah" onclick="setRedirectUrl('{{ route('tambah-berita') }}')"
                     style="font-size:14px; margin-right: 30px; color:#8D0B41; display: flex; align-items: center;">
                       <i class="mdi mdi-plus-box" style="font-size: 20px; vertical-align: middle; margin-right: 5px; color:#8D0B41"></i>
-                        TAMBAH OBJEK 3D
+                        TAMBAH MODEL 3D
                     </a>
                   </div>
 
@@ -77,7 +77,7 @@
                       <div id="dropdownMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                           <a class="dropdown-item" type="button" data-toggle="modal" data-target="#modalTambah" onclick="setRedirectUrl('{{ route('tambah-berita') }}')">
                               <i class="mdi mdi-plus-box" style="font-size: 20px; vertical-align: middle; margin-right: 5px; color:#8D0B41"></i>
-                              TAMBAH OBJEK 3D
+                              TAMBAH MODEL 3D
                           </a>
                       </div>
                     </div>
@@ -88,10 +88,10 @@
                   <table class="table table-hover w-100">
                     <thead>
                       <tr>
-                        <th>Nama Objek</th>
+                        <th>Nama Model</th>
                         <th>Deskripsi</th>
-                        <th>Url File Objek 3D</th>
-                        <th>Url File Preview</th>
+                        <th>File .glb</th>
+                        <th>Preview</th>
                         <th>Dibuat pada</th>
                         <th>Diperbarui pada</th>
                         <th>Action</th>
@@ -132,10 +132,10 @@
                                           <span aria-hidden="true"><span class="icon-close2"></span></span>
                                         </a>
                                       <div class="card-body">
-                                        <h4 class="card-title">Hapus Motif</h4>
+                                        <h4 class="card-title">Hapus Model</h4>
                                         <p class="card-description">
                                           <i class="fas fa-exclamation-triangle" style="color: red;"></i>
-                                          Anda yakin ingin menghapus data motif yang dipilih?
+                                          Anda yakin ingin menghapus data model yang dipilih?
                                         </p>
                                         <form class="forms-sample" id="formHapus{{ $key }}" action="" method="POST">
                                           @csrf
@@ -154,7 +154,7 @@
                         @endforeach
                       @else
                         <tr>
-                          <td colspan="6" style="text-align: center">Data objek 3D tidak ditemukan</td>
+                          <td colspan="6" style="text-align: center">Data Model tidak ditemukan</td>
                         </tr>
                       @endif
                     </tbody>
@@ -173,29 +173,29 @@
                                 <span aria-hidden="true"><span class="icon-close2"></span></span>
                               </a>
                             <div class="card-body">
-                              <h4 class="card-title">Tambah Objek 3D</h4>
+                              <h4 class="card-title">Tambah Model</h4>
                               <form class="forms-sample" id="formTambah" action="{{ route('simpan.objek.3d') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group row">
-                                  <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Objek 3D</label>
+                                  <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Model</label>
                                   <div class="col-sm-9">
                                     <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="nama_objek" name="nama_objek" placeholder="Nama Objek" required>
                                   </div>
                                 </div>
                                 <div class="form-group row">
-                                  <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Deskripsi Objek</label>
+                                  <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Deskripsi</label>
                                   <div class="col-sm-9">
                                     <textarea class="form-control" style="border: 1px solid #8D0B41; border-radius: 4px;" id="deskripsi_objek" name="deskripsi_objek" rows="4" placeholder="Deskripsi Objek" required></textarea>
                                   </div>
                                 </div>
                                 <div class="form-group row">
-                                  <label for="exampleInputMobile" class="col-sm-3 col-form-label">File Objek</label>
+                                  <label for="exampleInputMobile" class="col-sm-3 col-form-label">Unggah File .glb</label>
                                   <div class="col-sm-9">
                                     <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="file_objek" name="file_objek" placeholder="Pilih File .gbl" required>
                                   </div>
                                 </div>
                                 <div class="form-group row">
-                                  <label for="exampleInputMobile" class="col-sm-3 col-form-label">File Objek</label>
+                                  <label for="exampleInputMobile" class="col-sm-3 col-form-label">Unggah Gambar Preview</label>
                                   <div class="col-sm-9">
                                     <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="preview_objek" name="preview_objek" placeholder="Pilih Foto" required>
                                   </div>

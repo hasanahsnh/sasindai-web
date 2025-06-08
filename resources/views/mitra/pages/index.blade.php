@@ -296,16 +296,18 @@
                       <h4 style="margin-left: 20px; margin-top: 20px; color: #522258;">Arahkan cepat</h4>
                       <div class="d-flex flex-wrap justify-content-xl-between">
 
-                        <!-- Petunjuk s-katalog -->
+                        <!-- Petunjuk pengambilan barang -->
                         <div class="card-card">
-                          <div class="card-card-header">
-                            <h4>Informasi Toko</h4>
+                          <div class="card-card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                            <h4>Validasi Model .GLB</h4>
+                            <div style="display: flex; gap: 19px;">
+                              <a href="https://github.khronos.org/glTF-Validator/" target="blank" title="Buka url">
+                                <i class="fas fa-external-link-alt" style="color: blue;"></i>
+                              </a>
+                            </div>
                           </div>
-                          <div class="card-card-body">
-                            <p><strong>Ringkasan:</strong> S-Katalog disusun untuk mempublikasikan berbagai motif kain sasirangan beserta filosofi motif, mulai dari motif dasar hingga yang terbaru. Informasi lebih lanjut lihat <a href="{{ url('/faq') }}">FAQ</a>.</p>
-                          </div>
-                          <div class="card-card-footer" onclick="window.location.href='';" style="cursor: pointer;">
-                            <i class="fas fa-arrow-right" style="margin-right: 7px"></i> Arahkan ke Informasi Toko/Usaha
+                          <div class="card-card-body" style="width:100%; height:354px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+                            <img style="max-width:100%; max-height:100%; object-fit:contain;" src="{{ asset('images/ss_val_glb.png') }}" alt="Contoh validasi GLB" title="Contoh validasi GLB" style="max-width:100%; height:auto;">
                           </div>
                         </div>
 
@@ -324,6 +326,19 @@
                           </div>
                           <div class="card-card-body">
                             <iframe width="100%" height="315" src="https://www.youtube.com/embed/Ku7kvhRWXjs?si=hrb_lmyfr8r3HMKp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                          </div>
+                        </div>
+
+                        <!-- Petunjuk s-katalog -->
+                        <div class="card-card">
+                          <div class="card-card-header">
+                            <h4>Informasi Toko</h4>
+                          </div>
+                          <div class="card-card-body">
+                            <p><strong>Ringkasan:</strong> S-Katalog disusun untuk mempublikasikan berbagai motif kain sasirangan beserta filosofi motif, mulai dari motif dasar hingga yang terbaru. Informasi lebih lanjut lihat <a href="{{ url('/faq') }}">FAQ</a>.</p>
+                          </div>
+                          <div class="card-card-footer" onclick="window.location.href='';" style="cursor: pointer;">
+                            <i class="fas fa-arrow-right" style="margin-right: 7px"></i> Arahkan ke Informasi Toko/Usaha
                           </div>
                         </div>
 
