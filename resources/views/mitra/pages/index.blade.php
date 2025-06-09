@@ -194,6 +194,7 @@
                                   <table class="table table-hover w-100">
                                     <thead>
                                       <tr>
+                                        <th>Cetak Rincian Pesanan</th>
                                         <th>ID Pesanan</th>
                                         <th>Status Pesanan</th>
                                         <th>Status Pembayaran</th>
@@ -208,6 +209,14 @@
                                           !empty($item['statusPesanan']) ||
                                           !empty($item['status']))
                                           <tr>
+                                            <td>
+                                              <a href="{{ route('print.rincian.pesanan', ['orderId' => $key]) }}" 
+                                                title="Cetak rincian pesanan"
+                                                style="background-color: rgb(172, 33, 89); padding: 10px; border-radius: 5px"
+                                                target="_blank">
+                                                  <i class="fas fa-print" style="color: white;"></i>
+                                              </a> 
+                                            </td>
                                             <td>
                                               {{ $item['order_id'] ?? 'ID Pesanan tidak ditemukan'}}
                                             </td>
@@ -256,7 +265,7 @@
 
                                                           <label for="ekspedisi" class="col-sm-3 col-form-label" style="color: black; font-weight: bold;">Layanan Pengiriman</label>
                                                           <div class="col-sm-9">
-                                                            <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" name="key" placeholder="Masukkan layanan pengiriman" required>
+                                                            <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" name="key" value="{{ $item['kurir'] }}" placeholder="Masukkan layanan pengiriman" required>
                                                           </div>
 
                                                           <label for="input_resi" class="col-sm-3 col-form-label" style="color: black; font-weight: bold;">No Resi Pengiriman</label>

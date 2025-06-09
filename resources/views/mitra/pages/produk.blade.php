@@ -207,6 +207,8 @@
                                                   <img src="{{ $varian['gambar'] ?? '#' }}" alt="Gambar Varian" class="img-fluid rounded" style="max-height: 150px; margin-bottom: 8px;">
                                                   <label class="d-block text-left mt-15" style="margin-top: 8dp">Nama varian</label>
                                                   <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[nama][]" placeholder="Nama" value="{{ $varian['nama'] ?? '' }}" class="form-control mb-1" required>           
+                                                  <label class="d-block text-left">Gambar Produk</label>
+                                                  <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[gambar][]" placeholder="Gambar produk" value="{{ $varian['gambar'] ?? '' }}" class="form-control mb-1">    
                                                   <label class="d-block text-left">Ukuran</label>
                                                   <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[size][]" placeholder="Ukuran" value="{{ $varian['size'] ?? '' }}" class="form-control mb-1" required>
                                                   <label class="d-block text-left">Harga</label>

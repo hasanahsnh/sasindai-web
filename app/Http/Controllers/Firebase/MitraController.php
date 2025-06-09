@@ -57,7 +57,7 @@ class MitraController extends Controller
         if ($pesanans) {
             foreach ($pesanans as $orderId => $pesanan) {
                 if (isset($pesanan['statusPesanan']) && (strtolower($pesanan['statusPesanan']) === 'dikemas')) {
-                    $filteredPesanan[$orderId] = $pesanan;
+                    $filteredPesanans[$orderId] = $pesanan;
                 }
             }
         }
