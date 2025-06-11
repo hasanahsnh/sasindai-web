@@ -110,28 +110,28 @@
                           <i class="mdi mdi-tag mr-3 icon-lg text-danger"></i>
                           <div class="d-flex flex-column justify-content-around">
                             <small class="mb-1 text-muted">Produk dijual</small>
-                            <h5 class="mr-2 mb-0">0 buah</h5>
+                            <h5 class="mr-2 mb-0">{{ $totalProduk }} buah</h5>
                           </div>
                         </div>
                         <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                           <i class="mdi mdi-basket mr-3 icon-lg text-information"></i>
                           <div class="d-flex flex-column justify-content-around">
                             <small class="mb-1 text-muted">Total pesanan</small>
-                            <h5 class="mr-2 mb-0">0 pesanan</h5>
+                            <h5 class="mr-2 mb-0">{{ $totalPesanan }} pesanan</h5>
                           </div>
                         </div>
                         <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                           <i class="mdi mdi-package mr-3 icon-lg text-warning"></i>
                           <div class="d-flex flex-column justify-content-around">
                             <small class="mb-1 text-muted">Pesanan perlu dikirim</small>
-                            <h5 class="mr-2 mb-0">0 pesanan</h5>
+                            <h5 class="mr-2 mb-0">{{ $totalPesananYangHarusDikirim }} pesanan</h5>
                           </div>
                         </div>
                         <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                           <i class="mdi mdi-truck mr-3 icon-lg text-success"></i>
                           <div class="d-flex flex-column justify-content-around">
                             <small class="mb-1 text-muted">Pesanan dikirim</small>
-                            <h5 class="mr-2 mb-0">0 barang</h5>
+                            <h5 class="mr-2 mb-0">{{ $totalPengiriman }} barang</h5>
                           </div>
                         </div>
                       </div>
@@ -344,7 +344,7 @@
                             <h4>Informasi Toko</h4>
                           </div>
                           <div class="card-card-body">
-                            <p><strong>Ringkasan:</strong> S-Katalog disusun untuk mempublikasikan berbagai motif kain sasirangan beserta filosofi motif, mulai dari motif dasar hingga yang terbaru. Informasi lebih lanjut lihat <a href="{{ url('/faq') }}">FAQ</a>.</p>
+                            <p><strong>Ringkasan:</strong> Informasi Toko berisi detail mengenai toko Anda. Halaman ini dapat digunakan untuk memperbarui atau mengajukan perubahan data toko. Setiap pengajuan akan berstatus pending terlebih dahulu dan menunggu pemeriksaan manual oleh administrator Sasindai.</p>
                           </div>
                           <div class="card-card-footer" onclick="window.location.href='';" style="cursor: pointer;">
                             <i class="fas fa-arrow-right" style="margin-right: 7px"></i> Arahkan ke Informasi Toko/Usaha
@@ -357,7 +357,7 @@
                             <h4>Data Produk</h4>
                           </div>
                           <div class="card-card-body">
-                            <p><strong>Ringkasan:</strong> S-Katalog disusun untuk mempublikasikan berbagai motif kain sasirangan beserta filosofi motif, mulai dari motif dasar hingga yang terbaru. Informasi lebih lanjut lihat <a href="{{ url('/faq') }}">FAQ</a>.</p>
+                            <p><strong>Ringkasan:</strong> Halaman Data Produk adalah tempat bagi Anda sebagai pemilik usaha untuk mengunggah, mengelola, dan memperbarui produk yang Anda pasarkan. </p>
                           </div>
                           <div class="card-card-footer" onclick="window.location.href='';" style="cursor: pointer;">
                             <i class="fas fa-arrow-right" style="margin-right: 7px"></i> Arahkan ke Data Produk
@@ -370,7 +370,7 @@
                             <h4>Pesanan</h4>
                           </div>
                           <div class="card-card-body">
-                            <p><strong>Ringkasan:</strong> Ka Pasar disusun untuk mempublikasikan pasar yang menjalin kerja sama melalui fitur <strong>Mitra x SASCODE</strong>. Informasi lebih lanjut dapat ditemukan pada bagian <a href="{{ url('/faq') }}">FAQ</a>.</p>
+                            <p><strong>Ringkasan:</strong> Pantau seluruh pesanan yang masuk, mulai dari pesanan yang menunggu konfirmasi hingga yang telah kedaluwarsa.</p>
                           </div>
                           <div class="card-card-footer" onclick="window.location.href='';" style="cursor: pointer;">
                             <i class="fas fa-arrow-right" style="margin-right: 7px"></i> Arahkan ke Pesanan
@@ -383,7 +383,7 @@
                             <h4>Pengiriman</h4>
                           </div>
                           <div class="card-card-body">
-                            <p><strong>Ringkasan:</strong> Artikel disusun untuk mempublikasikan informasi seputar kegiatan dan event terkait sasirangan melalui media. Informasi lebih lanjut lihat <a href="{{ url('/faq') }}">FAQ</a>.</p>
+                            <p><strong>Ringkasan:</strong> Halaman Pengiriman adalah tempat Anda mengunggah nomor resi untuk pesanan yang telah Anda proses dan siapkan pengirimannya.</p>
                           </div>
                           <div class="card-card-footer" onclick="window.location.href='';" style="cursor: pointer;">
                             <i class="fas fa-arrow-right" style="margin-right: 7px"></i> Arahkan ke Pengiriman

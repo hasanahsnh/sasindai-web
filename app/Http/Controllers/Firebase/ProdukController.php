@@ -32,7 +32,7 @@ class ProdukController extends Controller
         // Ambil data user dari session
         $uid = session('session.uid');
 
-        $dataProduk = $this->database->getReference($this->refTableName)->getValue();
+        $dataProduk = $this->database->getReference($this->refTableName)->getValue() ?? [];
         
         $produks = [];
 
@@ -43,6 +43,14 @@ class ProdukController extends Controller
                 }
             }
         }
+
+        // Hitung total produk
+        $totalProduk = count($produks);
+
+        // Filter produk yang valid (tidak null dan tidak kosong)
+        $filteredProduk = array_filter($produks, function ($item) {
+            return !is_null($item) && !empty($item);
+        });
 
         // Ambil data mitra
         $dataMitraProfileRef = $this->database->getReference('mitra/' . $uid);
@@ -64,7 +72,8 @@ class ProdukController extends Controller
             }
         }
 
-        return view('mitra.pages.produk', compact('produks', 'dataMitraProfile', 'tokoBelumLengkap', 'statusVerifikasi'));
+        return view('mitra.pages.produk', compact('produks', 'dataMitraProfile', 
+        'tokoBelumLengkap', 'statusVerifikasi'));
     }
 
     function tambahProduk(Request $request) {

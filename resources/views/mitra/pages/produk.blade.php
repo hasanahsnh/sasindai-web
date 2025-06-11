@@ -166,7 +166,7 @@
                                         <div class="form-group row">
                                           <label for="edit_nama_produk" class="col-sm-3 col-form-label">ID Produk</label>
                                           <div class="col-sm-9">
-                                            <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" class="form-control" name="key" value="{{ $key }}" readonly>
+                                            <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" name="key" value="{{ $key }}" readonly>
                                           </div>
                                         </div>
 
@@ -174,7 +174,7 @@
                                         <div class="form-group row">
                                           <label for="edit_nama_produk" class="col-sm-3 col-form-label">Nama Produk</label>
                                           <div class="col-sm-9">
-                                            <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" class="form-control" id="edit_nama_produk" name="nama_produk" value="{{ $item['namaProduk'] ?? '' }}" required>
+                                            <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="edit_nama_produk" name="nama_produk" value="{{ $item['namaProduk'] ?? '' }}" required>
                                           </div>
                                         </div>
 
@@ -183,7 +183,7 @@
                                           <label for="edit_foto_produk" class="col-sm-3 col-form-label">Foto Produk</label>
                                           <div class="col-sm-9">
                                             <img src="{{ $item['urlFotoProduk'] ?? '#' }}" alt="Gambar Varian" class="img-fluid rounded" style="max-height: 150px; margin-bottom: 8px;">
-                                            <input type="file" style="border: 2px solid #8D0B41; border-radius: 4px;" multiple class="form-control" id="edit_foto_produk" name="foto_produk[]">
+                                            <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" multiple class="form-control" id="edit_foto_produk" name="foto_produk[]">
                                             <small class="form-text text-muted">Kosongkan jika tidak ingin mengubah foto.</small>
                                           </div>
                                         </div>
@@ -192,7 +192,7 @@
                                         <div class="form-group row">
                                           <label for="edit_deskripsi_produk" class="col-sm-3 col-form-label">Deskripsi Produk</label>
                                           <div class="col-sm-9">
-                                            <textarea class="form-control" style="border: 2px solid #8D0B41; border-radius: 4px;" style="border: 2px solid #8D0B41; border-radius: 4px;" id="edit_deskripsi_produk" name="deskripsi_produk" required>{{ $item['deskripsiProduk'] ?? '' }}</textarea>
+                                            <textarea class="form-control" style="border: 1px solid #8D0B41; border-radius: 4px;" style="border: 1px solid #8D0B41; border-radius: 4px;" id="edit_deskripsi_produk" name="deskripsi_produk" required>{{ $item['deskripsiProduk'] ?? '' }}</textarea>
                                           </div>
                                         </div>
 
@@ -203,20 +203,20 @@
                                             <div  class="edit-varian-container" id="editVarianContainer">
                                               @if (!empty($item['varian']))
                                                 @foreach ($item['varian'] as $i => $varian)
-                                                <div class="form-group p-2 mb-2" style="border: 2px solid #8D0B41; border-radius: 6px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                                                <div class="form-group p-2 mb-2" style="border: 1px solid #8D0B41; border-radius: 6px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
                                                   <img src="{{ $varian['gambar'] ?? '#' }}" alt="Gambar Varian" class="img-fluid rounded" style="max-height: 150px; margin-bottom: 8px;">
                                                   <label class="d-block text-left mt-15" style="margin-top: 8dp">Nama varian</label>
-                                                  <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[nama][]" placeholder="Nama" value="{{ $varian['nama'] ?? '' }}" class="form-control mb-1" required>           
+                                                  <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[nama][]" placeholder="Nama" value="{{ $varian['nama'] ?? '' }}" class="form-control mb-1" required>           
                                                   <label class="d-block text-left">Gambar Produk</label>
                                                   <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[gambar][]" placeholder="Gambar produk" value="{{ $varian['gambar'] ?? '' }}" class="form-control mb-1">    
                                                   <label class="d-block text-left">Ukuran</label>
-                                                  <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[size][]" placeholder="Ukuran" value="{{ $varian['size'] ?? '' }}" class="form-control mb-1" required>
+                                                  <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[size][]" placeholder="Ukuran" value="{{ $varian['size'] ?? '' }}" class="form-control mb-1" required>
                                                   <label class="d-block text-left">Harga</label>
-                                                  <input type="number" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[harga][]" placeholder="Harga" value="{{ $varian['harga'] ?? 0 }}" class="form-control mb-1" required>
+                                                  <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[harga][]" placeholder="Harga" value="{{ $varian['harga'] ?? 0 }}" class="form-control mb-1" required>
                                                   <label class="d-block text-left">Stok tersedia</label>
-                                                  <input type="number" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[stok][]" placeholder="Stok" value="{{ $varian['stok'] ?? 0 }}" class="form-control mb-1" required>
+                                                  <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[stok][]" placeholder="Stok" value="{{ $varian['stok'] ?? 0 }}" class="form-control mb-1" required>
                                                   <label class="d-block text-left">Berat (Kg)</label>
-                                                  <input type="number" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[berat][]" placeholder="Berat (Kg)" value="{{ $varian['berat'] ?? 0 }}" class="form-control" required>
+                                                  <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[berat][]" placeholder="Berat (Kg)" value="{{ $varian['berat'] ?? 0 }}" class="form-control" required>
                                                   <div class="d-flex justify-content-end">
                                                     <button type="button" class="btn btn-danger btn-sm" style="margin-top: 8px" onclick="hapusVarian(this)">× Hapus</button>
                                                   </div>
@@ -283,7 +283,7 @@
                                         <h5 class="text-center mb-4 font-weight-bold">Detail Varian Produk</h5>
                                         @if(isset($item['varian']) && is_array($item['varian']))
                                           @foreach($item['varian'] as $index => $varian)
-                                            <div class="p-3 mb-3" style="border: 2px solid #8D0B41; border-radius: 6px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                                            <div class="p-3 mb-3" style="border: 1px solid #8D0B41; border-radius: 6px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
                                               <div class="row">
                                                 <div class="col-md-4 text-center">
                                                   <img src="{{ $varian['gambar'] ?? '#' }}" alt="Gambar Varian" class="img-fluid rounded" style="max-height: 150px;">
@@ -337,7 +337,7 @@
                                 <div class="form-group row">
                                   <label for="nama_produk" class="col-sm-3 col-form-label">Nama Produk</label>
                                   <div class="col-sm-9">
-                                    <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" class="form-control" id="nama_produk" name="nama_produk" placeholder="Masukkan nama produk" required>
+                                    <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="nama_produk" name="nama_produk" placeholder="Masukkan nama produk" required>
                                   </div>
                                 </div>
 
@@ -345,7 +345,7 @@
                                 <div class="form-group row">
                                   <label for="foto_produk" class="col-sm-3 col-form-label">Foto Produk</label>
                                   <div class="col-sm-9">
-                                    <input type="file" style="border: 2px solid #8D0B41; border-radius: 4px;" multiple class="form-control" id="foto_produk[]" name="foto_produk[]" placeholder="Masukkan foto produk tanpa koma atau titik" required>
+                                    <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" multiple class="form-control" id="foto_produk[]" name="foto_produk[]" placeholder="Masukkan foto produk tanpa koma atau titik" required>
                                   </div>
                                 </div>
 
@@ -353,7 +353,7 @@
                                 <div class="form-group row">
                                   <label for="deskripsi_produk" class="col-sm-3 col-form-label">Deksripsi Produk</label>
                                   <div class="col-sm-9">
-                                    <textarea class="form-control" style="border: 2px solid #8D0B41; border-radius: 4px;" id="deskripsi_produk" name="deskripsi_produk" placeholder="Masukkan harga produk" required></textarea>
+                                    <textarea class="form-control" style="border: 1px solid #8D0B41; border-radius: 4px;" id="deskripsi_produk" name="deskripsi_produk" placeholder="Masukkan harga produk" required></textarea>
                                   </div>
                                 </div>
 
@@ -362,24 +362,24 @@
                                   <label class="col-sm-3 col-form-label">Varian Produk</label>
                                   <div class="col-sm-9">
                                     <div id="varianContainer">
-                                      <div class="varian-item p-3 mb-2 bg-light" style="border: 2px solid #8D0B41; border-radius: 6px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                                      <div class="varian-item p-3 mb-2 bg-light" style="border: 1px solid #8D0B41; border-radius: 6px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
                                         <div class="mb-2">
-                                          <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[nama][]" class="form-control" placeholder="Nama Varian" required>
+                                          <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[nama][]" class="form-control" placeholder="Nama Varian" required>
                                         </div>
                                         <div class="mb-2">
-                                          <input type="file" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[gambar][]" class="form-control" accept="image/*" required>
+                                          <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[gambar][]" class="form-control" accept="image/*" required>
                                         </div>
                                         <div class="mb-2">
-                                          <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[size][]" class="form-control" placeholder="Ukuran produk" required>
+                                          <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[size][]" class="form-control" placeholder="Ukuran produk" required>
                                         </div>
                                         <div class="mb-2">
-                                          <input type="number" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[harga][]" class="form-control" placeholder="Harga Varian" min="0" required>
+                                          <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[harga][]" class="form-control" placeholder="Harga Varian" min="0" required>
                                         </div>
                                         <div class="mb-2">
-                                          <input type="number" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[stok][]" class="form-control" placeholder="Stok Varian" required>
+                                          <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[stok][]" class="form-control" placeholder="Stok Varian" required>
                                         </div>
                                         <div class="mb-2">
-                                          <input type="number" style="border: 2px solid #8D0B41; border-radius: 4px;" step="0.01" min="0" name="varian[berat][]" class="form-control" placeholder="Berat Varian (Kg)" required>
+                                          <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" step="0.01" min="0" name="varian[berat][]" class="form-control" placeholder="Berat Varian (Kg)" required>
                                         </div>
                                         <div class="d-flex justify-content-end">
                                           <button type="button" class="btn btn-danger btn-sm" onclick="hapusVarian(this)">× Hapus</button>
@@ -452,22 +452,22 @@
   
       varianItem.innerHTML = `
         <div class="mb-2">
-          <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[nama][]" class="form-control" placeholder="Nama Varian" required>
+          <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[nama][]" class="form-control" placeholder="Nama Varian" required>
         </div>
         <div class="mb-2">
-          <input type="file" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[gambar][]" class="form-control" accept="image/*" required>
+          <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[gambar][]" class="form-control" accept="image/*" required>
         </div>
         <div class="mb-2">
-          <input type="text" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[size][]" class="form-control" placeholder="Ukuran produk" required>
+          <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[size][]" class="form-control" placeholder="Ukuran produk" required>
         </div>
         <div class="mb-2">
-          <input type="number" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[harga][]" class="form-control" placeholder="Harga Varian" min="0" required>
+          <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[harga][]" class="form-control" placeholder="Harga Varian" min="0" required>
         </div>
         <div class="mb-2">
-          <input type="number" style="border: 2px solid #8D0B41; border-radius: 4px;" name="varian[stok][]" class="form-control" placeholder="Stok Varian" required>
+          <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[stok][]" class="form-control" placeholder="Stok Varian" required>
         </div>
         <div class="mb-2">
-          <input type="number" style="border: 2px solid #8D0B41; border-radius: 4px;" step="0.01" min="0" name="varian[berat][]" class="form-control" placeholder="Berat Varian (Kg)" required>
+          <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" step="0.01" min="0" name="varian[berat][]" class="form-control" placeholder="Berat Varian (Kg)" required>
         </div>
         <div class="d-flex justify-content-end">
           <button type="button" class="btn btn-danger btn-sm" onclick="hapusVarian(this)">× Hapus</button>

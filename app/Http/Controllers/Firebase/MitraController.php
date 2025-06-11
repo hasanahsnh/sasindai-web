@@ -16,7 +16,7 @@ class MitraController extends Controller
     //
     protected $auth;
     protected $database;
-    protected $refTableNameUsers, $refTableNameMitras, $refTableNameOrders;
+    protected $refTableNameUsers, $refTableNameMitras, $refTableNameOrders, $refTableNameProduk, $refTableNamePengiriman;
 
     public function __construct(Auth $auth, Database $database) {
 
@@ -25,6 +25,8 @@ class MitraController extends Controller
         $this->refTableNameUsers = 'users';
         $this->refTableNameMitras = 'mitras';
         $this->refTableNameOrders = 'orders';
+        $this->refTableNameProduk = 'produk';
+        $this->refTableNamePengiriman = 'pengiriman';
 
     }
 
@@ -43,6 +45,26 @@ class MitraController extends Controller
         $roleData = $this->database->getReference('roles/' . $idRole)->getValue();
         $mitraRole = $roleData['role'] ?? 'Tidak diketahui';
 
+        // Ambil data produk
+        $dataProduk = $this->database->getReference($this->refTableNameProduk)->getValue() ?? [];
+        $produks = [];
+
+        if ($dataProduk) {
+            foreach ($dataProduk as $key => $item) {
+                if (isset($item['uid']) && $item['uid'] === $uid) {
+                    $produks[$key] = $item;
+                }
+            }
+        }
+
+        // Hitung total produk
+        $totalProduk = count($produks);
+
+        // Filter produk yang valid (tidak null dan tidak kosong)
+        $filteredProduk = array_filter($produks, function ($item) {
+            return !is_null($item) && !empty($item);
+        });
+
         // Ambil data mitra
         $mitraProfileRef = $this->database->getReference($this->refTableNameMitras . '/' . $uid);
         $mitraProfile = $mitraProfileRef->getValue();
@@ -51,6 +73,11 @@ class MitraController extends Controller
         $dataPesanans = $this->database->getReference($this->refTableNameOrders);
         $pesanansSnapshot = $dataPesanans->getValue();
         $pesanans = $pesanansSnapshot ?? [];
+
+        $totalPesanan = count($pesanans);
+        $filteredPesanan = array_filter($pesanans, function ($item) {
+            return !is_null($item) && !empty($item);
+        });
 
         $filteredPesanans = [];
 
@@ -62,10 +89,18 @@ class MitraController extends Controller
             }
         }
 
+        $totalPesananYangHarusDikirim = count($filteredPesanans);
+
         if (empty($filteredPesanans)) {
             $filteredPesanans = [];
             error_log("Tidak ada pesanan dengan status 'Dikemas'.");
         }
+
+        // Ambil data pengiriman
+        $dataProduk = $this->database->getReference($this->refTableNamePengiriman)->getValue() ?? [];
+        $pengiriman = [];
+
+        $totalPengiriman = count($pengiriman);
 
         // Cek apakah data mitra belum tersedia
         $tokoBelumLengkap = false;
@@ -89,7 +124,13 @@ class MitraController extends Controller
         'mitraRole',
         'tokoBelumLengkap',
         'statusVerifikasi',
-        'filteredPesanans'));
+        'filteredPesanans', 
+        'filteredProduk', 
+        'totalProduk',
+        'totalPesanan',
+        'filteredPesanan',
+        'totalPesananYangHarusDikirim',
+        'totalPengiriman'));
         
     }
 
