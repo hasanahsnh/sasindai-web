@@ -79,6 +79,8 @@ class PlCheckoutController extends Controller
             'created_at' => now()->toDateTimeString(),
             'uidPenjual' => $request->input('uid_penjual'),
             'statusPesanan' => $request->input('statusPesanan'),
+            'biayaOngkir' => $request->input('ongkir'),
+            'tipeCheckout' => $request->input('tipe_checkout'),
         ];
 
         $this->database->getReference($this->refTableName . '/' . $orderId)->set($orderData);

@@ -55,13 +55,28 @@ class PlCallbackController extends Controller
             $status = $this->mapTransactionStatus($transactionStatus);
             $statusPesanan = $this->mapStatusPesanan($status);
 
-            if ($status === 'success') {
-                $this->sendFonnteNotification($order, $orderId); // Kirim notifikasi ke customer
-                $this->sendFonnteOrderToSeller($order, $orderId); // Kirim notifikasi ke penjual
+            if (in_array($status, ['success', 'pending'])) {
+                $uid = $order['uidUser'] ?? $order['uid'] ?? null;
+                $orderProduk = $order['produk'] ?? [];
+                $tipeCheckout = $order['tipe_checkout'] ?? $order['tipeCheckout'] ?? 'beli_sekarang';
+
+                Log::info("UID dari order: " . ($uid ?? 'KOSONG'));
+                Log::info("Tipe checkout: " . $tipeCheckout);
+
+                if (!empty($uid) && !empty($orderProduk)) {
+                    $this->kurangiStokDanBersihkanKeranjang($uid, $orderProduk, $tipeCheckout);
+                }
+
+                if ($status === 'success') {
+                    $this->sendFonnteNotification($order, $orderId);
+                    $this->sendFonnteOrderToSeller($order, $orderId);
+                }
             }
 
+            // Update status pesanan di Firebase
             $this->updateOrderStatusInFirebase($orderKey, $status, $statusPesanan);
 
+            // Kirim notifikasi push jika ada token user
             if (!empty($order['user_token'])) {
                 $this->sendPushNotification($order, $orderId, $status);
             }
@@ -251,4 +266,44 @@ class PlCallbackController extends Controller
             Log::error('Failed to send FCM notification: ' . $e->getMessage());
         }
     }
+
+    private function kurangiStokDanBersihkanKeranjang(string $uid, array $orderProduk, string $tipeCheckout)
+    {
+        foreach ($orderProduk as $item) {
+            $idProduk = $item['id_produk'] ?? null;
+            $namaVarian = $item['nama_varian'] ?? null;
+            $qty = $item['qty'] ?? 0;
+
+            if (!$idProduk || !$namaVarian || $qty <= 0) continue;
+
+            // Ambil data produk dari Firebase
+            $produkRef = $this->database->getReference("produk/{$idProduk}");
+            $produkData = $produkRef->getValue();
+
+            if (!$produkData || !isset($produkData['varian'])) continue;
+
+            // Kurangi stok pada varian yang sesuai
+            foreach ($produkData['varian'] as $index => $varian) {
+                if (strcasecmp($varian['nama'], $namaVarian) === 0) {
+                    $produkData['varian'][$index]['stok'] -= $qty;
+                    $produkData['varian'][$index]['stok'] = max(0, $produkData['varian'][$index]['stok']);
+                    break;
+                }
+            }
+
+            // Update total stok dan jumlah terjual
+            $produkData['sisaStok'] = max(0, ($produkData['sisaStok'] ?? 0) - $qty);
+            $produkData['terjual'] = ($produkData['terjual'] ?? 0) + $qty;
+
+            // Simpan perubahan kembali ke Firebase
+            $produkRef->set($produkData);
+
+            if ($tipeCheckout !== 'beli_sekarang') {
+                $keranjangItemRef = $this->database->getReference("keranjang/{$uid}/{$idProduk}/{$namaVarian}");
+                $keranjangItemRef->remove();
+            }
+        }
+    }
+
+
 }
