@@ -2,6 +2,29 @@
 
 namespace App\Http\Controllers\Midtrans;
 
+/* kumpulan fungsi:
+            configureMidtrans() -> Mengatur konfigurasi dasar Midtrans menggunakan data dari config/services.php.
+            parseRequestData() -> Membaca body JSON dari callback dan mengubahnya menjadi array PHP.
+            isValidSignature() -> Memvalidasi signature key dari Midtrans untuk memastikan callback sah.
+            getMidtransNotification() -> Mendapatkan objek notifikasi dari Midtrans (menggunakan Midtrans SDK).
+            normalizeOrderId() -> Jika order_id dari Midtrans bukan UUID, ambil bagian sebelum suffix -<rand>.
+            getOrderFromFirebase() -> Mencari data order di Firebase berdasarkan order_id.
+            mapTransactionStatus() -> Mengonversi status asli dari Midtrans ke status internal aplikasi:
+                                    1. settlement/capture → success
+                                    2. pending → pending
+                                    3. deny/expire/cancel → failed/expired/canceled
+            mapStatusPesanan() -> Mengubah status internal menjadi status deskriptif untuk Firebase:
+                                    1. success → dikemas
+                                    2. pending → menunggu pembayaran
+                                    dst.
+            kurangiStokDanBersihkanKeranjang() ->   1. Mengurangi stok produk & varian sesuai jumlah dibeli.
+                                                    2. Menambah jumlah produk terjual.
+                                                    3. Jika tipeCheckout ≠ beli_sekarang, maka item keranjang dihapus.
+            sendFonnteNotification() -> Mengirim pesan notikasi ke customer
+            sendFonnteOrderToSeller() -> Mengirim pesan notifikasi ke seller
+            updateOrderStatusInFirebase() -> Memperbarui status pesanan di database
+            */
+            
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
