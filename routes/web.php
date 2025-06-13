@@ -132,6 +132,7 @@ Route::middleware(['mitra'])->group(function () {
     Route::post('/tambah-produk', [ProdukController::class, 'tambahProduk'])->name('tambah.produk');
     Route::get('edit-produk/{id}', [ProdukController::class, 'edit'])->name('edit.produk');
     Route::put('/update-produk/{id}', [ProdukController::class, 'editProduk'])->name('update.produk');
+    Route::delete('/hapus-produk/{id}', [ProdukController::class, 'hapusProduk'])->name('delete.produk');
 
     // Halaman informasi toko
     Route::get('data-toko', [MitraController::class, 'dataToko'])->name('data-toko');

@@ -146,7 +146,7 @@
                               <a href="" title="Edit produk" data-toggle="modal" data-target="#modalEdit{{ $key }}" title="Edit produk">
                                 <i class="fas fa-edit" style="margin-right: 15px;"></i>
                               </a>    
-                              <a href="" data-toggle="modal" data-target="" title="Hapus produk"><i class="fa-solid fa-trash" style="color: red"></i></a>     
+                              <a href="" data-toggle="modal" data-target="#modalHapus{{ $key }}" title="Hapus produk"><i class="fa-solid fa-trash" style="color: red"></i></a>     
                             </td>
                           </tr>
 
@@ -250,19 +250,18 @@
                               <div class="modal-content rounded-0">
                                 <div class="modal-body p-4 px-5">
                         
-                                  
                                   <div class="main-content text-center">
                                       
                                       <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true"><span class="icon-close2"></span></span>
                                         </a>
                                       <div class="card-body">
-                                        <h4 class="card-title">Hapus Motif</h4>
+                                        <h4 class="card-title">Hapus Produk</h4>
                                         <p class="card-description">
                                           <i class="fas fa-exclamation-triangle" style="color: red;"></i>
-                                          Anda yakin ingin menghapus data motif yang dipilih?
+                                          Anda akan menghapus semua varian pada produk yang dipilih!
                                         </p>
-                                        <form class="forms-sample" id="formHapus{{ $key }}" action="{{ route('destroy-berita', ['id' => $key]) }}" method="POST">
+                                        <form class="forms-sample" id="formHapus{{ $key }}" action="{{ route('delete.produk', ['id' => $key]) }}" method="POST">
                                           @csrf
                                           @method('DELETE')
                                           <button type="submit" class="btn btn-danger mr-2">Hapus</button>
@@ -393,9 +392,6 @@
                                           <label class="d-block text-left mt-15" style="margin-top: 8dp">Berat varian (Kg)</label>
                                           <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" step="0.01" min="0" name="varian[berat][]" class="form-control" placeholder="Berat Varian (Kg)" required>
                                         </div>
-                                        <div class="d-flex justify-content-end">
-                                          <button type="button" class="btn btn-danger btn-sm" onclick="hapusVarian(this)">× Hapus</button>
-                                        </div>
                                       </div>
                                     </div>
                                     <button type="button" class="btn btn-sm btn-success mt-2" onclick="tambahVarian()">+ Tambah Varian</button>
@@ -453,6 +449,7 @@
 
   </script>
   
+  <!-- tambah varian di modal tambah -->
   <script>
     function tambahVarian() {
       const container = document.getElementById('varianContainer');
@@ -488,7 +485,7 @@
           <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" step="0.01" min="0" name="varian[berat][]" class="form-control" placeholder="Berat Varian (Kg)" required>
         </div>
         <div class="d-flex justify-content-end">
-          <button type="button" class="btn btn-danger btn-sm" onclick="hapusVarian(this)">× Hapus</button>
+          <button type="button" class="btn btn-danger btn-sm" onclick="hapusVarian(this)">× Batalkan</button>
         </div>
       `;
   
@@ -510,6 +507,18 @@
     }
   </script>
 
+  <!-- tambah varian di modal edit -->
+  <script>
+    function hapusVarianEdit(button) {
+      const container = document.getElementById('editVarianContainer');
+      const totalVarian = container.querySelectorAll('.varian-item').length;
+
+      const item = button.closest('.varian-item');
+        if (item) {
+          item.remove();
+        }
+    }
+  </script>
 
   <script type="text/javascript" src="{{ asset('js/mapInput.js') }}"></script>
 

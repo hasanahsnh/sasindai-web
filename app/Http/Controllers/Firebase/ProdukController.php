@@ -273,13 +273,23 @@ class ProdukController extends Controller
             'updateAt' => Carbon::now()->toDateTimeString(),
         ];
 
-        //dd($dataUpdate);
+        dd($dataUpdate);
     
         try {
             $ref->update($dataUpdate);
             return redirect()->back()->with('success', 'Produk berhasil diperbarui!');
         } catch (FirebaseException $e) {
             return redirect()->back()->with('error', 'Gagal memperbarui produk: ' . $e->getMessage());
+        }
+    }
+
+    function hapusProduk($id) {
+        $key = $id;
+        $hapusProduk = $this->database->getReference($this->refTableName.'/'.$key)->remove();
+        if ($hapusProduk) {
+            return redirect()->back()->with('success', 'Produk berhasil dihapus');
+        } else {
+            return redirect()->back()->with('error', 'Produk gagal dihapus');
         }
     }
     
