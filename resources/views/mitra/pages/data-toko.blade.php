@@ -24,6 +24,8 @@
   <link rel="shortcut icon" href="{{ asset('pengunjung/images/sascode-logo.jpg') }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <!-- Modal -->
   
 </head>
@@ -62,7 +64,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="d-flex align-items-center mb-3">
-                  <h1 class="card-title" style="font-size:16px; color:black; display: inline-block; border-bottom: 2px solid #522258; padding-bottom: 10px;">
+                  <h1 class="card-title" style="font-size:16px; color:black; display: inline-block; border-bottom: 2px solid #8D0B41; padding-bottom: 10px;">
                     DATA MITRA
                   </h1>
                 </div>

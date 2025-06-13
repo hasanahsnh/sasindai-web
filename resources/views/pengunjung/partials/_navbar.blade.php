@@ -3,7 +3,7 @@
     <div class="row">
         <div class="header-logo">
             <a class="current" href="">
-                <img src="{{ asset('pengunjung/images/sasindai-removebg.png') }}" alt="logo"/>
+                <img src="{{ asset('pengunjung/images/sasindai-by-thiesa-landing.png') }}" alt="logo"/>
             </a>
         </div>
 
@@ -12,12 +12,11 @@
                 <li><a class="smoothscroll" href="#tentang" title="Tentang">Tentang</a></li>
                 <li><a class="smoothscroll" href="#fitur" title="Fitur">Fitur</a></li>
                 <li><a class="smoothscroll" href="#minimum-perangkat" title="Minimum Perangkat">Minimum Perangkat</a></li>
-                <li><a class="smoothscroll" href="#mitraxsascode" title="Mitra x SASCODE">Mitra x SASCODE</a></li>
                 <li><a class="" href="{{ url('/masuk') }}" title="Masuk">Masuk</a></li>
             </ul>
 
             <div class="header-cta">
-                <a href="https://mega.nz/folder/Mb9lkLZR#eCEZQ00czyLNB2c16eRgQg" target="_blank" class="btn btn--primary header-cta__btn" style="background: #8D0B41; border:none; outline:none">Dapatkan Aplikasi</a>
+                <a href="https://mega.nz/folder/Mb9lkLZR#eCEZQ00czyLNB2c16eRgQg" target="_blank" class="btn btn--primary header-cta__btn">Dapatkan Aplikasi</a>
             </div>
         </nav> <!-- end header-nav-wrap -->
 

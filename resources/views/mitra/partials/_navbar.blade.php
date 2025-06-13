@@ -29,7 +29,7 @@
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" href="https://wa.me/6289696210706?text=Saya%20Manajer%20Konten%2C%20terdapat%20perihal%20yang%20ingin%20saya%20tanyakan%20mengenai%20sistem">
-              <i class="mdi mdi-account-settings" title="Pengaturan akun"></i>
+              <i class="mdi mdi-account" title="Pengaturan akun"></i>
             </a>
             <a class="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
               @if (session('session') && is_array(session('session')))

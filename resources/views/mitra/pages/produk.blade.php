@@ -18,6 +18,8 @@
   <link rel="shortcut icon" href="{{ asset('pengunjung/images/sascode-logo.jpg') }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <!-- Modal -->
 </head>
 
@@ -55,7 +57,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="d-flex align-items-center mb-3">
-                  <h1 class="card-title" style="font-size:16px; color:black; display: inline-block; border-bottom: 2px solid #522258; padding-bottom: 10px;">
+                  <h1 class="card-title" style="font-size:16px; color:black; display: inline-block; border-bottom: 2px solid #8D0B41; padding-bottom: 10px;">
                     DATA PRODUK
                   </h1>
                   <div class="d-none d-md-flex ms-3" style="margin-left: 60px;">
@@ -203,7 +205,8 @@
                                             <div  class="edit-varian-container" id="editVarianContainer">
                                               @if (!empty($item['varian']))
                                                 @foreach ($item['varian'] as $i => $varian)
-                                                <div class="form-group p-2 mb-2" style="border: 1px solid #8D0B41; border-radius: 6px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                                                <div class="form-group p-2 mb-2 varian-item" data-index="{{ $i }}" style="border: 1px solid #8D0B41; border-radius: 6px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                                                  <input type="hidden" name="varian[id][]" value="{{ $i }}">
                                                   <img src="{{ $varian['gambar'] ?? '#' }}" alt="Gambar Varian" class="img-fluid rounded" style="max-height: 150px; margin-bottom: 8px;">
                                                   <label class="d-block text-left mt-15" style="margin-top: 8dp">Nama varian</label>
                                                   <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[nama][]" placeholder="Nama" value="{{ $varian['nama'] ?? '' }}" class="form-control mb-1" required>           
@@ -217,8 +220,11 @@
                                                   <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[stok][]" placeholder="Stok" value="{{ $varian['stok'] ?? 0 }}" class="form-control mb-1" required>
                                                   <label class="d-block text-left">Berat (Kg)</label>
                                                   <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[berat][]" placeholder="Berat (Kg)" value="{{ $varian['berat'] ?? 0 }}" class="form-control" required>
-                                                  <div class="d-flex justify-content-end">
-                                                    <button type="button" class="btn btn-danger btn-sm" style="margin-top: 8px" onclick="hapusVarian(this)">× Hapus</button>
+                                                  <div class="form-check text-left mt-6" style="padding-left: 1rem;"> <!-- atau gunakan pl-4 -->
+                                                    <input class="form-check-input" type="checkbox" name="hapus_varian[]" value="{{ $i }}" id="hapusVarian{{ $i }}" style="margin-left: 0;">
+                                                    <label class="form-check-label text-danger" for="hapusVarian{{ $i }}">
+                                                      Hapus varian ini
+                                                    </label>
                                                   </div>
                                                 </div>
                                                 @endforeach
@@ -364,21 +370,27 @@
                                     <div id="varianContainer">
                                       <div class="varian-item p-3 mb-2 bg-light" style="border: 1px solid #8D0B41; border-radius: 6px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
                                         <div class="mb-2">
+                                          <label class="d-block text-left mt-15" style="margin-top: 8dp">Nama varian</label>
                                           <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[nama][]" class="form-control" placeholder="Nama Varian" required>
                                         </div>
                                         <div class="mb-2">
+                                          <label class="d-block text-left mt-15" style="margin-top: 8dp">Gambar varian</label>
                                           <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[gambar][]" class="form-control" accept="image/*" required>
                                         </div>
                                         <div class="mb-2">
+                                          <label class="d-block text-left mt-15" style="margin-top: 8dp">Ukuran varian</label>
                                           <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[size][]" class="form-control" placeholder="Ukuran produk" required>
                                         </div>
                                         <div class="mb-2">
+                                          <label class="d-block text-left mt-15" style="margin-top: 8dp">Harga varian (Cth: 1000 atau 1.000, hindari tanda koma (,))</label>
                                           <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[harga][]" class="form-control" placeholder="Harga Varian" min="0" required>
                                         </div>
                                         <div class="mb-2">
+                                          <label class="d-block text-left mt-15" style="margin-top: 8dp">Stok varian</label>
                                           <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[stok][]" class="form-control" placeholder="Stok Varian" required>
                                         </div>
                                         <div class="mb-2">
+                                          <label class="d-block text-left mt-15" style="margin-top: 8dp">Berat varian (Kg)</label>
                                           <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" step="0.01" min="0" name="varian[berat][]" class="form-control" placeholder="Berat Varian (Kg)" required>
                                         </div>
                                         <div class="d-flex justify-content-end">
@@ -446,27 +458,33 @@
       const container = document.getElementById('varianContainer');
       const varianItem = document.createElement('div');
       varianItem.classList.add('varian-item', 'p-3', 'mb-2', 'bg-light');
-      varianItem.style.border = '2px solid #8D0B41';
+      varianItem.style.border = '1px solid #8D0B41';
       varianItem.style.borderRadius = '6px';
-      varianItem.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.1)';
+      varianItem.style.boxShadow = '0 1px 6px rgba(0, 0, 0, 0.1)';
   
       varianItem.innerHTML = `
         <div class="mb-2">
+          <label class="d-block text-left mt-15" style="margin-top: 8dp">Ukuran varian</label>
           <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[nama][]" class="form-control" placeholder="Nama Varian" required>
         </div>
         <div class="mb-2">
+          <label class="d-block text-left mt-15" style="margin-top: 8dp">Gambar varian</label>
           <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[gambar][]" class="form-control" accept="image/*" required>
         </div>
         <div class="mb-2">
+          <label class="d-block text-left mt-15" style="margin-top: 8dp">Ukuran varian</label>
           <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[size][]" class="form-control" placeholder="Ukuran produk" required>
         </div>
         <div class="mb-2">
+          <label class="d-block text-left mt-15" style="margin-top: 8dp">Harga varian (Cth: 1000 atau 1.000, hindari tanda koma (,))</label>
           <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[harga][]" class="form-control" placeholder="Harga Varian" min="0" required>
         </div>
         <div class="mb-2">
+          <label class="d-block text-left mt-15" style="margin-top: 8dp">Stok varian</label>
           <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[stok][]" class="form-control" placeholder="Stok Varian" required>
         </div>
         <div class="mb-2">
+          <label class="d-block text-left mt-15" style="margin-top: 8dp">Berat varian (Kg)</label>
           <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" step="0.01" min="0" name="varian[berat][]" class="form-control" placeholder="Berat Varian (Kg)" required>
         </div>
         <div class="d-flex justify-content-end">
@@ -478,18 +496,16 @@
     }
   
     function hapusVarian(button) {
-      button.closest('.varian-item').remove();
-    }
-  </script>
+      const container = document.getElementById('varianContainer');
+      const totalVarian = container.querySelectorAll('.varian-item').length;
 
-  <script>
-    function hapusVarian(button) {
-      const container = button.closest('.edit-varian-container');
-      const items = container.querySelectorAll('.form-group');
-      
-      if (items.length > 1) {
-        button.closest('.form-group').remove();
-        toggleDeleteButtons(container); // update visibilitas tombol hapus
+      if (totalVarian > 1) {
+        const item = button.closest('.varian-item');
+        if (item) {
+          item.remove();
+        }
+      } else {
+        alert("Minimal harus ada satu varian produk.");
       }
     }
   </script>

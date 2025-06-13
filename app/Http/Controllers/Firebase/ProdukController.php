@@ -225,8 +225,19 @@ class ProdukController extends Controller
         // Siapkan data varian
         $dataVarian = [];
         $totalStok = 0;
-    
+
+        $hapusVarian = $request->input('hapus_varian', []);
+        $hapusVarian = array_map('strval', $hapusVarian);
+
         foreach ($request->varian['nama'] as $i => $namaVarian) {
+            $idVarian = (string)($request->varian['id'][$i] ?? $i);
+
+            // Skip jika varian ditandai untuk dihapus
+            if (in_array($idVarian, $hapusVarian)) {
+                continue;
+            }
+
+            // Proses gambar varian
             if (isset($request->file('varian.gambar')[$i])) {
                 $gambar = $request->file('varian.gambar')[$i];
                 $gambarFilename = 'varian_gambar/' . $key . '_varian_' . $i . '_' . Str::random(8) . '.' . $gambar->getClientOriginalExtension();
@@ -235,7 +246,7 @@ class ProdukController extends Controller
             } else {
                 $urlGambarVarian = $produkLama['varian'][$i]['gambar'] ?? null;
             }
-    
+
             $dataVarian[] = [
                 'nama' => $namaVarian,
                 'size' => $request->varian['size'][$i],
@@ -244,8 +255,13 @@ class ProdukController extends Controller
                 'berat' => max(0, (float) str_replace(',', '.', $request->varian['berat'][$i])),
                 'gambar' => $urlGambarVarian,
             ];
-    
+
             $totalStok += (int)$request->varian['stok'][$i];
+        }
+
+        // ❗ Cek apakah semua varian dihapus
+        if (count($dataVarian) === 0) {
+            return redirect()->back()->with('error', 'Minimal harus ada satu varian produk yang tersisa.');
         }
     
         $dataUpdate = [
@@ -256,6 +272,8 @@ class ProdukController extends Controller
             'sisaStok' => $totalStok,
             'updateAt' => Carbon::now()->toDateTimeString(),
         ];
+
+        //dd($dataUpdate);
     
         try {
             $ref->update($dataUpdate);

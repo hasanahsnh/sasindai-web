@@ -17,11 +17,13 @@
 .floating-alert-success {
     background-color: #d4edda;
     color: #155724;
+    font-family: "Poppins";
 }
 
 .floating-alert-error {
     background-color: #f8d7da;
     color: #721c24;
+    font-family: "Poppins";
 }
 
 @keyframes fadeInOut {

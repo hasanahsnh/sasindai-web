@@ -158,7 +158,7 @@ class PlCallbackController extends Controller
     {
         $orders = $this->database
             ->getReference($this->refTableNameOrders)
-            ->orderByChild('order_id')
+            ->orderByChild('orderId')
             ->equalTo($orderId)
             ->getValue();
 
@@ -200,7 +200,7 @@ class PlCallbackController extends Controller
             Http::withHeaders([
                 'Authorization' => config('services.fonnte.token_fonnte'),
             ])->post('https://api.fonnte.com/send', [
-                'target' => $order['no_telp'],
+                'target' => $order['noTelp'],
                 'message' => $message,
                 'countryCode' => '62'
             ]);
@@ -267,7 +267,7 @@ class PlCallbackController extends Controller
         $this->database->getReference($this->refTableNameOrders . '/' . $key)->update([
             'status' => $status,
             'statusPesanan' => $statusPesanan,
-            'updated_at' => now()->toDateTimeString(),
+            'updatedAt' => now()->toDateTimeString(),
         ]);
     }
 
@@ -279,7 +279,7 @@ class PlCallbackController extends Controller
                 'body' => 'Status transaksi Anda: ' . ucfirst($status),
             ])
             ->withData([
-                'order_id' => $orderId,
+                'orderId' => $orderId,
                 'status' => $status,
             ]);
 
@@ -293,8 +293,8 @@ class PlCallbackController extends Controller
     private function kurangiStokDanBersihkanKeranjang(string $uid, array $orderProduk, string $tipeCheckout)
     {
         foreach ($orderProduk as $item) {
-            $idProduk = $item['id_produk'] ?? null;
-            $namaVarian = $item['nama_varian'] ?? null;
+            $idProduk = $item['idProduk'] ?? null;
+            $namaVarian = $item['namaVarian'] ?? null;
             $qty = $item['qty'] ?? 0;
 
             if (!$idProduk || !$namaVarian || $qty <= 0) continue;

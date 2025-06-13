@@ -20,6 +20,8 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="{{ asset('pengunjung/images/sascode-logo.jpg') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 
 </head>
 <body>
@@ -205,7 +207,7 @@
                                     <tbody>
                                       @if ($filteredPesanans && count($filteredPesanans) > 0)
                                         @foreach ($filteredPesanans as $key => $item)
-                                          @if (!empty($item['order_id']) ||
+                                          @if (!empty($item['orderId']) ||
                                           !empty($item['statusPesanan']) ||
                                           !empty($item['status']))
                                           <tr>
@@ -218,7 +220,7 @@
                                               </a> 
                                             </td>
                                             <td>
-                                              {{ $item['order_id'] ?? 'ID Pesanan tidak ditemukan'}}
+                                              {{ $item['orderId'] ?? 'ID Pesanan tidak ditemukan'}}
                                             </td>
                                             <td>
                                               <p style="display: inline-block; font-size: 14px; background-color: orange; color: black; padding: 5px 10px; border-radius: 5px;">
@@ -235,7 +237,7 @@
                                             </td>
                                             <td>
                                               <p style="display: inline-block; font-size: 14px;">
-                                                {{ $item['updated_at'] ?? 'Waktu pembayaran tidak ditemukan'}}
+                                                {{ $item['updatedAt'] ?? 'Waktu pembayaran tidak ditemukan'}}
                                               </p>
                                             </td>
                                             <td>
@@ -302,7 +304,7 @@
 
                     <!-- Bagian Pentunjuk -->
                     <div class="tab-pane fade" id="petunjuk" role="tabpanel" aria-labelledby="sales-tab">
-                      <h4 style="margin-left: 20px; margin-top: 20px; color: #522258;">Arahkan cepat</h4>
+                      <h4 style="margin-left: 20px; margin-top: 20px; color: #8D0B41;">Arahkan cepat</h4>
                       <div class="d-flex flex-wrap justify-content-xl-between">
 
                         <!-- Petunjuk pengambilan barang -->
@@ -395,7 +397,7 @@
 
                     <!-- Bagian Pengaturan Akun -->
                     <div class="tab-pane fade" id="akun" role="tabpanel" aria-labelledby="akun-tab">
-                      <h4 style="margin-left: 20px; margin-top: 20px; color: #522258;">Tentang Akun</h4>
+                      <h4 style="margin-left: 20px; margin-top: 20px; color: #8D0B41;">Tentang Akun</h4>
                       <div class="d-flex flex-wrap justify-content-xl-between" style="padding: 20px">
                         <form class="forms-sample w-100" method="GET" action="{{ route('dashboard-mitra', ['uid' => $uid] )}}">
                           <div class="form-group row">

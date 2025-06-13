@@ -45,10 +45,10 @@ class PlCheckoutController extends Controller
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        $produkDipesan = $request->input('produk_dipesan', []);
-        $metodePembayaran = $request->input('metode_pembayaran');
+        $produkDipesan = $request->input('produkDipesan', []);
+        $metodePembayaran = $request->input('metodePembayaran');
         $total = $request->input('total');
-        $hargaProduk = $request->input('harga_produk');
+        $hargaProduk = $request->input('hargaProduk');
         $ongkir = $request->input('ongkir');
 
         $userSnapshot = $this->database->getReference('users/' . $uid)->getSnapshot();
@@ -65,22 +65,22 @@ class PlCheckoutController extends Controller
 
         // Simpan pesanan awal ke Firebase
         $orderData = [
-            'order_id' => $orderId,
+            'orderId' => $orderId,
             'uid' => $uid,
             'namaLengkap' => $namaLengkap,
-            'no_telp' => $noTelp,
+            'noTelp' => $noTelp,
             'total' => $total,
             'alamat' => $request->input('alamat'),
             'kurir' => $request->input('kurir'),
             'layanan' => $request->input('layanan'),
             'produk' => $produkDipesan,
-            'metode_pembayaran' => $metodePembayaran,
+            'metodePembayaran' => $metodePembayaran,
             'status' => 'pending',
-            'created_at' => now()->toDateTimeString(),
-            'uidPenjual' => $request->input('uid_penjual'),
+            'createdAt' => now()->toDateTimeString(),
+            'uidPenjual' => $request->input('uidPenjual'),
             'statusPesanan' => $request->input('statusPesanan'),
             'biayaOngkir' => $request->input('ongkir'),
-            'tipeCheckout' => $request->input('tipe_checkout'),
+            'tipeCheckout' => $request->input('tipeCheckout'),
         ];
 
         $this->database->getReference($this->refTableName . '/' . $orderId)->set($orderData);
@@ -127,11 +127,11 @@ class PlCheckoutController extends Controller
             $paymentUrl = $response->json('payment_url');
 
             // Simpan payment_url ke Firebase
-            $this->database->getReference($this->refTableName . '/' . $orderId . '/payment_url')->set($paymentUrl);
+            $this->database->getReference($this->refTableName . '/' . $orderId . '/paymentUrl')->set($paymentUrl);
 
             return response()->json([
-                'payment_url' => $paymentUrl,
-                'order_id' => $orderId
+                'paymentUrl' => $paymentUrl,
+                'orderId' => $orderId
             ]);
         } else {
             Log::error('Gagal membuat Payment Link: ' . $response->body());

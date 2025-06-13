@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Content Management</title>
+  <title>Reset Password</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{ asset('vendors/mdi/css/materialdesignicons.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/base/vendor.bundle.base.css') }}">
@@ -18,9 +18,11 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="{{ asset('pengunjung/images/sascode-logo.jpg') }}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
 
-<body style="color: white; font-family: Arial, Helvetica, sans-serif;">
+<body style="color: white; font-family: Poppins;">
   <div class="container-scroller">
 
     @if(session('error'))
@@ -64,12 +66,12 @@
                   <div class="form-group">
                       <i class="mdi mdi-account-check" style="margin-right:6px; margin-left:6px"></i>
                       <label>E-Mail</label>
-                      <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Masukkan E-Mail" style="border-radius: 18px; color:white" required>
+                      <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Masukkan E-Mail" style="border-radius: 18px; color:white;" required>
                       @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                   </div>
-                  <button type="submit" class="btn btn-primary btn-block" style="margin-top:30px; background: #8C3061; border:none; outline:none; box-shadow: none; border-radius: 15px;">Reset</button>
-                  <p style="font-size: 10px; text-align: center; margin-top: 20px;">Terdapat kendala saat mencoba masuk? <a href="https://wa.me/6289696210706" style="color: #8C3061; text-decoration:none">Hubungi Kami</a></p>
-                  <p style="font-size: 10px; text-align: center;">Atau <a href="{{ url('/masuk') }}" style="color: #8C3061; text-decoration:none"> Masuk</a></p>
+                  <button type="submit" class="btn btn-primary btn-block" style="margin-top:30px; background: #890B3F; border:none; outline:none; box-shadow: none; border-radius: 15px;">Reset</button>
+                  <p style="font-size: 10px; text-align: center; margin-top: 20px;">Terdapat kendala saat mencoba masuk? <a href="https://wa.me/6289696210706" style="color: #890B3F; text-decoration:none">Hubungi Kami</a></p>
+                  <p style="font-size: 10px; text-align: center;">Atau <a href="{{ url('/masuk') }}" style="color: #890B3F; text-decoration:none"> Masuk</a></p>
                 </form>
               </div>
             </div>
