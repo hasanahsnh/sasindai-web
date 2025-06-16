@@ -14,13 +14,12 @@ use Illuminate\Support\Facades\Http;
 
 class PlCallbackController extends Controller
 {
-    protected $database, $messaging;
+    protected $database;
     protected $refOrders = 'orders', $refMitras = 'mitras';
 
-    public function __construct(Database $db, Messaging $msg)
+    public function __construct(Database $db)
     {
         $this->database = $db;
-        $this->messaging = $msg;
     }
 
     public function handleCallback(Request $request)
@@ -59,51 +58,40 @@ class PlCallbackController extends Controller
         }
         $transaction = $resp->json();
 
-        //$transactionStatus = $transaction['transaction_status']; // settlement, pending, expire, cancel, deny
-        //$paymentType = $transaction['payment_type']; // gopay, shopeepay, bank_transfer, etc
-        
-        // Setelah dapat info yang sah, proses sesuai kebutuhan
         $this->prosesLanjutan([
             'order_id' => $orderId,
-            //'transaction_status' => $transactionStatus,
             'gross_amount' => $gross,
-            //'payment_type' => $paymentType,
+            'transaction_status' => $transaction['transaction_status'] ?? 'unknown'
         ]);
 
         return response()->json(['status' => 'ok']);
     }
 
-    private function prosesLanjutan(array $data)
+    public function prosesLanjutan(array $data)
     {
-        $orderId = $this->normalizeOrderId($data['order_id'] ?? '');
-        if (!$orderId) {
-            Log::warning("orderId tidak tersedia.");
+         $orderId = $this->normalizeOrderId($data['order_id']);
+        [$key, $order] = $this->getOrderFromFirebase($orderId) ?? [null, null];
+
+        if (!$key || !$order) {
+            Log::warning("Order tidak ditemukan: $orderId");
             return;
         }
-        $orderInfo = $this->getOrderFromFirebase($orderId);
-        if (!$orderInfo) {
-            Log::warning("Order tidak ditemukan: $orderId.");
-            return;
-        }
-        [$key, $order] = $orderInfo;
 
-        // Update pesanan jadi "dikemas" saja
-        $this->updateOrderStatusInFirebase($key, 'success', 'dikemas');    
+        $midtransStatus = $data['transaction_status'] ?? 'pending';
+        $status = $this->mapTransactionStatus($midtransStatus);
+        $statusPesanan = $this->mapStatusPesanan($status);
 
-        // Kurangi stok & bersihkan keranjang
-        $uid = $order['uidUser'] ?? $order['uid'] ?? '';
-        $produk = $order['produk'] ?? [];
+        $this->updateOrderStatusInFirebase($key, $status, $statusPesanan);
 
-        if ($uid && $produk) {
+        if ($status === 'success') {
+            $uid = $order['uidUser'] ?? $order['uid'] ?? '';
+            $produk = $order['produk'] ?? [];
             $this->kurangiStokDanBersihkanKeranjang($uid, $produk, $order['tipe_checkout'] ?? 'beli_sekarang');
+            $this->sendFonnteNotification($order, $orderId);
+            $this->sendFonnteOrderToSeller($order, $orderId);
         }
-    
-        // Kirim notifikasi fonnte & FCM jika dibutuhkan
-        $this->sendFonnteNotification($order, $data['order_id']); 
-        $this->sendFonnteOrderToSeller($order, $data['order_id']); 
-        $this->sendPushNotification($order, $data['order_id'], 'success'); 
-    
-        Log::info("Proses callback Midtrans selesai untuk Order: $orderId.");
+
+        Log::info("Proses callback selesai untuk Order: $orderId, status: $status");
     }
 
     protected function isValidSignature($input)
@@ -116,12 +104,12 @@ class PlCallbackController extends Controller
         return $signature === ($input['signature_key'] ?? '');
     }
 
-    private function normalizeOrderId($id): string
+    public function normalizeOrderId($id): string
     {
         return Str::isUuid($id) ? $id : Str::beforeLast($id, '-');
     }
 
-    private function getOrderFromFirebase($orderId): ?array
+    public function getOrderFromFirebase($orderId): ?array
     {
         $orders = $this->database->getReference($this->refOrders)
             ->orderByChild('order_id')->equalTo($orderId)->getValue();
@@ -130,7 +118,7 @@ class PlCallbackController extends Controller
         return [$key, $orders[$key]];
     }
 
-    private function mapTransactionStatus($status): string
+    public function mapTransactionStatus($status): string
     {
         return [
             'capture' => 'success',
@@ -142,7 +130,7 @@ class PlCallbackController extends Controller
         ][$status] ?? $status;
     }
 
-    private function mapStatusPesanan($status): string
+    public function mapStatusPesanan($status): string
     {
         return [
             'pending' => 'menunggu pembayaran',
@@ -153,7 +141,7 @@ class PlCallbackController extends Controller
         ][$status] ?? $status;
     }
 
-    private function sendFonnteNotification($order, $orderId)
+    public function sendFonnteNotification($order, $orderId)
     {
         Http::withHeaders(['Authorization' => config('services.fonnte.token_fonnte')])
             ->post('https://api.fonnte.com/send', [
@@ -163,7 +151,7 @@ class PlCallbackController extends Controller
             ]);
     }
 
-    private function sendFonnteOrderToSeller($order, $orderId)
+    public function sendFonnteOrderToSeller($order, $orderId)
     {
         $uid = $order['uidPenjual'] ?? null;
         if (!$uid) return;
@@ -184,7 +172,7 @@ class PlCallbackController extends Controller
             ]);
     }
 
-    private function updateOrderStatusInFirebase($key, $status, $statusText)
+    public function updateOrderStatusInFirebase($key, $status, $statusText)
     {
         $this->database->getReference("{$this->refOrders}/$key")->update([
             'status' => $status,
@@ -193,23 +181,11 @@ class PlCallbackController extends Controller
         ]);
     }
 
-    private function sendPushNotification($order, $orderId, $status)
-    {
-        try {
-            $msg = CloudMessage::new()
-                ->withNotification(['title' => 'Status Pembayaran', 'body' => 'Status: ' . ucfirst($status)])
-                ->withData(['order_id' => $orderId, 'status' => $status]);
-            $this->messaging->send($msg);
-        } catch (\Exception $e) {
-            Log::error('FCM error: ' . $e->getMessage());
-        }
-    }
-
-    private function kurangiStokDanBersihkanKeranjang($uid, $produk, $tipe)
+    public function kurangiStokDanBersihkanKeranjang($uid, $produk, $tipe)
     {
         foreach ($produk as $item) {
-            $id = $item['id_produk'] ?? null;
-            $varian = $item['nama_varian'] ?? null;
+            $id = $item['idProduk'] ?? null;
+            $varian = $item['namaVarian'] ?? null;
             $qty = $item['qty'] ?? 0;
 
             if (!$id || !$varian || $qty <= 0) continue;
@@ -233,5 +209,25 @@ class PlCallbackController extends Controller
                 $this->database->getReference("keranjang/$uid/$id/$varian")->remove();
             }
         }
+    }
+
+    public function checkStatusFromMidtrans($orderId)
+    {
+        $serverKey = config('services.midtrans.server_key');
+
+        $resp = Http::withBasicAuth($serverKey, '')
+                    ->get("https://api.sandbox.midtrans.com/v2/{$orderId}/status");
+
+        if ($resp->failed()) {
+            Log::error('Polling gagal inquiry ke Midtrans', ['orderId' => $orderId]);
+            return;
+        }
+
+        $trx = $resp->json();
+        $this->prosesLanjutan([
+            'order_id' => $orderId,
+            'gross_amount' => $trx['gross_amount'] ?? '0',
+            'transaction_status' => $trx['transaction_status'] ?? 'unknown'
+        ]);
     }
 }

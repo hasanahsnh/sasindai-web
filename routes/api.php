@@ -19,4 +19,6 @@ Route::post('/midtrans/callback', [CallbackController::class, 'handleCallback'])
 Route::post('/cpl_checkout', [PlCheckoutController::class, 'checkout']);
 Route::match(['GET', 'POST'], "/midtrans/cpl_callback", [PlCallbackController::class, "handleCallback"]);
 
+Route::post('/callback', [PlCallbackController::class, 'handleCallback']);
+
 Route::get('/test', fn () => 'Ngrok OK');
