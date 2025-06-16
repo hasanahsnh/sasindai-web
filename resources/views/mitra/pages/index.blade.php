@@ -112,7 +112,7 @@
                           <i class="mdi mdi-tag mr-3 icon-lg text-danger"></i>
                           <div class="d-flex flex-column justify-content-around">
                             <small class="mb-1 text-muted">Produk dijual</small>
-                            <h5 class="mr-2 mb-0">{{ $totalProduk }} buah</h5>
+                            <h5 class="mr-2 mb-0">{{ $totalVarian }} buah</h5>
                           </div>
                         </div>
                         <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
@@ -165,12 +165,31 @@
                                             style="background-color: green; padding: 10px; border-radius: 5px; display: inline-block; vertical-align: middle;">
                                             <i class="fas fa-external-link-alt" style="color: white;"></i>
                                           </a>
-                                          <a href="#" title="Informasi"
-                                            style="margin-left: 8px; background-color: blue; padding: 10px; border-radius: 5px; display: inline-block; vertical-align: middle;">
+                                          <a href="" data-toggle="modal" data-target="#modalInformasiAkunMidtrans" title="Informasi" 
+                                            style="background-color: blue; padding: 10px; border-radius: 5px; display: inline-block; vertical-align: middle;">
                                             <i class="fas fa-info-circle" style="color: white;"></i>
-                                          </a>
+                                          </a> 
                                         </td>
                                       </tr>
+
+                                      <!-- Modal informasi akun midtrans -->
+                                          <div class="modal fade" id="modalInformasiAkunMidtrans" tabindex="-1" role="dialog" aria-labelledby="modalEditTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 700px; width: 100%;">
+                                              <div class="modal-content rounded-15">
+                                                <div class="modal-body p-4 px-5">
+                                                  <div class="main-content text-center">
+                                                    <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
+                                                      <span aria-hidden="true"><span class="icon-close2"></span></span>
+                                                    </a>
+                                                    <div class="card-body">
+                                                      <h4 class="card-title" style="color: black">Informasi Akun Midtrans</h4>
+                                                      
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
                                     </tbody>
                                   </table>
                                 </div>
@@ -260,17 +279,17 @@
                                                       <h4 class="card-title" style="color: black">Input No Resi Pengiriman</h4>
                                                       <form action="" method="POST" enctype="multipart/form-data" id="formEdit{{ $key }}" class="forms-sample">
                                                         <div class="form-group row">
-                                                          <label for="id_produk" class="col-sm-3 col-form-label" style="color: black; font-weight: bold; ;">ID Pesanan</label>
+                                                          <label for="id_produk" class="col-sm-3 col-form-label" style="color: black;">ID Pesanan</label>
                                                           <div class="col-sm-9">
                                                             <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" name="key" value="{{ $key }}" readonly>
                                                           </div>
 
-                                                          <label for="ekspedisi" class="col-sm-3 col-form-label" style="color: black; font-weight: bold;">Layanan Pengiriman</label>
+                                                          <label for="ekspedisi" class="col-sm-3 col-form-label" style="color: black;">Layanan Pengiriman</label>
                                                           <div class="col-sm-9">
                                                             <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" name="key" value="{{ $item['kurir'] }}" placeholder="Masukkan layanan pengiriman" required>
                                                           </div>
 
-                                                          <label for="input_resi" class="col-sm-3 col-form-label" style="color: black; font-weight: bold;">No Resi Pengiriman</label>
+                                                          <label for="input_resi" class="col-sm-3 col-form-label" style="color: black;">No Resi Pengiriman</label>
                                                           <div class="col-sm-9">
                                                             <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" name="key" placeholder="Masukkan No. Resi pengiriman" required>
                                                           </div>
@@ -288,7 +307,7 @@
                                         @endforeach
                                       @else
                                         <tr>
-                                          <td colspan="5" style="text-align: center">Data Pesanan yang perlu dikirim tidak ditemukan</td>
+                                          <td colspan="6" style="text-align: center">Data Pesanan yang perlu dikirim tidak ditemukan</td>
                                         </tr>
                                       @endif
                                     </tbody>

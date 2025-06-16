@@ -60,7 +60,7 @@
             <div class="auth-form-transparent text-left p-3">
               <div class="brand-logo" style="align-items: center;">
                 <h2 style="text-align: center; margin-top: 30px; margin-bottom: 13px">Reset Password</h2>
-                <p style="font-size:12px; text-align: center; margin-top: 13xp; margin-bottom: 50px;">Silakan isi data sebelum melanjutkan!</p>
+                <p style="font-size:12px; text-align: center; margin-top: 13xp; margin-bottom: 50px;">Masukkan email Anda yang terdaftar. Instruksi konfirmasi akan dikirim ke alamat email Anda.</p>
                 <form action="{{ route('password-reset') }}" method="POST">
                   @csrf
                   <div class="form-group">

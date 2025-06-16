@@ -1791,7 +1791,7 @@ input::-moz-focus-inner {
   height: 5.2rem;
   line-height: 4.8rem;
   margin: 0;
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 
 .sticky .header-nav-wrap .header-cta__btn {
@@ -2170,6 +2170,22 @@ input::-moz-focus-inner {
   height: 6.4rem !important;
   line-height: 6rem !important;
   margin-right: 0;
+  background-color: #8D0B41;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 2px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  text-align: center;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.home-content__btn-wrap .home-content__btn:hover {
+  background-color: white;
+  color: #8D0B41;
 }
 
 

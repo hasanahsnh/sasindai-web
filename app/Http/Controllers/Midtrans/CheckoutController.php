@@ -4,113 +4,91 @@ namespace App\Http\Controllers\Midtrans;
 
 use Kreait\Firebase\Contract\Database;
 use Kreait\Firebase\Contract\Auth;
-
-use Symfony\Component\HttpFoundation\Response;
-
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
-
 use Midtrans\Snap;
+use Kreait\Firebase\Contract\Messaging;
+use Kreait\Firebase\Messaging\CloudMessage;
 use Midtrans\Config;
+use Illuminate\Support\Facades\Http;
+use Midtrans\Notification;
 
 class CheckoutController extends Controller
 {
     protected $database;
     protected $refTableName;
     protected $auth;
-    public function __construct(Database $database, Auth $auth) {
+
+    public function __construct(Database $database, Auth $auth)
+    {
         $this->database = $database;
         $this->refTableName = 'orders';
         $this->auth = $auth;
     }
-    public function checkout(Request $request){
-        Config::$serverKey = config('services.midtrans.server_key');
-        Config::$isProduction = false;
-        Config::$isSanitized = true;
-        Config::$is3ds = true;
 
-        $idToken = $request->bearerToken();
-        Log::info('Token diterima: ' . $idToken);
-        if (!$idToken) {
-            return response()->json(['error' => 'Unauthorized: No token provided'], Response::HTTP_UNAUTHORIZED);
-        }
+    public function checkout(Request $request)
+    {
+        $this->configureMidtrans();
 
-        try {
-            $leewayInSeconds = 8 * 60 * 60;
+        $orderId = Str::uuid()->toString() . '-' . now()->timestamp;
+        $grossAmount = $request->total; // pastikan sesuai dengan harga total dari produk
 
-            $verifiedToken = $this->auth->verifyIdToken($idToken, false, $leewayInSeconds);
-            $uid = $verifiedToken->claims()->get('sub');
-        } catch (\Throwable $e) {
-            Log::error('Error verifying Firebase token: ' . $e->getMessage());
-            return response()->json([
-                'error' => 'Unauthorized: Invalid Firebase token',
-                'message' => $e->getMessage()
-            ], Response::HTTP_UNAUTHORIZED);
-        }
-
-        $uid = $verifiedToken->claims()->get('sub');
-        $produkDipesan = $request->input('produk_dipesan', []);
-
-        $existingOrder = collect($this->database->getReference($this->refTableName)->getValue())
-            ->filter(fn($order) => $order['uid'] === $uid && $order['status'] === 'pending')
-            ->first();
-
-        if ($existingOrder) {
-            return response()->json([
-                'snap_token' => $existingOrder['snap_token'],
-                'order_id' => $existingOrder['order_id']
-            ]);
-        }
-
-        $orderId = (String) Str::uuid();
-        $total = $request->input('total');
-
+        // Simpan order lebih dulu ke Firebase (status pending)
         $orderData = [
             'order_id' => $orderId,
-            'uid' => $uid,
-            'total' => $total,
-            'alamat' => $request->input('alamat'),
-            'kurir' => $request->input('kurir'),
-            'layanan' => $request->input('layanan'),
-            'produk' => $produkDipesan,
             'status' => 'pending',
-            'created_at' => now()->toDateTimeString()
+            'statusPesanan' => 'menunggu pembayaran',
+            'created_at' => now()->toDateTimeString(),
+            'uid' => $request->uid,
+            'namaLengkap' => $request->namaLengkap,
+            'produk' => $request->produk,
+            'alamat' => $request->alamat,
+            'no_telp' => $request->no_telp,
+            'total' => $grossAmount,
+            'metode_pembayaran' => $request->metode_pembayaran,
+            'biayaOngkir' => $request->biayaOngkir,
+            'layanan' => $request->layanan,
+            'kurir' => $request->kurir,
+            'tipeCheckout' => $request->tipeCheckout,
+            'user_token' => $request->user_token ?? '',
         ];
 
         $this->database->getReference($this->refTableName . '/' . $orderId)->set($orderData);
 
-        $snapToken = Snap::getSnapToken([
+        // Buat parameter Snap API
+        $params = [
             'transaction_details' => [
                 'order_id' => $orderId,
-                'gross_amount' => $total,
+                'gross_amount' => $grossAmount,
             ],
             'customer_details' => [
-                'uid' => 'UID_' . $uid,
+                'first_name' => $request->namaLengkap,
+                'phone' => $request->no_telp,
             ],
-            'item_details' => [
-                [
-                    'id' => 'produk',
-                    'price' => $request->input('harga_produk'),
-                    'quantity' => 1,
-                    'name' => 'Harga Produk'
-                ],
-                [
-                    'id' => 'ongkir',
-                    'price' => $request->input('ongkir'),
-                    'quantity' => 1,
-                    'name' => 'Ongkos Kirim'
-                ]
-            ]
-        ]);
+            'enabled_payments' => ['gopay', 'shopeepay', 'bank_transfer', 'bca_va', 'bni_va', 'bri_va'],
+        ];
 
-        $this->database->getReference($this->refTableName . '/' . $orderId . '/snap_token')->set($snapToken);
+        try {
+            $snapToken = Snap::getSnapToken($params);
 
-        return response()->json([
-            'snap_token' => $snapToken,
-            'order_id' => $orderId
-        ]);
+            return response()->json([
+                'snap_token' => $snapToken,
+                'order_id' => $orderId,
+            ]);
+        } catch (\Exception $e) {
+            Log::error("Error creating Snap Token: " . $e->getMessage());
+            return response()->json(['status' => 'error', 'message' => 'Gagal membuat token pembayaran'], 500);
+        }
     }
+
+    private function configureMidtrans(): void
+    {
+        Config::$serverKey = config('services.midtrans.server_key');
+        Config::$isProduction = false;
+        Config::$isSanitized = true;
+        Config::$is3ds = true;
+    }
+
 }

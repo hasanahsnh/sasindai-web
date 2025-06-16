@@ -129,7 +129,7 @@
                   <!-- Modal Edit -->
                   <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 700px; width: 100%;">
-                      <div class="modal-content rounded-0">
+                      <div class="modal-content rounded-15">
                         <div class="modal-body p-4 px-5">
                 
                           

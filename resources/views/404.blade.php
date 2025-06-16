@@ -18,6 +18,8 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <!-- endinject -->
   <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -25,8 +27,9 @@
         <div class="content-wrapper">
           <section class="py-6">
             <div class="error-container">
-              <h4>URL tidak ditemukan</h4>
+              <h4>Oops! Halaman tidak ditemukan</h4>
               <p>Kami tidak dapat menemukan apa yang Anda cari.</p>
+              <p>Kembali ke <a href="{{ route('login') }}">Halaman masuk</a> atau <a href="/">Halaman utama</a></p>
             </div>
           </section>
         </div>

@@ -22,10 +22,10 @@
                 <div class="hr"></div>
                 <div class="invoice-head-middle">
                     <div class="text-start">
-                        <p><span class="text-bold">Date:</span> {{ \Carbon\Carbon::parse($order['created_at'])->format('d/m/Y H:i') }}</p>
+                        <p><span class="text-bold">Date:</span> {{ \Carbon\Carbon::parse($order['createdAt'])->format('d/m/Y H:i') }}</p>
                     </div>
                     <div class="text-end">
-                        <p><span class="text-bold">ID Pesanan:</span> {{ $order['order_id'] }}</p>
+                        <p><span class="text-bold">ID Pesanan:</span> {{ $order['orderId'] }}</p>
                     </div>
                 </div>
                 <div class="hr"></div>
@@ -35,7 +35,7 @@
                             <li class="text-bold">Kepada:</li>
                             <li>{{ $order['namaLengkap'] }}</li>
                             <li>{{ $order['alamat'] }}</li>
-                            <li>Telp: {{ $order['no_telp'] }}</li>
+                            <li>Telp: {{ $order['noTelp'] }}</li>
                         </ul>
                     </div>
                     <div class="invoice-head-bottom-right text-end">
@@ -43,7 +43,7 @@
                             <li class="text-bold">Pay To:</li>
                             <li>Thiesa</li>
                             <li>{{ $order['kurir'] }} - {{ $order['layanan'] }}</li>
-                            <li>{{ $order['metode_pembayaran'] }}</li>
+                            <li>{{ $order['metodePembayaran'] }}</li>
                         </ul>
                     </div>
                 </div>
@@ -56,7 +56,6 @@
                             <tr>
                                 <th class="text-bold">Produk</th>
                                 <th class="text-bold">Varian</th>
-                                <th class="text-bold">Harga</th>
                                 <th class="text-bold">Qty</th>
                                 <th class="text-bold text-end">Subtotal</th>
                             </tr>
@@ -69,22 +68,14 @@
                                     $total += $subtotal;
                                 @endphp
                                 <tr>
-                                    <td>{{ $item['nama_produk'] }}</td>
-                                    <td>{{ $item['nama_varian'] }}</td>
-                                    <td>Rp{{ number_format($item['harga'], 0, ',', '.') }}</td>
+                                    <td>{{ $item['namaProduk'] }}</td>
+                                    <td>{{ $item['namaVarian'] }}</td>
                                     <td>{{ $item['qty'] }}</td>
                                     <td class="text-end">Rp{{ number_format($subtotal, 0, ',', '.') }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-
-                    <div class="invoice-body-bottom">
-                        <div class="invoice-body-info-item border-bottom">
-                            <div class="info-item-td text-end text-bold">Total:</div>
-                            <div class="info-item-td text-end">Rp{{ number_format($total, 0, ',', '.') }}</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

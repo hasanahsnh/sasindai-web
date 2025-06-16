@@ -273,7 +273,7 @@ class ProdukController extends Controller
             'updateAt' => Carbon::now()->toDateTimeString(),
         ];
 
-        dd($dataUpdate);
+        //dd($dataUpdate);
     
         try {
             $ref->update($dataUpdate);

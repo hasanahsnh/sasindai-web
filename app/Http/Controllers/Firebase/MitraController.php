@@ -48,11 +48,17 @@ class MitraController extends Controller
         // Ambil data produk
         $dataProduk = $this->database->getReference($this->refTableNameProduk)->getValue() ?? [];
         $produks = [];
+        $totalVarian = 0;
 
         if ($dataProduk) {
             foreach ($dataProduk as $key => $item) {
                 if (isset($item['uid']) && $item['uid'] === $uid) {
                     $produks[$key] = $item;
+
+                    // Hitung jumlah varian jika ada
+                    if (isset($item['varian']) && is_array($item['varian'])) {
+                        $totalVarian += count($item['varian']);
+                    }
                 }
             }
         }
@@ -127,6 +133,7 @@ class MitraController extends Controller
         'filteredPesanans', 
         'filteredProduk', 
         'totalProduk',
+        'totalVarian',
         'totalPesanan',
         'filteredPesanan',
         'totalPesananYangHarusDikirim',

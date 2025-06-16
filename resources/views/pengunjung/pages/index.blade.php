@@ -71,7 +71,7 @@
                         Sasindai hadir untuk kamu yang ingin mengenal motif Sasirangan dengan cara asik dan interaktif. Lewat aplikasi ini, kamu bisa belajar sejarah dan makna tiap motif tanpa bosan, langsung dari ponselmu. Yuk, lestarikan budaya Banua bareng Sasindai!                   
                     </h3>
                     <div class="home-content__btn-wrap">
-                        <a href="https://mega.nz/folder/Mb9lkLZR#eCEZQ00czyLNB2c16eRgQg" target="_blank" class="btn btn--primary home-content__btn" style="background: #8D0B41; border:none; outline:none">
+                        <a href="https://mega.nz/folder/Mb9lkLZR#eCEZQ00czyLNB2c16eRgQg" target="_blank" class="btn btn--primary home-content__btn">
                             Dapatkan Aplikasi
                         </a>
                     </div>

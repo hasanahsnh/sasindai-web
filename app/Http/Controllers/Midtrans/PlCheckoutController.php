@@ -34,7 +34,7 @@ class PlCheckoutController extends Controller
         }
 
         try {
-            $leewayInSeconds = 8 * 60 * 60;
+            $leewayInSeconds = 8 * 60 * 60; // 8 jam
             $verifiedToken = $this->auth->verifyIdToken($idToken, false, $leewayInSeconds);
             $uid = $verifiedToken->claims()->get('sub');
         } catch (\Throwable $e) {
@@ -45,57 +45,59 @@ class PlCheckoutController extends Controller
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        $produkDipesan = $request->input('produkDipesan', []);
-        $metodePembayaran = $request->input('metodePembayaran');
+        $produkDipesan = $request->input('produk_dipesan', []);
+        $metodePembayaran = $request->input('metode_pembayaran');
         $total = $request->input('total');
-        $hargaProduk = $request->input('hargaProduk');
+        $hargaProduk = $request->input('harga_produk');
         $ongkir = $request->input('ongkir');
 
+        // Ambil data user dari Firebase
         $userSnapshot = $this->database->getReference('users/' . $uid)->getSnapshot();
         if (!$userSnapshot->exists()) {
             return response()->json(['error' => 'User data not found'], 404);
         }
-
         $userData = $userSnapshot->getValue();
+
         $namaLengkap = $userData['namaLengkap'] ?? 'User';
         $noTelp = $userData['noTelp'] ?? '081111111111';
-        $email = $userData['email'] ?? 'Email;';
+        $email = $userData['email'] ?? 'email@domain.com';
 
+        // Generate order ID unik
         $orderId = (string) Str::uuid();
 
-        // Simpan pesanan awal ke Firebase
+        // Simpan pesanan awal dengan status pending
         $orderData = [
-            'orderId' => $orderId,
+            'order_id' => $orderId,
             'uid' => $uid,
             'namaLengkap' => $namaLengkap,
-            'noTelp' => $noTelp,
+            'no_telp' => $noTelp,
+            'email' => $email,
             'total' => $total,
             'alamat' => $request->input('alamat'),
             'kurir' => $request->input('kurir'),
             'layanan' => $request->input('layanan'),
             'produk' => $produkDipesan,
-            'metodePembayaran' => $metodePembayaran,
+            'metode_pembayaran' => $metodePembayaran,
             'status' => 'pending',
-            'createdAt' => now()->toDateTimeString(),
-            'uidPenjual' => $request->input('uidPenjual'),
-            'statusPesanan' => $request->input('statusPesanan'),
-            'biayaOngkir' => $request->input('ongkir'),
-            'tipeCheckout' => $request->input('tipeCheckout'),
+            'statusPesanan' => 'menunggu pembayaran',
+            'created_at' => now()->toDateTimeString(),
+            'uidPenjual' => $request->input('uid_penjual'),
+            'biayaOngkir' => $ongkir,
+            'tipeCheckout' => $request->input('tipe_checkout'),
         ];
 
+        // Simpan ke Firebase Realtime Database
         $this->database->getReference($this->refTableName . '/' . $orderId)->set($orderData);
 
-        // Kirim request ke Midtrans Payment Link API
+        // --- Membuat Payment Link Midtrans ---
+
         $serverKey = config('services.midtrans.server_key');
         $basicAuth = base64_encode($serverKey . ':');
 
-        $response = Http::withHeaders([
-            'Accept' => 'application/json',
-            'Authorization' => 'Basic ' . $basicAuth,
-        ])->post('https://api.sandbox.midtrans.com/v1/payment-links', [
+        $body = [
             'transaction_details' => [
                 'order_id' => $orderId,
-                'gross_amount' => $total
+                'gross_amount' => (float) $total,
             ],
             'customer_details' => [
                 'first_name' => $namaLengkap,
@@ -105,39 +107,45 @@ class PlCheckoutController extends Controller
             'item_details' => [
                 [
                     'id' => 'produk',
-                    'price' => $hargaProduk,
+                    'price' => (float) $hargaProduk,
                     'quantity' => 1,
-                    'name' => 'Harga Produk'
+                    'name' => 'Harga Produk',
                 ],
                 [
                     'id' => 'ongkir',
-                    'price' => $ongkir,
+                    'price' => (float) $ongkir,
                     'quantity' => 1,
-                    'name' => 'Ongkos Kirim'
-                ]
+                    'name' => 'Ongkos Kirim',
+                ],
             ],
             'enabled_payments' => $metodePembayaran ? [$metodePembayaran] : null,
             'expiry' => [
                 'duration' => 1,
-                'unit' => 'days'
-            ]
-        ]);
+                'unit' => 'days',
+            ],
+            'notification_url' => 'https://1b07-114-122-213-59.ngrok-free.app/api/midtrans/cpl_callback'
+        ];
+
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic ' . $basicAuth,
+        ])->post('https://api.sandbox.midtrans.com/v1/payment-links', $body);
 
         if ($response->successful()) {
             $paymentUrl = $response->json('payment_url');
 
             // Simpan payment_url ke Firebase
-            $this->database->getReference($this->refTableName . '/' . $orderId . '/paymentUrl')->set($paymentUrl);
+            $this->database->getReference($this->refTableName . '/' . $orderId . '/payment_url')->set($paymentUrl);
 
             return response()->json([
-                'paymentUrl' => $paymentUrl,
-                'orderId' => $orderId
+                'payment_url' => $paymentUrl,
+                'order_id' => $orderId,
             ]);
         } else {
-            Log::error('Gagal membuat Payment Link: ' . $response->body());
+            Log::error('Gagal membuat Payment Link Midtrans: ' . $response->body());
             return response()->json([
                 'error' => 'Gagal membuat payment link',
-                'details' => $response->json()
+                'details' => $response->json(),
             ], 500);
         }
     }
