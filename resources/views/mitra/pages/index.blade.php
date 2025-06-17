@@ -226,12 +226,12 @@
                                     <tbody>
                                       @if ($filteredPesanans && count($filteredPesanans) > 0)
                                         @foreach ($filteredPesanans as $key => $item)
-                                          @if (!empty($item['orderId']) ||
+                                          @if (!empty($item['order_id']) ||
                                           !empty($item['statusPesanan']) ||
                                           !empty($item['status']))
                                           <tr>
                                             <td>
-                                              <a href="{{ route('print.rincian.pesanan', ['orderId' => $key]) }}" 
+                                              <a href="{{ route('print.rincian.pesanan', ['order_id' => $key]) }}" 
                                                 title="Cetak rincian pesanan"
                                                 style="background-color: rgb(172, 33, 89); padding: 10px; border-radius: 5px"
                                                 target="_blank">
@@ -239,7 +239,7 @@
                                               </a> 
                                             </td>
                                             <td>
-                                              {{ $item['orderId'] ?? 'ID Pesanan tidak ditemukan'}}
+                                              {{ $item['order_id'] ?? 'ID Pesanan tidak ditemukan'}}
                                             </td>
                                             <td>
                                               <p style="display: inline-block; font-size: 14px; background-color: orange; color: black; padding: 5px 10px; border-radius: 5px;">
@@ -256,7 +256,7 @@
                                             </td>
                                             <td>
                                               <p style="display: inline-block; font-size: 14px;">
-                                                {{ $item['updatedAt'] ?? 'Waktu pembayaran tidak ditemukan'}}
+                                                {{ $item['updated_at'] ?? 'Waktu pembayaran tidak ditemukan'}}
                                               </p>
                                             </td>
                                             <td>
@@ -277,21 +277,22 @@
                                                     </a>
                                                     <div class="card-body">
                                                       <h4 class="card-title" style="color: black">Input No Resi Pengiriman</h4>
-                                                      <form action="" method="POST" enctype="multipart/form-data" id="formEdit{{ $key }}" class="forms-sample">
+                                                      <form action="{{ route('input.resi') }}" method="POST" enctype="multipart/form-data" id="formEdit{{ $key }}" class="forms-sample">
+                                                        @csrf
                                                         <div class="form-group row">
                                                           <label for="id_produk" class="col-sm-3 col-form-label" style="color: black;">ID Pesanan</label>
                                                           <div class="col-sm-9">
-                                                            <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" name="key" value="{{ $key }}" readonly>
+                                                            <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" name="id_pesanan" value="{{ $key }}" readonly>
                                                           </div>
 
                                                           <label for="ekspedisi" class="col-sm-3 col-form-label" style="color: black;">Layanan Pengiriman</label>
                                                           <div class="col-sm-9">
-                                                            <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" name="key" value="{{ $item['kurir'] }}" placeholder="Masukkan layanan pengiriman" required>
+                                                            <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" name="kurir_pesanan" value="{{ $item['kurir'] }}" placeholder="Masukkan layanan pengiriman" required>
                                                           </div>
 
                                                           <label for="input_resi" class="col-sm-3 col-form-label" style="color: black;">No Resi Pengiriman</label>
                                                           <div class="col-sm-9">
-                                                            <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" name="key" placeholder="Masukkan No. Resi pengiriman" required>
+                                                            <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" name="resi_pesanan" placeholder="Masukkan No. Resi pengiriman" required>
                                                           </div>
                                                         </div>
                                                         <button type="submit" class="btn btn-primary mr-2">Simpan Perubahan</button>

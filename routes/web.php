@@ -143,8 +143,9 @@ Route::middleware(['mitra'])->group(function () {
 
     // Halaman semu pengiriman
     Route::get('pengiriman', [PengirimanController::class, 'index'])->name('semua.pengiriman');
+    Route::post('/input-resi', [PengirimanController::class, 'createPengiriman'])->name('input.resi');
 
-    Route::get('/print-rincian-pesanan/{orderId}', [PesananController::class, 'printRincianPesanan'])->name('print.rincian.pesanan');
+    Route::get('/print-rincian-pesanan/{order_id}', [PesananController::class, 'printRincianPesanan'])->name('print.rincian.pesanan');
 });
 
 // Middleware admin atau mitra untuk input model 3d
