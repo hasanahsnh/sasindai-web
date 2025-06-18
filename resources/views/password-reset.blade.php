@@ -15,6 +15,8 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  <script src="{{ asset('pengunjung/js/pace.min.js') }}"></script>
+
   <!-- endinject -->
   <link rel="shortcut icon" href="{{ asset('pengunjung/images/sascode-logo.jpg') }}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -24,6 +26,14 @@
 
 <body style="color: white; font-family: Poppins;">
   <div class="container-scroller">
+
+    <div id="preloader">
+      <div id="loader" class="dots-jump">
+          <div></div>
+          <div></div>
+          <div></div>
+      </div>
+    </div>
 
     @if(session('error'))
       <div class="floating-alert-error" id="statusAlert" style="font-size: 14px;">
@@ -69,7 +79,7 @@
                       <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Masukkan E-Mail" style="border-radius: 18px; color:white;" required>
                       @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                   </div>
-                  <button type="submit" class="btn btn-primary btn-block" style="margin-top:30px; background: #890B3F; border:none; outline:none; box-shadow: none; border-radius: 15px;">Reset</button>
+                  <button type="submit" class="btn btn-primary btn-block" style="margin-top:30px; background: #890B3F; border:none; outline:none; box-shadow: none; border-radius: 15px;">Kirim link</button>
                   <p style="font-size: 10px; text-align: center; margin-top: 20px;">Terdapat kendala saat mencoba masuk? <a href="https://wa.me/6289696210706" style="color: #890B3F; text-decoration:none">Hubungi Kami</a></p>
                   <p style="font-size: 10px; text-align: center;">Atau <a href="{{ url('/masuk') }}" style="color: #890B3F; text-decoration:none"> Masuk</a></p>
                 </form>
@@ -104,6 +114,7 @@
   <script src="{{ asset('js/off-canvas.js') }}"></script>
   <script src="{{ asset('js/hoverable-collapse.js') }}"></script>
   <script src="{{ asset('js/template.js') }}"></script>
+  <script src="{{ asset('pengunjung/js/main.js') }}"></script>
   <!-- endinject -->
 </body>
 

@@ -33,7 +33,7 @@
           <div></div>
           <div></div>
       </div>
-  </div>
+    </div>
 
     @if(session('error'))
       <div class="floating-alert-error" id="statusAlert" style="font-size: 14px;">
