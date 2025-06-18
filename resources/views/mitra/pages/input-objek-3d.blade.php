@@ -248,7 +248,7 @@
                                 <div class="form-group row">
                                   <label for="exampleInputMobile" class="col-sm-3 col-form-label">Unggah File .glb</label>
                                   <div class="col-sm-9">
-                                    <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="file_objek" name="file_objek" accept=".glb,model/gltf-binary" placeholder="Pilih File .gbl" required>
+                                    <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="file_objek" name="file_objek" accept=".glb" placeholder="Pilih File .gbl" required>
                                   </div>
                                 </div>
                                 <div class="form-group row">

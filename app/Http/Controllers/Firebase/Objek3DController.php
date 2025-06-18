@@ -53,12 +53,11 @@ class Objek3DController extends Controller
     function store(Request $request) {
 
         $role = session('session.idRole');
-        $uid = session('session.uid');
 
         $request->validate([
             'nama_objek' => 'required|string|max:255',
             'deskripsi_objek' => 'nullable|string',
-            'file_objek' => 'required|file|mimetypes:model/gltf-binary|max:10240',
+            'file_objek' => 'required|file|max:10240',
             'preview_objek' => 'required|file|max:10240',
         ]);
     
