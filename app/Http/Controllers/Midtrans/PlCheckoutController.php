@@ -81,7 +81,6 @@ class PlCheckoutController extends Controller
             'status' => 'pending',
             'statusPesanan' => 'menunggu pembayaran',
             'created_at' => now()->toDateTimeString(),
-            'uidPenjual' => $request->input('uid_penjual'),
             'biayaOngkir' => $ongkir,
             'tipeCheckout' => $request->input('tipe_checkout'),
             'uid_penjual' => $request->input('uidPenjual')
