@@ -37,10 +37,10 @@ class PesananController extends Controller
         return view('mitra.pages.pesanan');
     }
 
-    public function printRincianPesanan($orderId) {
+    public function printRincianPesanan($order_id) {
         // Ambil data pesanan dari Firebase
         $order = $this->database
-            ->getReference($this->refTableName . '/' . $orderId)
+            ->getReference($this->refTableName . '/' . $order_id)
             ->getValue();
 
         if (!$order) {
@@ -53,6 +53,6 @@ class PesananController extends Controller
         ]);
 
         // Return PDF ke browser untuk diunduh
-        return $pdf->download('invoice_' . $orderId . '.pdf');
+        return $pdf->download('invoice_' . $order_id . '.pdf');
     }
 }

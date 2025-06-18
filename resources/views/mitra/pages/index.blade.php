@@ -202,7 +202,7 @@
                       <!-- div orderan masuk -->
                       <div class="card-card">
                         <div class="card-card-header"  style="display: flex; justify-content: space-between; align-items: center;">
-                          <h4>Pesanan yang harus segera dikirim</h4>
+                          <h4>Pesanan yang harus segera dikirim ({{ $totalPesananYangHarusDikirim }})</h4>
                           <a href="" target="blank" title="Lihat lebih banyak">
                             <i class="fas fa-external-link-alt" style="color: blue;"></i>
                           </a> 
@@ -244,9 +244,6 @@
                                             <td>
                                               <p style="display: inline-block; font-size: 14px; background-color: orange; color: black; padding: 5px 10px; border-radius: 5px;">
                                                 {{ $item['statusPesanan'] ?? 'Status Pesanan tidak ditemukan' }}
-                                              </p>
-                                              <p style="display: inline-block; font-size: 14px; background-color: red; color: white; padding: 5px 10px; border-radius: 5px;">
-                                                Segera lakukan pengiriman
                                               </p>
                                             </td>
                                             <td>
