@@ -56,6 +56,7 @@
           <div class="col-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
+
                 <div class="d-flex align-items-center mb-3">
                   <h1 class="card-title" style="font-size:16px; color:black; display: inline-block; border-bottom: 2px solid #8D0B41; padding-bottom: 10px;">
                     DATA PRODUK
@@ -412,6 +413,7 @@
               </div>
             </div>
           </div>
+          
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
