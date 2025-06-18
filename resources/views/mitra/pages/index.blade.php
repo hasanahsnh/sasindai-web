@@ -133,7 +133,7 @@
                           <i class="mdi mdi-truck mr-3 icon-lg text-success"></i>
                           <div class="d-flex flex-column justify-content-around">
                             <small class="mb-1 text-muted">Pesanan dikirim</small>
-                            <h5 class="mr-2 mb-0">{{ $totalPengiriman }} barang</h5>
+                            <h5 class="mr-2 mb-0">{{ $pengirimanAktif }} barang</h5>
                           </div>
                         </div>
                       </div>

@@ -81,7 +81,7 @@ class ProdukController extends Controller
         $request->validate([
             'nama_produk' => 'required|string|max:50',
             'foto_produk' => 'required|array',
-            'foto_produk.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'foto_produk.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'deskripsi_produk' => 'required|string',
             'varian.nama' => 'required|array',
             'varian.nama.*' => 'required|string',

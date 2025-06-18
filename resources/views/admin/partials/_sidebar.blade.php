@@ -7,41 +7,35 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{{ url('/ka-pasar') }}">
+              <i class="mdi mdi-briefcase-outline menu-icon"></i>
+              <span class="menu-title">Mitra Sasindai</span>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#post" aria-expanded="false" aria-controls="ui-basic">
               <i class="mdi mdi-newspaper menu-icon"></i>
-              <span class="menu-title">Post</span>
+              <span class="menu-title">Unggahan</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="post">
-              <ul class="nav flex-column sub-menu">                
-                <li class="nav-item"> <a class="nav-link" href="{{ route('katalog') }}">S-Katalog</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{ route('objek.3d') }}">Unggah Model 3D Produk (AR)</a></li>
+              <ul class="nav flex-column sub-menu">                            
+                <li class="nav-item"> <a class="nav-link" href="{{ route('katalog') }}">Katalog Motif</a></li>    
+                <li class="nav-item"> <a class="nav-link" href="{{ route('objek.3d') }}">Model 3D Produk (AR)</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{ route('berita') }}">Rilis Media</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#partner-management" aria-expanded="false" aria-controls="ui-basic">
-              <i class="mdi mdi-briefcase-outline menu-icon"></i>
-              <span class="menu-title">Mitra</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="partner-management">
-              <ul class="nav flex-column sub-menu">           
-                <li class="nav-item"> <a class="nav-link" href="{{ url('/ka-pasar') }}">Mitra</a></li> <!-- Data mitra (ID) -->
               </ul>
             </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#user-management" aria-expanded="false" aria-controls="ui-basic">
               <i class="mdi mdi-account-multiple menu-icon"></i>
-              <span class="menu-title">Pengguna Aplikasi</span>
+              <span class="menu-title">Users</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="user-management">
               <ul class="nav flex-column sub-menu">                
-                <li class="nav-item"> <a class="nav-link" href="{{ url('/users') }}">Pengguna Aplikasi</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{ url('roles') }}">Level Pengguna</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ url('/users') }}">User Aplikasi Sasindai</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ url('roles') }}">User Level</a></li>
               </ul>
             </div>
           </li>

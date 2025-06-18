@@ -91,22 +91,19 @@ class MitraController extends Controller
             foreach ($pesanans as $orderId => $pesanan) {
                 if (isset($pesanan['statusPesanan']) && (strtolower($pesanan['statusPesanan']) === 'dikemas')) {
                     $filteredPesanans[$orderId] = $pesanan;
+                } elseif (isset($pesanan['statusPesanan']) && (strtolower($pesanan['statusPesanan']) === 'dikirim')) {
+                    $filteredPesananDikirim[$orderId] = $pesanan;
                 }
             }
         }
 
         $totalPesananYangHarusDikirim = count($filteredPesanans);
+        $pengirimanAktif = count($filteredPesananDikirim);
 
         if (empty($filteredPesanans)) {
             $filteredPesanans = [];
             error_log("Tidak ada pesanan dengan status 'Dikemas'.");
         }
-
-        // Ambil data pengiriman
-        $dataProduk = $this->database->getReference($this->refTableNamePengiriman)->getValue() ?? [];
-        $pengiriman = [];
-
-        $totalPengiriman = count($pengiriman);
 
         // Cek apakah data mitra belum tersedia
         $tokoBelumLengkap = false;
@@ -137,7 +134,7 @@ class MitraController extends Controller
         'totalPesanan',
         'filteredPesanan',
         'totalPesananYangHarusDikirim',
-        'totalPengiriman'));
+        'pengirimanAktif'));
         
     }
 

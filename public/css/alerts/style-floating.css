@@ -15,14 +15,14 @@
 }
 
 .floating-alert-success {
-    background-color: #d4edda;
-    color: #155724;
+    background-color: #1c1c1c;
+    color: #41ff6e;
     font-family: "Poppins";
 }
 
 .floating-alert-error {
-    background-color: #f8d7da;
-    color: #721c24;
+    background-color: #1c1c1c;
+    color: #ff4e60;
     font-family: "Poppins";
 }
 

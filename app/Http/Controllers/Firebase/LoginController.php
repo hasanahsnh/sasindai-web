@@ -78,7 +78,7 @@ class LoginController extends Controller
                     return match ($idRole) {
                         'ROLE_ADMIN' => redirect('/home')->with('success', 'Berhasil masuk sebagai Administrator'),
                         'ROLE_MITRA' => redirect('/dashboard-mitra')->with('success', 'Selamat datang mitra'),
-                        default => redirect()->back()->with('error', 'Autentikasi gagal: Role tidak dikenali')
+                        default => redirect()->back()->with('error', 'Autentikasi gagal')
                     };
                 }
 
@@ -94,7 +94,7 @@ class LoginController extends Controller
     public function logout()
     {
         session()->flush();
-        return redirect('/')->with('success', 'Logged out successfully.');
+        return redirect('/masuk')->with('success', 'Logged out successfully.');
     }
 
     // Menampilkan halaman form reset password

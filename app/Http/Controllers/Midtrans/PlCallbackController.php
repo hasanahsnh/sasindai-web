@@ -188,6 +188,9 @@ class PlCallbackController extends Controller
             $varian = $item['namaVarian'] ?? null;
             $qty = $item['qty'] ?? 0;
 
+            $encodedVarian = str_replace(['.', '#', '$', '[', ']'], '_', $varian);
+            Log::info("Menghapus keranjang di varian: $encodedVarian");
+
             if (!$id || !$varian || $qty <= 0) continue;
 
             $ref = $this->database->getReference("produk/$id");
@@ -206,7 +209,7 @@ class PlCallbackController extends Controller
             $ref->set($data);
 
             if ($tipe !== 'beli_sekarang') {
-                $this->database->getReference("keranjang/$uid/$id/$varian")->remove();
+                $this->database->getReference("keranjang/$uid/$id/$encodedVarian")->remove();
             }
         }
     }

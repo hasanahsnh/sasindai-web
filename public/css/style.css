@@ -20300,7 +20300,7 @@ code {
   border-right: 0;
   border-left: 0;
   border-bottom: 0;
-  font: normal normal normal 24px/1 "Material Design Icons";
+  font: "normal normal normal 24px/1 "Material Design Icons"";
   content: "\F140";
   width: auto;
   height: auto;
@@ -21227,7 +21227,7 @@ dl li {
 
 .sidebar .nav .nav-item .nav-link i.menu-arrow:before {
   content: "\F140";
-  font-family: "Poppins";
+  font-family: "Material Design Icons";
   font-style: normal;
   display: block;
   font-size: 1rem;

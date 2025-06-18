@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Model 3D</title>
+  <title>Objek 3D</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{ asset('vendors/mdi/css/materialdesignicons.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/base/vendor.bundle.base.css') }}">
@@ -18,6 +18,7 @@
   <link rel="shortcut icon" href="{{ asset('pengunjung/images/sascode-logo.jpg') }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
 
@@ -57,7 +58,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="d-flex align-items-center mb-3">
-                  <h1 class="card-title" style="font-size:16px; color:black; display: inline-block; border-bottom: 2px solid #522258; padding-bottom: 10px;">
+                  <h1 class="card-title" style="font-size:16px; color:black; display: inline-block; border-bottom: 2px solid #8D0B41; padding-bottom: 10px;">
                     DATA MODEL 3D
                   </h1>
                   <div class="d-none d-md-flex ms-3" style="margin-left: 60px;">
@@ -92,7 +93,8 @@
                         <th>Deskripsi</th>
                         <th>File .glb</th>
                         <th>Preview</th>
-                        <th>Dibuat pada</th>
+                        <th>Diunggah oleh</th>
+                        <th>Diunggah pada</th>
                         <th>Diperbarui pada</th>
                         <th>Action</th>
                       </tr>
@@ -111,8 +113,9 @@
                             <td>
                               <a href="{{ $item['previewObjek'] }}" target="_blank" title="Unduh foto berita">{{ $item['previewObjek'] }}</a>
                             </td>
+                            <td>{{ $item['createdBy'] ?? 'Pengunggah model tidak ditemukan' }}</td>
                             <td>{{ $item['createdAt'] ?? 'Tanggal tidak ditemukan' }}</td>
-                            <td>{{ $item['updateAt'] ?? 'Tanggal tidak ditemukan' }}</td>
+                            <td>{{ $item['updatedAt'] ?? 'Tanggal tidak ditemukan' }}</td>
                             <td>
                               <a href="" data-toggle="modal" data-target="#modalEdit{{ $key }}" title="Edit"><i class="fas fa-edit" style="margin-right: 15px;"></i></a>    
                               <a href="" data-toggle="modal" data-target="#modalHapus{{ $key }}" title="Hapus"><i class="fa-solid fa-trash" style="color: red"></i></a>     
@@ -122,7 +125,7 @@
                           <!-- Modal Hapus -->
                           <div class="modal fade" id="modalHapus{{ $key }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 700px; width: 100%;">
-                              <div class="modal-content rounded-0">
+                              <div class="modal-content rounded-15">
                                 <div class="modal-body p-4 px-5">
                         
                                   
@@ -137,7 +140,7 @@
                                           <i class="fas fa-exclamation-triangle" style="color: red;"></i>
                                           Anda yakin ingin menghapus data model yang dipilih?
                                         </p>
-                                        <form class="forms-sample" id="formHapus{{ $key }}" action="" method="POST">
+                                        <form class="forms-sample" id="formHapus{{ $key }}" action="{{ route('delete.model', ['id' => $key]) }}" method="POST">
                                           @csrf
                                           @method('DELETE')
                                           <button type="submit" class="btn btn-danger mr-2">Hapus</button>
@@ -150,11 +153,65 @@
                             </div>
                           </div>
 
+                          <!-- Modal Edit -->
+                          <div class="modal fade" id="modalEdit{{ $key }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 700px; width: 100%;">
+                              <div class="modal-content rounded-15">
+                                <div class="modal-body p-4 px-5">
+
+                                  
+                                  <div class="main-content text-center">
+                                      
+                                      <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true"><span class="icon-close2"></span></span>
+                                        </a>
+                                      <div class="card-body">
+                                        <h4 class="card-title">Edit Model</h4>
+                                        <form class="forms-sample" id="formTambah" action="{{ route('update.model', ['id' => $key]) }}" method="POST" enctype="multipart/form-data">
+                                          @csrf
+                                          @method('PUT')
+                                          <input type="hidden" name="key" value="{{ $key }}">
+                                          <div class="form-group row">
+                                            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Model</label>
+                                            <div class="col-sm-9">
+                                              <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="nama_objek" name="nama_objek" value="{{ $item['namaObjek'] ?? 'Nama model tidak ditemukan' }}" placeholder="Nama Objek" required>
+                                            </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Deskripsi</label>
+                                            <div class="col-sm-9">
+                                              <textarea class="form-control" style="border: 1px solid #8D0B41; border-radius: 4px;" id="deskripsi_objek" name="deskripsi_objek" rows="4" placeholder="Deskripsi Objek" required>{{ $item['deskripsiObjek'] ?? 'Deskripsi tidak ditemukan' }}</textarea>
+                                            </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <label for="exampleInputMobile" class="col-sm-3 col-form-label">Unggah File .glb</label>
+                                            <div class="col-sm-9">
+                                              <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="file_objek" name="file_objek" accept=".glb,model/gltf-binary" placeholder="Pilih File .gbl">
+                                            </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <label for="exampleInputMobile" class="col-sm-3 col-form-label">Unggah Gambar Preview</label>
+                                            <div class="col-sm-9">
+                                              <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="preview_objek" name="preview_objek" accept="image/*" placeholder="Pilih Foto">
+                                            </div>
+                                          </div>
+                                          <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                          <button class="btn btn-light" data-dismiss="modal" onclick="clearForm('formTambah')">Cancel</button>
+                                        </form>
+                                      </div>
+                                    
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                         @endif
                         @endforeach
                       @else
                         <tr>
-                          <td colspan="6" style="text-align: center">Data Model tidak ditemukan</td>
+                          <td colspan="8" style="text-align: center">Data Model tidak ditemukan</td>
                         </tr>
                       @endif
                     </tbody>
@@ -163,7 +220,7 @@
                 <!-- Modal Tambah -->
                 <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 700px; width: 100%;">
-                    <div class="modal-content rounded-0">
+                    <div class="modal-content rounded-15">
                       <div class="modal-body p-4 px-5">
 
                         
@@ -191,13 +248,13 @@
                                 <div class="form-group row">
                                   <label for="exampleInputMobile" class="col-sm-3 col-form-label">Unggah File .glb</label>
                                   <div class="col-sm-9">
-                                    <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="file_objek" name="file_objek" placeholder="Pilih File .gbl" required>
+                                    <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="file_objek" name="file_objek" accept=".glb,model/gltf-binary" placeholder="Pilih File .gbl" required>
                                   </div>
                                 </div>
                                 <div class="form-group row">
                                   <label for="exampleInputMobile" class="col-sm-3 col-form-label">Unggah Gambar Preview</label>
                                   <div class="col-sm-9">
-                                    <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="preview_objek" name="preview_objek" placeholder="Pilih Foto" required>
+                                    <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" class="form-control" id="preview_objek" name="preview_objek" accept="image/*" placeholder="Pilih Foto" required>
                                   </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
