@@ -151,8 +151,8 @@
                                   <table class="table table-hover w-100">
                                     <thead>
                                       <tr>
-                                        <th>Account</th>
-                                        <th>Action</th> 
+                                        <th>Akun</th>
+                                        <th>Aksi</th> 
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -220,15 +220,12 @@
                                         <th>Status Pesanan</th>
                                         <th>Status Pembayaran</th>
                                         <th>Telah dibayar pada</th>
-                                        <th>Action</th> 
+                                        <th>Aksi</th> 
                                       </tr>
                                     </thead>
                                     <tbody>
                                       @if ($filteredPesanans && count($filteredPesanans) > 0)
                                         @foreach ($filteredPesanans as $key => $item)
-                                          @if (!empty($item['orderId']) ||
-                                          !empty($item['statusPesanan']) ||
-                                          !empty($item['status']))
                                           <tr>
                                             <td>
                                               <a href="{{ route('print.rincian.pesanan', ['orderId' => $key]) }}" 
@@ -239,19 +236,65 @@
                                               </a> 
                                             </td>
                                             <td>
-                                              {{ $item['orderId'] ?? 'ID Pesanan tidak ditemukan'}}
+                                              {{ $item['orderId'] ?? $key }}
                                             </td>
                                             <td>
-                                              <p style="display: inline-block; font-size: 14px; background-color: orange; color: black; padding: 5px 10px; border-radius: 5px;">
-                                                {{ $item['statusPesanan'] ?? 'Status Pesanan tidak ditemukan' }}
-                                              </p>
-                                              <p style="display: inline-block; font-size: 14px; background-color: red; color: white; padding: 5px 10px; border-radius: 5px;">
-                                                Segera lakukan pengiriman
+                                             @php
+                                                  $status = strtolower($item['statusPesanan'] ?? 'tidak diketahui');
+
+                                                  switch ($status) {
+                                                      case 'menunggu pembayaran':
+                                                          $class = 'status-menunggu';
+                                                          $text = 'Menunggu Pembayaran';
+                                                          break;
+                                                      case 'dikemas':
+                                                          $class = 'status-dikemas';
+                                                          $text = 'Segera lakukan pengiriman';
+                                                          break;
+                                                      case 'dikirim':
+                                                          $class = 'status-dikirim';
+                                                          $text = 'Dikirim';
+                                                          break;
+                                                      case 'cancel':
+                                                      case 'dibatalkan':
+                                                          $class = 'status-cancel';
+                                                          $text = 'Dibatalkan';
+                                                          break;
+                                                      default:
+                                                          $class = 'status-default';
+                                                          $text = 'Status tidak diketahui';
+                                                  }
+                                              @endphp
+
+                                              <p class="status-badge {{ $class }}">
+                                                  {{ $text }}
                                               </p>
                                             </td>
                                             <td>
-                                              <p style="display: inline-block; font-size: 14px; background-color: green; color: white; padding: 5px 10px; border-radius: 5px;">
-                                                {{ $item['status'] ?? 'Status Pembayaran tidak ditemukan'}}
+                                              @php
+                                                  $statusBayar = strtolower($item['status'] ?? 'tidak diketahui');
+
+                                                  switch ($statusBayar) {
+                                                      case 'pending':
+                                                          $class = 'status-pending';
+                                                          $text = 'Tertunda';
+                                                          break;
+                                                      case 'success':
+                                                          $class = 'status-success';
+                                                          $text = 'Berhasil';
+                                                          break;
+                                                      case 'cancel':
+                                                          $class = 'status-cancel';
+                                                          $text = 'Dibatalkan';
+                                                          break;
+                                                      default:
+                                                          $class = 'status-default';
+                                                          $text = 'Status Pembayaran tidak ditemukan';
+                                                  }
+                                              @endphp
+
+                                              <p class="status-badge {{ $class }}">
+                                                  {{ $text }}
                                               </p>
                                             </td>
                                             <td>
@@ -260,7 +303,7 @@
                                               </p>
                                             </td>
                                             <td>
-                                              <a href="" data-toggle="modal" data-target="#modalInputResi{{ $key }}" title="Input resi" style="background-color: yellow; padding: 10px; border-radius: 5px">
+                                              <a href="" data-toggle="modal" data-target="#modalInputResi{{ $key }}" title="Input resi" style="background-color: orange; padding: 10px; border-radius: 5px">
                                                 <i class="fas fa-truck" style="color: black;"></i>
                                               </a> 
                                             </td>
@@ -303,7 +346,6 @@
                                             </div>
                                           </div>
 
-                                          @endif
                                         @endforeach
                                       @else
                                         <tr>

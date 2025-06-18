@@ -27,15 +27,70 @@ class PesananController extends Controller
         $this->storage = $storage;
     }
 
-    public function index() {
-        /*$dataPesanans = $this->database->getReference($this->refTableName)->getValue();
-        return response()->json([
-            'success' => true,
-            'data' => $dataPesanans
-        ]);*/
+   
+   public function index(Request $request) {
+    try {
+        $uid = session('session.uid');
 
-        return view('mitra.pages.pesanan');
+        if (!$uid) {
+            return redirect()->back()->with('error', 'UID tidak ditemukan dalam session.');
+        }
+
+        // Ambil filter status pesanan dari query string
+        $statusPesananFilter = $request->query('status_pesanan');
+
+        // Ambil semua data pesanan
+        $dataPesanans = $this->database->getReference($this->refTableName)->getValue() ?? [];
+
+        $filteredPesanan = [];
+
+        foreach ($dataPesanans as $key => $item) {
+
+            // Kecualikan status "dikirim"
+            if (isset($item['statusPesanan']) && strtolower($item['statusPesanan']) === 'dikirim') {
+                continue;
+            }
+
+            // Terapkan filter status pesanan jika ada
+            if ($statusPesananFilter && strtolower($item['statusPesanan'] ?? '') !== strtolower($statusPesananFilter)) {
+                continue;
+            }
+
+            $item['orderId'] = $key;
+            $filteredPesanan[$key] = $item;
+        }
+
+        // Ambil data mitra
+        $dataMitraProfileRef = $this->database->getReference('mitra/' . $uid);
+        $dataMitraProfile = $dataMitraProfileRef->getValue();
+
+        // Cek apakah toko sudah lengkap
+        $tokoBelumLengkap = false;
+        $statusVerifikasi = null;
+
+        if (!$dataMitraProfile) {
+            $tokoBelumLengkap = true;
+        } else {
+            $statusVerifikasi = $dataMitraProfile['statusVerifikasiToko'] ?? 'pending';
+            if ($statusVerifikasi !== 'accepted') {
+                $tokoBelumLengkap = true;
+            }
+        }
+
+        return view('mitra.pages.pesanan', compact(
+            'filteredPesanan',
+            'dataMitraProfile',
+            'tokoBelumLengkap',
+            'statusVerifikasi',
+            'statusPesananFilter'
+        ));
+
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Gagal mengambil data pesanan: ' . $e->getMessage());
     }
+}
+
+
 
     public function printRincianPesanan($orderId) {
         // Ambil data pesanan dari Firebase

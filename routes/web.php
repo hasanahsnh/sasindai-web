@@ -139,10 +139,10 @@ Route::middleware(['mitra'])->group(function () {
     Route::post('/perbarui-data-toko', [MitraController::class, 'perbaruiDataToko'])->name('perbarui-data-toko');
 
     // Halaman pesanan
-    Route::get('pesanan', [PesananController::class, 'index'])->name('total.pesanan');
+    Route::get('pesanan', [PesananController::class, 'index'])->name('pesanan');
 
     // Halaman semu pengiriman
-    Route::get('pengiriman', [PengirimanController::class, 'index'])->name('semua.pengiriman');
+    Route::get('pengiriman', [PengirimanController::class, 'index'])->name('pengiriman');
 
     Route::get('/print-rincian-pesanan/{orderId}', [PesananController::class, 'printRincianPesanan'])->name('print.rincian.pesanan');
 });
