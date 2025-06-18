@@ -101,7 +101,7 @@
                             @foreach ($filteredPesanan as $key => $item)
                                           <tr>
                                             <td>
-                                              <a href="{{ route('print.rincian.pesanan', ['orderId' => $key]) }}" 
+                                              <a href="{{ route('print.rincian.pesanan', ['order_id' => $key]) }}" 
                                                 title="Cetak rincian pesanan"
                                                 style="background-color: rgb(172, 33, 89); padding: 10px; border-radius: 5px"
                                                 target="_blank">
@@ -172,7 +172,7 @@
                                             </td>
                                             <td>
                                               <p style="display: inline-block; font-size: 14px;">
-                                                {{ $item['updatedAt'] ?? 'Waktu pembayaran tidak ditemukan'}}
+                                                {{ $item['updated_at'] ?? 'Waktu pembayaran tidak ditemukan'}}
                                               </p>
                                             </td>
                                             <td>

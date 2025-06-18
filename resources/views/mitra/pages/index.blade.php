@@ -239,7 +239,6 @@
                                               </a> 
                                             </td>
                                             <td>
-                                              {{ $item['orderId'] ?? $key }}
                                               {{ $item['order_id'] ?? 'ID Pesanan tidak ditemukan'}}
                                             </td>
                                             <td>
@@ -285,6 +284,7 @@
                                               </a> 
                                             </td>
                                           </tr>
+                                          @endif
 
                                           <!-- Modal Edit Produk -->
                                           <div class="modal fade" id="modalInputResi{{ $key }}" tabindex="-1" role="dialog" aria-labelledby="modalEditTitle" aria-hidden="true">
