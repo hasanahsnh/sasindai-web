@@ -154,4 +154,6 @@ Route::middleware(['admin_or_mitra'])->group(function() {
     Route::get('/objek-3d', [Objek3DController::class, 'index'])->name('objek.3d');
     Route::get('/tambah-objek-3d', [Objek3DController::class, 'create'])->name('input.objek.3d');
     Route::post('/simpan-objek-3d', [Objek3DController::class, 'store'])->name('simpan.objek.3d');
+    Route::put('/update-model/{id}', [Objek3DController::class, 'update'])->name('update.model');
+    Route::delete('delete-model/{id}', [Objek3DController::class, 'deleteModel'])->name('delete.model');
 });
