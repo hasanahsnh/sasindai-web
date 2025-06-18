@@ -15,6 +15,8 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  <script src="{{ asset('pengunjung/js/pace.min.js') }}"></script>
+
   <!-- endinject -->
   <link rel="shortcut icon" href="{{ asset('pengunjung/images/sascode-logo.jpg') }}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -22,8 +24,16 @@
 
 </head>
 
-<body style="color: white; font-family: Poppins;">
+<body style="color: white; font-family: Poppins;" id="top">
   <div class="container-scroller">
+
+    <div id="preloader">
+      <div id="loader" class="dots-jump">
+          <div></div>
+          <div></div>
+          <div></div>
+      </div>
+  </div>
 
     @if(session('error'))
       <div class="floating-alert-error" id="statusAlert" style="font-size: 14px;">
@@ -112,6 +122,7 @@
   <script src="{{ asset('js/off-canvas.js') }}"></script>
   <script src="{{ asset('js/hoverable-collapse.js') }}"></script>
   <script src="{{ asset('js/template.js') }}"></script>
+  <script src="{{ asset('pengunjung/js/main.js') }}"></script>
   <!-- endinject -->
 </body>
 

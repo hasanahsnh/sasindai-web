@@ -7,13 +7,11 @@
             <h4>Tentang Pengembang.</h4>
 
             <p>
-                Sasindai Team <br> Kalimantan Selatan
+                Sasindai Team <br>Kota Banjarmasin, Kalimantan Selatan
             </p>
 
             <ul class="footer__social">
-                <li><a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-                <li><a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                <li><a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a href="https://instagram.com/thiesasories"><i class="fab fa-instagram" target="blank" aria-hidden="true"></i></a></li>
             </ul>
         </div>
 
@@ -26,7 +24,8 @@
                     <ul class="footer__site-links">
                         <li><a href="#home" class="smoothscroll">Ringkasan</a></li>
                         <li><a href="#tentang" class="smoothscroll">Tentang</a></li>
-                        <li><a href="#mitraxsascode" class="smoothscroll">Mitra x SASINDAI</a></li>
+                        <li><a href="#fitur" class="smoothscroll">Fitur</a></li>
+                        <li><a href="#minimum-perangkat" class="smoothscroll">Minimum perangkat</a></li>
                     </ul>
                 </div>
 
@@ -34,7 +33,7 @@
                     <h4>Kontak.</h4>
 
                     <p>
-                        Phone: (+62) 896 9621 0706
+                        sasindaipindai@gmail.com
                     </p>
                 </div>
 
