@@ -92,9 +92,10 @@ class PlCallbackController extends Controller
         $produk = $order['produk'] ?? [];
         $tipe = $order['tipe_checkout'] ?? 'beli_sekarang';
 
-        if (
-            ($status === 'pending' && $currentStatus !== 'pending') ||
-            ($status === 'success' && !in_array($currentStatus, ['pending', 'success']))
+        Log::info("Status sebelumnya: $currentStatus, status baru: $status");
+
+        if (($status === 'success' && !in_array($currentStatus, ['pending', 'success'])) ||
+            ($status === 'pending' && !in_array($currentStatus, ['pending', 'success']))
         ) {
             $this->kurangiStokDanBersihkanKeranjang($uid, $produk, $tipe);
         }
