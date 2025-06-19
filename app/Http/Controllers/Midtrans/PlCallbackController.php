@@ -88,27 +88,36 @@ class PlCallbackController extends Controller
             return;
         }
 
-        $this->updateOrderStatusInFirebase($key, $status, $statusPesanan);
-
         $uid = $order['uidUser'] ?? $order['uid'] ?? '';
         $produk = $order['produk'] ?? [];
         $tipe = $order['tipe_checkout'] ?? 'beli_sekarang';
 
-        if (in_array($status, ['success', 'pending'])) {
+        if (
+            ($status === 'pending' && $currentStatus !== 'pending') ||
+            ($status === 'success' && !in_array($currentStatus, ['pending', 'success']))
+        ) {
             $this->kurangiStokDanBersihkanKeranjang($uid, $produk, $tipe);
+        }
 
-            if ($status === 'success') {
-                $this->sendFonnteNotification($order, $orderId);
-                $this->sendFonnteOrderToSeller($order, $orderId);
-            }
+        // Kirim notifikasi hanya saat success pertama kali
+        if ($status === 'success' && $currentStatus !== 'success') {
+            $this->sendFonnteNotification($order, $orderId);
+            $this->sendFonnteOrderToSeller($order, $orderId);
+        }
 
-        } elseif (in_array($status, ['expired', 'canceled', 'failed'])) {
+        // Kembalikan stok hanya jika belum expired/canceled/failed sebelumnya
+        if (in_array($status, ['expired', 'canceled', 'failed']) &&
+            !in_array($currentStatus, ['expired', 'canceled', 'failed'])) {
+
             $this->kembalikanStokDanRestoreKeranjang($uid, $produk, $tipe);
 
-            // Masukkan kembali produk ke node order (jika terhapus oleh logika lain sebelumnya)
+            // Tambahkan kembali produk ke order node
             $this->database->getReference("{$this->refOrders}/$key/produk")->set($produk);
+
             Log::info("Stok dan keranjang dikembalikan untuk order: $orderId");
         }
+
+        $this->updateOrderStatusInFirebase($key, $status, $statusPesanan);
 
         Log::info("Proses callback selesai untuk Order: $orderId, status: $status");
     }
@@ -207,7 +216,7 @@ class PlCallbackController extends Controller
             $varian = $item['namaVarian'] ?? null;
             $qty = $item['qty'] ?? 0;
 
-            $encodedVarian = str_replace(['.', '#', '$', '[', ']'], '_', $varian);
+            $encodedVarian = $varian;
             Log::info("Menghapus keranjang di varian: $encodedVarian");
 
             if (!$id || !$varian || $qty <= 0) continue;
@@ -242,8 +251,6 @@ class PlCallbackController extends Controller
 
             if (!$id || !$varian || $qty <= 0) continue;
 
-            $encodedVarian = str_replace(['.', '#', '$', '[', ']'], '_', $varian);
-
             $ref = $this->database->getReference("produk/$id");
             $data = $ref->getValue();
             if (!$data || !isset($data['varian'])) continue;
@@ -258,15 +265,6 @@ class PlCallbackController extends Controller
             $data['sisaStok'] = ($data['sisaStok'] ?? 0) + $qty;
             $data['terjual'] = max(0, ($data['terjual'] ?? 0) - $qty);
             $ref->set($data);
-
-            // Kembalikan ke keranjang jika bukan 'beli_sekarang'
-            if ($tipe !== 'beli_sekarang') {
-                $this->database->getReference("keranjang/$uid/$id/$encodedVarian")->set([
-                    'idProduk' => $id,
-                    'namaVarian' => $varian,
-                    'qty' => $qty,
-                ]);
-            }
         }
     }
 }
