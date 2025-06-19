@@ -82,6 +82,12 @@ class PlCallbackController extends Controller
 
         Log::info("Proses callback untuk Order: $orderId, status: $status, statusPesanan: $statusPesanan");
 
+        $currentStatus = $order['status'] ?? '';
+        if ($currentStatus === $status && in_array($status, ['success', 'expired', 'canceled', 'failed'])) {
+            Log::info("Callback diabaikan karena status sudah $status untuk Order: $orderId");
+            return;
+        }
+
         $this->updateOrderStatusInFirebase($key, $status, $statusPesanan);
 
         $uid = $order['uidUser'] ?? $order['uid'] ?? '';
