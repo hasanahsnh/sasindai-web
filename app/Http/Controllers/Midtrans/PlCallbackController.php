@@ -21,6 +21,7 @@ class PlCallbackController extends Controller
 
     public function handleCallback(Request $request)
     {
+        // Dari sini sampai ...
         Log::info('Callback Midtrans diterima (payment link)');
 
         $input = json_decode($request->getContent(), true);
@@ -54,6 +55,7 @@ class PlCallbackController extends Controller
             return response()->json(['status' => 'error'], 500);
         }
         $transaction = $resp->json();
+        // sini, jangan diubah, karena ini sudah sesuai dengan struktur yang diharapkan
 
         $this->prosesLanjutan([
             'order_id' => $orderId,
@@ -66,7 +68,7 @@ class PlCallbackController extends Controller
 
     public function prosesLanjutan(array $data)
     {
-         $orderId = $this->normalizeOrderId($data['order_id']);
+        $orderId = $this->normalizeOrderId($data['order_id']);
         [$key, $order] = $this->getOrderFromFirebase($orderId) ?? [null, null];
 
         if (!$key || !$order) {
@@ -78,14 +80,28 @@ class PlCallbackController extends Controller
         $status = $this->mapTransactionStatus($midtransStatus);
         $statusPesanan = $this->mapStatusPesanan($status);
 
+        Log::info("Proses callback untuk Order: $orderId, status: $status, statusPesanan: $statusPesanan");
+
         $this->updateOrderStatusInFirebase($key, $status, $statusPesanan);
 
-        if ($status === 'success') {
-            $uid = $order['uidUser'] ?? $order['uid'] ?? '';
-            $produk = $order['produk'] ?? [];
-            $this->kurangiStokDanBersihkanKeranjang($uid, $produk, $order['tipe_checkout'] ?? 'beli_sekarang');
-            $this->sendFonnteNotification($order, $orderId);
-            $this->sendFonnteOrderToSeller($order, $orderId);
+        $uid = $order['uidUser'] ?? $order['uid'] ?? '';
+        $produk = $order['produk'] ?? [];
+        $tipe = $order['tipe_checkout'] ?? 'beli_sekarang';
+
+        if (in_array($status, ['success', 'pending'])) {
+            $this->kurangiStokDanBersihkanKeranjang($uid, $produk, $tipe);
+
+            if ($status === 'success') {
+                $this->sendFonnteNotification($order, $orderId);
+                $this->sendFonnteOrderToSeller($order, $orderId);
+            }
+
+        } elseif (in_array($status, ['expired', 'canceled', 'failed'])) {
+            $this->kembalikanStokDanRestoreKeranjang($uid, $produk, $tipe);
+
+            // Masukkan kembali produk ke node order (jika terhapus oleh logika lain sebelumnya)
+            $this->database->getReference("{$this->refOrders}/$key/produk")->set($produk);
+            Log::info("Stok dan keranjang dikembalikan untuk order: $orderId");
         }
 
         Log::info("Proses callback selesai untuk Order: $orderId, status: $status");
@@ -211,23 +227,40 @@ class PlCallbackController extends Controller
         }
     }
 
-    public function checkStatusFromMidtrans($orderId)
+    public function kembalikanStokDanRestoreKeranjang($uid, $produk, $tipe)
     {
-        $serverKey = config('services.midtrans.server_key');
+        foreach ($produk as $item) {
+            $id = $item['idProduk'] ?? null;
+            $varian = $item['namaVarian'] ?? null;
+            $qty = $item['qty'] ?? 0;
 
-        $resp = Http::withBasicAuth($serverKey, '')
-                    ->get("https://api.sandbox.midtrans.com/v2/{$orderId}/status");
+            if (!$id || !$varian || $qty <= 0) continue;
 
-        if ($resp->failed()) {
-            Log::error('Polling gagal inquiry ke Midtrans', ['orderId' => $orderId]);
-            return;
+            $encodedVarian = str_replace(['.', '#', '$', '[', ']'], '_', $varian);
+
+            $ref = $this->database->getReference("produk/$id");
+            $data = $ref->getValue();
+            if (!$data || !isset($data['varian'])) continue;
+
+            foreach ($data['varian'] as $i => $v) {
+                if (strcasecmp($v['nama'], $varian) === 0) {
+                    $data['varian'][$i]['stok'] = ($v['stok'] ?? 0) + $qty;
+                    break;
+                }
+            }
+
+            $data['sisaStok'] = ($data['sisaStok'] ?? 0) + $qty;
+            $data['terjual'] = max(0, ($data['terjual'] ?? 0) - $qty);
+            $ref->set($data);
+
+            // Kembalikan ke keranjang jika bukan 'beli_sekarang'
+            if ($tipe !== 'beli_sekarang') {
+                $this->database->getReference("keranjang/$uid/$id/$encodedVarian")->set([
+                    'idProduk' => $id,
+                    'namaVarian' => $varian,
+                    'qty' => $qty,
+                ]);
+            }
         }
-
-        $trx = $resp->json();
-        $this->prosesLanjutan([
-            'order_id' => $orderId,
-            'gross_amount' => $trx['gross_amount'] ?? '0',
-            'transaction_status' => $trx['transaction_status'] ?? 'unknown'
-        ]);
     }
 }
