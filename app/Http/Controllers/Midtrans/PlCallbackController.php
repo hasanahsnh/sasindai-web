@@ -83,6 +83,8 @@ class PlCallbackController extends Controller
         Log::info("Proses callback untuk Order: $orderId, status: $status, statusPesanan: $statusPesanan");
 
         $currentStatus = $order['status'] ?? '';
+        $stokDikurangi = $order['stok_dikurangi'] ?? false;
+
         if ($currentStatus === $status && in_array($status, ['success', 'expired', 'canceled', 'failed'])) {
             Log::info("Callback diabaikan karena status sudah $status untuk Order: $orderId");
             return;
@@ -94,10 +96,11 @@ class PlCallbackController extends Controller
 
         Log::info("Status sebelumnya: $currentStatus, status baru: $status");
 
-        if (($status === 'success' && !in_array($currentStatus, ['pending', 'success'])) ||
-            ($status === 'pending' && !in_array($currentStatus, ['pending', 'success']))
-        ) {
+        // Kurangi stok hanya sekali jika belum pernah dikurangi
+        if (!$stokDikurangi && in_array($status, ['pending', 'success'])) {
             $this->kurangiStokDanBersihkanKeranjang($uid, $produk, $tipe);
+            $this->database->getReference("{$this->refOrders}/$key/stok_dikurangi")->set(true);
+            Log::info("Stok berhasil dikurangi dan keranjang dibersihkan untuk Order: $orderId");
         }
 
         // Kirim notifikasi hanya saat success pertama kali
@@ -111,6 +114,7 @@ class PlCallbackController extends Controller
             !in_array($currentStatus, ['expired', 'canceled', 'failed'])) {
 
             $this->kembalikanStokDanRestoreKeranjang($uid, $produk, $tipe);
+            $this->database->getReference("{$this->refOrders}/$key/produk")->set($produk);
 
             // Tambahkan kembali produk ke order node
             $this->database->getReference("{$this->refOrders}/$key/produk")->set($produk);
