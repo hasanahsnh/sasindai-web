@@ -29,56 +29,77 @@ class PengirimanController extends Controller
 
    
    public function index(Request $request) {
-    try {
-        $uid = session('session.uid');
+        try {
+            $uid = session('session.uid');
 
-        if (!$uid) {
-            return redirect()->back()->with('error', 'UID tidak ditemukan dalam session.');
-        }
-
-        // Ambil semua data pesanan
-        $dataPesanans = $this->database->getReference($this->refTableName)->getValue() ?? [];
-
-        $filteredPesanan = [];
-
-        foreach ($dataPesanans as $key => $item) {
-
-            // Hanya tampilkan status dikirim
-            if (!isset($item['statusPesanan']) || strtolower($item['statusPesanan']) !== 'dikirim') {
-                continue;
+            if (!$uid) {
+                return redirect()->back()->with('error', 'UID tidak ditemukan dalam session.');
             }
 
+            // Ambil semua data pesanan
+            $dataPesanans = $this->database->getReference($this->refTableName)->getValue() ?? [];
 
-            $item['orderId'] = $key;
-            $filteredPesanan[$key] = $item;
-        }
+            $filteredPesanan = [];
 
-        // Ambil data mitra
-        $dataMitraProfileRef = $this->database->getReference('mitra/' . $uid);
-        $dataMitraProfile = $dataMitraProfileRef->getValue();
+            foreach ($dataPesanans as $key => $item) {
 
-        // Cek apakah toko sudah lengkap
-        $tokoBelumLengkap = false;
-        $statusVerifikasi = null;
+                // Hanya tampilkan status dikirim
+                if (!isset($item['statusPesanan']) || strtolower($item['statusPesanan']) !== 'dikirim') {
+                    continue;
+                }
 
-        if (!$dataMitraProfile) {
-            $tokoBelumLengkap = true;
-        } else {
-            $statusVerifikasi = $dataMitraProfile['statusVerifikasiToko'] ?? 'pending';
-            if ($statusVerifikasi !== 'accepted') {
+
+                $item['orderId'] = $key;
+                $filteredPesanan[$key] = $item;
+            }
+
+            // Ambil data mitra
+            $dataMitraProfileRef = $this->database->getReference('mitra/' . $uid);
+            $dataMitraProfile = $dataMitraProfileRef->getValue();
+
+            // Cek apakah toko sudah lengkap
+            $tokoBelumLengkap = false;
+            $statusVerifikasi = null;
+
+            if (!$dataMitraProfile) {
                 $tokoBelumLengkap = true;
+            } else {
+                $statusVerifikasi = $dataMitraProfile['statusVerifikasiToko'] ?? 'pending';
+                if ($statusVerifikasi !== 'accepted') {
+                    $tokoBelumLengkap = true;
+                }
             }
+
+            return view('mitra.pages.pengiriman', compact(
+                'filteredPesanan',
+                'dataMitraProfile',
+                'tokoBelumLengkap',
+                'statusVerifikasi'
+            ));
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal mengambil data pesanan: ' . $e->getMessage());
         }
-
-        return view('mitra.pages.pengiriman', compact(
-            'filteredPesanan',
-            'dataMitraProfile',
-            'tokoBelumLengkap',
-            'statusVerifikasi'
-        ));
-
-    } catch (\Exception $e) {
-        return redirect()->back()->with('error', 'Gagal mengambil data pesanan: ' . $e->getMessage());
     }
-}
+
+    public function createPengiriman(Request $request) {
+        $request->validate([
+            'resi_pesanan' => 'required',
+        ]);
+
+        $idPengiriman = $this->database->getReference($this->refTableName)->push()->getKey();
+
+        $postData = [
+            'idPengiriman' => $idPengiriman,
+            'idPesanan' => $request->id_pesanan,
+            'kurirPesanan' => $request->kurir_pesanan,
+            'resi_pesanan' => $request->resi_pesanan
+        ];
+
+        $this->database->getReference("{$this->refTableName}/{$idPengiriman}")->set($postData);
+
+        $this->database->getReference("orders/{$request->id_pesanan}/statusPesanan")->set('dikirim');
+
+        return redirect()->back()->with('success', 'Data pengiriman berhasil disimpan');
+    }
 }
