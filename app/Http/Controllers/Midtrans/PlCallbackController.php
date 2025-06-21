@@ -113,7 +113,7 @@ class PlCallbackController extends Controller
         if (in_array($status, ['expired', 'canceled', 'failed']) &&
             !in_array($currentStatus, ['expired', 'canceled', 'failed'])) {
 
-            $this->kembalikanStok($uid, $produk, $tipe);
+            $this->kembalikanStokDanRestoreKeranjang($uid, $produk, $tipe);
             $this->database->getReference("{$this->refOrders}/$key/produk")->set($produk);
 
             // Tambahkan kembali produk ke order node
@@ -186,7 +186,7 @@ class PlCallbackController extends Controller
 
     public function sendFonnteOrderToSeller($order, $orderId)
     {
-        $uid = $order['uid_penjual'] ?? null;
+        $uid = $order['uidPenjual'] ?? null;
         if (!$uid) return;
 
         $mitra = $this->database->getReference($this->refMitras)
@@ -195,7 +195,7 @@ class PlCallbackController extends Controller
         if (!$mitra || empty($mitra['noTelp'])) return;
 
         $msg = "Halo {$mitra['namaLengkap']}, pesanan baru berhasil dibayar. Order ID: $orderId\n" .
-            "Proses segera ya. Buka dashboard: http://sasindai.sascode.my.id/masuk";
+            "Proses segera ya. Buka dashboard: http://sasindai.my.id/produk";
 
         Http::withHeaders(['Authorization' => config('services.fonnte.token_fonnte')])
             ->post('https://api.fonnte.com/send', [
@@ -219,9 +219,11 @@ class PlCallbackController extends Controller
         foreach ($produk as $item) {
             $id = $item['idProduk'] ?? null;
             $idVarian = $item['idVarian'] ?? null;
+            $namaVarian = $item['namaVarian'] ?? null;
             $qty = $item['qty'] ?? 0;
 
-            Log::info("Menghapus keranjang di varian: $idVarian, produk: $id, qty: $qty");
+            $encodedVarian = $idVarian;
+            Log::info("Menghapus keranjang di varian: $idVarian");
 
             if (!$id || !$idVarian || $qty <= 0) continue;
 
@@ -241,12 +243,12 @@ class PlCallbackController extends Controller
             $ref->set($data);
 
             if ($tipe !== 'beli_sekarang') {
-                $this->database->getReference("keranjang/$uid/$id/$idVarian")->remove();
+                $this->database->getReference("keranjang/$uid/$id/$idVarian/$namaVarian")->remove();
             }
         }
     }
 
-    public function kembalikanStok($uid, $produk, $tipe)
+    public function kembalikanStokDanRestoreKeranjang($uid, $produk, $tipe)
     {
         foreach ($produk as $item) {
             $id = $item['idProduk'] ?? null;
