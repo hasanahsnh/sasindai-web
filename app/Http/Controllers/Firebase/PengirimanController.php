@@ -16,7 +16,7 @@ use Kreait\Firebase\Exception\FirebaseException;
 class PengirimanController extends Controller
 {
     protected $database;
-    protected $refTableName;
+    protected $refTableName, $refTableNamePengiriman;
     protected $auth;
     protected $storage;
 
@@ -24,6 +24,7 @@ class PengirimanController extends Controller
         $this->database = $database;
         $this->auth = $auth;
         $this->refTableName = 'orders';
+        $this->refTableNamePengiriman = 'pengiriman';
         $this->storage = $storage;
     }
 
@@ -87,7 +88,7 @@ class PengirimanController extends Controller
             'resi_pesanan' => 'required',
         ]);
 
-        $idPengiriman = $this->database->getReference($this->refTableName)->push()->getKey();
+        $idPengiriman = (string) Str::uuid();
 
         $postData = [
             'idPengiriman' => $idPengiriman,
@@ -96,7 +97,7 @@ class PengirimanController extends Controller
             'resi_pesanan' => $request->resi_pesanan
         ];
 
-        $this->database->getReference("{$this->refTableName}/{$idPengiriman}")->set($postData);
+        $this->database->getReference("{$this->refTableNamePengiriman}/{$idPengiriman}")->set($postData);
 
         $this->database->getReference("orders/{$request->id_pesanan}/statusPesanan")->set('dikirim');
 
