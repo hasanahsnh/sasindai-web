@@ -227,13 +227,16 @@ class PlCallbackController extends Controller
 
             $ref = $this->database->getReference("produk/$id");
             $data = $ref->getValue();
-            if (!$data || !isset($data['varian'])) continue;
+            if (!$data || !isset($data['varian'])) {
+                Log::warning("Produk atau varian tidak ditemukan: $id, $idVarian");
+                continue;
+            };
 
-            foreach ($data['varian'] as $i => $v) {
-                if (strcasecmp($v['nama'], $idVarian) === 0) {
-                    $data['varian'][$i]['stok'] = max(0, $v['stok'] - $qty);
-                    break;
-                }
+            if (isset($data['varian'][$idVarian])) {
+                $data['varian'][$idVarian]['stok'] = max(0, $data['varian'][$idVarian]['stok'] - $qty);
+            } else {
+                Log::warning("Varian dengan ID $idVarian tidak ditemukan dalam produk $id");
+                continue;
             }
 
             $data['sisaStok'] = max(0, ($data['sisaStok'] ?? 0) - $qty);
@@ -241,7 +244,9 @@ class PlCallbackController extends Controller
             $ref->set($data);
 
             if ($tipe !== 'beli_sekarang') {
-                $this->database->getReference("keranjang/$uid/$id/$idVarian")->remove();
+                $path = $this->database->getReference("keranjang/$uid/$id/$idVarian");
+                $path->remove();
+                Log::info("✅ Berhasil menghapus keranjang di path: $path");
             }
         }
     }
