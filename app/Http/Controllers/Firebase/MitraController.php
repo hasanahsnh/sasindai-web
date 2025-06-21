@@ -86,6 +86,7 @@ class MitraController extends Controller
         });
 
         $filteredPesanans = [];
+        $filteredPesananDikirim = [];
 
         if ($pesanans) {
             foreach ($pesanans as $orderId => $pesanan) {
@@ -134,7 +135,7 @@ class MitraController extends Controller
         'totalPesanan',
         'filteredPesanan',
         'totalPesananYangHarusDikirim',
-        'pengirimanAktif'));
+        'pengirimanAktif',));
         
     }
 
