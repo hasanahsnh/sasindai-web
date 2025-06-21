@@ -186,7 +186,7 @@ class PlCallbackController extends Controller
 
     public function sendFonnteOrderToSeller($order, $orderId)
     {
-        $uid = $order['uidPenjual'] ?? null;
+        $uid = $order['uid_penjual'] ?? null;
         if (!$uid) return;
 
         $mitra = $this->database->getReference($this->refMitras)
