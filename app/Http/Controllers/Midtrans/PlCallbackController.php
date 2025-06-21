@@ -92,7 +92,7 @@ class PlCallbackController extends Controller
 
         $uid = $order['uidUser'] ?? $order['uid'] ?? '';
         $produk = $order['produk'] ?? [];
-        $tipe = $order['tipe_checkout'] ?? 'beli_sekarang';
+        $tipe = $order['tipeCheckout'] ?? 'beli_sekarang';
 
         Log::info("Status sebelumnya: $currentStatus, status baru: $status");
 
