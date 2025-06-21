@@ -105,6 +105,7 @@ class ProdukController extends Controller
         }
 
         $uniqueIdProduk = substr($uid, 0, 4) . '_' . Str::slug($request->nama_produk, '_') . '_' . Str::random(4);
+        $uniqueIdVarian = substr($uid, 0, 4) . '_' . Str::slug($request->nama_produk, '_') . '_' . Str::random(4);
         $terjual = 0;
 
         $storage = app('firebase.storage');
@@ -131,8 +132,11 @@ class ProdukController extends Controller
             $gambarFilename = 'varian_gambar/' . $uniqueIdProduk . '_varian_' . $i . '_' . Str::random(8) . '.' . $gambar->getClientOriginalExtension();
             $defaultBucket->upload(file_get_contents($gambar->getRealPath()), ['name' => $gambarFilename]);
             $urlGambarVarian = 'https://storage.googleapis.com/' . $defaultBucket->name() . '/' . $gambarFilename;
+            $idvarian = (string) Str::uuid();
+            // Siapkan data varian
     
             $dataVarian[] = [
+                'idVarian' => $idvarian,
                 'nama' => $namaVarian,
                 'size' => $request->varian['size'][$i],
                 'harga' => (int)$request->varian['harga'][$i],
@@ -190,7 +194,6 @@ class ProdukController extends Controller
             'varian.stok.*' => 'required|integer|min:0',
             'varian.berat' => 'required|array',
             'varian.berat.*' => 'required|numeric|min:0',
-
             'key' => 'required|string'
         ]);
     
@@ -248,6 +251,7 @@ class ProdukController extends Controller
             }
 
             $dataVarian[] = [
+                'idVarian' => $idVarian,
                 'nama' => $namaVarian,
                 'size' => $request->varian['size'][$i],
                 'harga' => (int)$request->varian['harga'][$i],

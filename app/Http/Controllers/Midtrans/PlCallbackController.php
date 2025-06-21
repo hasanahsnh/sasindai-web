@@ -113,7 +113,7 @@ class PlCallbackController extends Controller
         if (in_array($status, ['expired', 'canceled', 'failed']) &&
             !in_array($currentStatus, ['expired', 'canceled', 'failed'])) {
 
-            $this->kembalikanStokDanRestoreKeranjang($uid, $produk, $tipe);
+            $this->kembalikanStok($uid, $produk, $tipe);
             $this->database->getReference("{$this->refOrders}/$key/produk")->set($produk);
 
             // Tambahkan kembali produk ke order node
@@ -186,7 +186,7 @@ class PlCallbackController extends Controller
 
     public function sendFonnteOrderToSeller($order, $orderId)
     {
-        $uid = $order['uidPenjual'] ?? null;
+        $uid = $order['uid_penjual'] ?? null;
         if (!$uid) return;
 
         $mitra = $this->database->getReference($this->refMitras)
@@ -195,7 +195,7 @@ class PlCallbackController extends Controller
         if (!$mitra || empty($mitra['noTelp'])) return;
 
         $msg = "Halo {$mitra['namaLengkap']}, pesanan baru berhasil dibayar. Order ID: $orderId\n" .
-            "Proses segera ya. Buka dashboard: http://sasindai.my.id/produk";
+            "Proses segera ya. Buka dashboard: http://sasindai.sascode.my.id/masuk";
 
         Http::withHeaders(['Authorization' => config('services.fonnte.token_fonnte')])
             ->post('https://api.fonnte.com/send', [
@@ -218,20 +218,19 @@ class PlCallbackController extends Controller
     {
         foreach ($produk as $item) {
             $id = $item['idProduk'] ?? null;
-            $varian = $item['namaVarian'] ?? null;
+            $idVarian = $item['idVarian'] ?? null;
             $qty = $item['qty'] ?? 0;
 
-            $encodedVarian = $varian;
-            Log::info("Menghapus keranjang di varian: $encodedVarian");
+            Log::info("Menghapus keranjang di varian: $idVarian, produk: $id, qty: $qty");
 
-            if (!$id || !$varian || $qty <= 0) continue;
+            if (!$id || !$idVarian || $qty <= 0) continue;
 
             $ref = $this->database->getReference("produk/$id");
             $data = $ref->getValue();
             if (!$data || !isset($data['varian'])) continue;
 
             foreach ($data['varian'] as $i => $v) {
-                if (strcasecmp($v['nama'], $varian) === 0) {
+                if (strcasecmp($v['nama'], $idVarian) === 0) {
                     $data['varian'][$i]['stok'] = max(0, $v['stok'] - $qty);
                     break;
                 }
@@ -242,12 +241,12 @@ class PlCallbackController extends Controller
             $ref->set($data);
 
             if ($tipe !== 'beli_sekarang') {
-                $this->database->getReference("keranjang/$uid/$id/$encodedVarian")->remove();
+                $this->database->getReference("keranjang/$uid/$id/$idVarian")->remove();
             }
         }
     }
 
-    public function kembalikanStokDanRestoreKeranjang($uid, $produk, $tipe)
+    public function kembalikanStok($uid, $produk, $tipe)
     {
         foreach ($produk as $item) {
             $id = $item['idProduk'] ?? null;

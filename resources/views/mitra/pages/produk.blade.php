@@ -207,7 +207,7 @@
                                               @if (!empty($item['varian']))
                                                 @foreach ($item['varian'] as $i => $varian)
                                                 <div class="form-group p-2 mb-2 varian-item" data-index="{{ $i }}" style="border: 1px solid #8D0B41; border-radius: 6px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
-                                                  <input type="hidden" name="varian[id][]" value="{{ $i }}">
+                                                  <input type="hidden" name="varian[id][]" value="{{ $varian['idVarian'] }}">
                                                   <img src="{{ $varian['gambar'] ?? '#' }}" alt="Gambar Varian" class="img-fluid rounded" style="max-height: 150px; margin-bottom: 8px;">
                                                   <label class="d-block text-left mt-15" style="margin-top: 8dp">Nama varian</label>
                                                   <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[nama][]" placeholder="Nama" value="{{ $varian['nama'] ?? '' }}" class="form-control mb-1" required>           
