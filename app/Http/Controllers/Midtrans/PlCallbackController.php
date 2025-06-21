@@ -223,7 +223,10 @@ class PlCallbackController extends Controller
 
             Log::info("Menghapus keranjang di varian: $idVarian" . ", uid: $uid");
 
-            if (!$id || !$idVarian || $qty <= 0) continue;
+            if (!$id || !$idVarian || $qty <= 0) {
+                Log::warning("Data produk tidak lengkap: id=$id, idVarian=$idVarian, qty=$qty");
+                continue;
+            }
 
             $ref = $this->database->getReference("produk/$id");
             $data = $ref->getValue();
@@ -232,16 +235,21 @@ class PlCallbackController extends Controller
                 continue;
             };
 
-            if (isset($data['varian'][$idVarian])) {
-                $data['varian'][$idVarian]['stok'] = max(0, $data['varian'][$idVarian]['stok'] - $qty);
-            } else {
-                Log::warning("Varian dengan ID $idVarian tidak ditemukan dalam produk $id");
+            if (!array_key_exists($idVarian, $data['varian'])) {
+                Log::warning("Varian ID $idVarian tidak ditemukan di produk $id");
                 continue;
             }
 
+            // Kurangi stok varian
+            $stokLama = $data['varian'][$idVarian]['stok'] ?? 0;
+            $stokBaru = max(0, $stokLama - $qty);
+            $data['varian'][$idVarian]['stok'] = $stokBaru;
+
             $data['sisaStok'] = max(0, ($data['sisaStok'] ?? 0) - $qty);
             $data['terjual'] = ($data['terjual'] ?? 0) + $qty;
+
             $ref->set($data);
+            Log::info("Mengurangi stok varian $idVarian: $stokLama -> $stokBaru");
 
             if ($tipe !== 'beli_sekarang') {
                 $path = $this->database->getReference("keranjang/$uid/$id/$idVarian");
