@@ -221,7 +221,7 @@ class PlCallbackController extends Controller
             $idVarian = $item['idVarian'] ?? null;
             $qty = $item['qty'] ?? 0;
 
-            Log::info("Menghapus keranjang di varian: $idVarian" . ", uid: $uid");
+            Log::info("Menghapus keranjang di varian: $idVarian" . ", uid: $uid" . "tipe: $tipe");
 
             if (!$id || !$idVarian || $qty <= 0) {
                 Log::warning("Data produk tidak lengkap: id=$id, idVarian=$idVarian, qty=$qty");
