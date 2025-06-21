@@ -105,7 +105,6 @@ class ProdukController extends Controller
         }
 
         $uniqueIdProduk = substr($uid, 0, 4) . '_' . Str::slug($request->nama_produk, '_') . '_' . Str::random(4);
-        $uniqueIdVarian = substr($uid, 0, 4) . '_' . Str::slug($request->nama_produk, '_') . '_' . Str::random(4);
         $terjual = 0;
 
         $storage = app('firebase.storage');
@@ -135,7 +134,7 @@ class ProdukController extends Controller
             $idvarian = (string) Str::uuid();
             // Siapkan data varian
     
-            $dataVarian[] = [
+            $dataVarian[$idvarian] = [
                 'idVarian' => $idvarian,
                 'nama' => $namaVarian,
                 'size' => $request->varian['size'][$i],
@@ -250,7 +249,7 @@ class ProdukController extends Controller
                 $urlGambarVarian = $produkLama['varian'][$i]['gambar'] ?? null;
             }
 
-            $dataVarian[] = [
+            $dataVarian[$idVarian] = [
                 'idVarian' => $idVarian,
                 'nama' => $namaVarian,
                 'size' => $request->varian['size'][$i],
