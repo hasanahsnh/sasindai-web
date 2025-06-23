@@ -118,7 +118,7 @@ class PlCheckoutController extends Controller
                     'name' => 'Ongkos Kirim',
                 ],
             ],
-            'enabled_payments' => $metodePembayaran ? [$metodePembayaran] : null,
+            'enabled_payments' => !empty($metodePembayaran) ? [$metodePembayaran] : ['qris'],
             'expiry' => [
                 'duration' => 1,
                 'unit' => 'days',
