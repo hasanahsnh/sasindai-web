@@ -71,12 +71,14 @@
                               <option value="">Semua</option>
                               <option value="menunggu pembayaran" {{ request('status_pesanan') == 'menunggu pembayaran' ? 'selected' : '' }}>Menunggu Pembayaran</option>
                               <option value="dikemas" {{ request('status_pesanan') == 'dikemas' ? 'selected' : '' }}>Dikemas</option>
-                              <option value="cancel" {{ request('status_pesanan') == 'cancel' ? 'selected' : '' }}>Dibatalkan</option>
+                              <option value="cancel" {{ request('status_pesanan') == 'dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
+                              <option value="dikirim" {{ request('status_pesanan') == 'dikirim' ? 'selected' : '' }}>Dikirim</option>
+                              <option value="pesanan diterima" {{ request('status_pesanan') == 'pesanan diterima' ? 'selected' : '' }}>Pesanan Diterima</option>
                           </select>
 
                           {{-- Tombol Filter --}}
                           <button type="submit"
-                                  title="Filter Data"
+                                  title="Terapkan Filter"
                                   style="background-color: #8D0B41; padding: 10px; border-radius: 5px; border: none; margin-right: 15px;">
                               <i class="fas fa-filter" style="color: white;"></i>
                           </button>
@@ -132,6 +134,10 @@
                                                       case 'dibatalkan':
                                                           $class = 'status-cancel';
                                                           $text = 'Dibatalkan';
+                                                          break;
+                                                      case 'pesanan diterima':
+                                                          $class = 'status-diterima';
+                                                          $text = 'Pesanan Diterima';
                                                           break;
                                                       default:
                                                           $class = 'status-default';

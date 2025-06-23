@@ -67,6 +67,7 @@
                               <th>ID Pesanan</th>
                               <th>Status Pesanan</th>
                               <th>Status Pembayaran</th>
+                              <th>Status Pengiriman</th>
                               <th>Telah dibayar pada</th>
                             </tr>
                           </thead>
@@ -145,6 +146,9 @@
                                               </p>
                                             </td>
                                             <td>
+                                              {{ $item['statusPengiriman'] ?? 'Status pengiriman tidak ditemukan'}}
+                                            </td>
+                                            <td>
                                               <p style="display: inline-block; font-size: 14px;">
                                                 {{ $item['updated_at'] ?? 'Waktu pembayaran tidak ditemukan'}}
                                               </p>
@@ -153,7 +157,7 @@
                               @endforeach
                               @else
                               <tr>
-                                <td colspan="6" class="text-center">Tidak ada data pesanan.</td>
+                                <td colspan="6" class="text-center">Tidak ada data pengiriman.</td>
                               </tr>
                             @endif
                           </tbody>

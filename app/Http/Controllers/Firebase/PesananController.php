@@ -46,11 +46,6 @@ class PesananController extends Controller
 
         foreach ($dataPesanans as $key => $item) {
 
-            // Kecualikan status "dikirim"
-            if (isset($item['statusPesanan']) && strtolower($item['statusPesanan']) === 'dikirim') {
-                continue;
-            }
-
             // Terapkan filter status pesanan jika ada
             if ($statusPesananFilter && strtolower($item['statusPesanan'] ?? '') !== strtolower($statusPesananFilter)) {
                 continue;

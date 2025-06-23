@@ -94,7 +94,8 @@ class PengirimanController extends Controller
             'idPengiriman' => $idPengiriman,
             'idPesanan' => $request->id_pesanan,
             'kurirPesanan' => $request->kurir_pesanan,
-            'resi_pesanan' => $request->resi_pesanan
+            'resiPesanan' => $request->resi_pesanan,
+            'statusPengiriman' => 'Aktif'
         ];
 
         $this->database->getReference("{$this->refTableNamePengiriman}/{$idPengiriman}")->set($postData);
