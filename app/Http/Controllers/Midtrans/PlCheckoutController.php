@@ -123,7 +123,7 @@ class PlCheckoutController extends Controller
                 'duration' => 1,
                 'unit' => 'days',
             ],
-            'notification_url' => 'https://1b07-114-122-213-59.ngrok-free.app/api/midtrans/cpl_callback'
+            'notification_url' => 'https://sasindai.sascode.my.id/api/midtrans/cpl_callback',
         ];
 
         $response = Http::withHeaders([
@@ -132,6 +132,7 @@ class PlCheckoutController extends Controller
         ])->post('https://api.sandbox.midtrans.com/v1/payment-links', $body);
 
         if ($response->successful()) {
+            Log::info('Payload ke Midtrans', $body);
             $paymentUrl = $response->json('payment_url');
 
             // Simpan payment_url ke Firebase
