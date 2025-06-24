@@ -78,9 +78,8 @@
                 </div> <!-- end home-content__left-->
 
                 <div class="home-content__right">
-                    <img src="{{ asset('pengunjung/images/sasindai-hp4.png') }}" style="width: 600px; height: auto; object-fit: cover;" srcset="{{ asset('pengunjung/images/sasindai-hp4.png 1x, pengunjung/images/sasindai-hp4.png 2x') }}">
+                    <img src="{{ asset('pengunjung/images/mockup.png') }}" style="width: 600px; height: auto; object-fit: cover;" srcset="{{ asset('pengunjung/images/mockup.png 1x, pengunjung/images/mockup.png 2x') }}">
                 </div> <!-- end home-content__right -->
-
             </div> <!-- end home-content__main -->
 
             <ul class="home-content__social">

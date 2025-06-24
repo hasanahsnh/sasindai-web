@@ -121,70 +121,111 @@ a:active {
  * # typography & general theme styles
  * 
  * ------------------------------------------------------------------- */
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
   font-family: "Poppins";
   font-weight: 600;
   color: #000000;
   text-rendering: optimizeLegibility;
 }
 
-h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4 {
   margin-top: 6rem;
   margin-bottom: 1.6rem;
 }
 
 @media only screen and (max-width:600px) {
-  h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
+
+  h1,
+  .h1,
+  h2,
+  .h2,
+  h3,
+  .h3,
+  h4,
+  .h4 {
     margin-top: 5.6rem;
   }
 }
 
-h5, .h5, h6, .h6 {
+h5,
+.h5,
+h6,
+.h6 {
   margin-top: 4.8rem;
   margin-bottom: 1.2rem;
 }
 
 @media only screen and (max-width:600px) {
-  h5, .h5, h6, .h6 {
+
+  h5,
+  .h5,
+  h6,
+  .h6 {
     margin-top: 4rem;
     margin-bottom: 0.8rem;
   }
 }
 
-h1, .h1 {
+h1,
+.h1 {
   font-size: 3.6rem;
   line-height: 1.222;
   letter-spacing: -.05rem;
 }
 
 @media only screen and (max-width:600px) {
-  h1, .h1 {
+
+  h1,
+  .h1 {
     font-size: 3.3rem;
     letter-spacing: -.07rem;
   }
 }
 
-h2, .h2 {
+h2,
+.h2 {
   font-size: 3rem;
   line-height: 1.2;
 }
 
-h3, .h3 {
+h3,
+.h3 {
   font-size: 2.4rem;
   line-height: 1.333;
 }
 
-h4, .h4 {
+h4,
+.h4 {
   font-size: 2.1rem;
   line-height: 1.333;
 }
 
-h5, .h5 {
+h5,
+.h5 {
   font-size: 1.8rem;
   line-height: 1.333;
 }
 
-h6, .h6 {
+h6,
+.h6 {
   font-size: 1.6rem;
   line-height: 1.25;
   text-transform: uppercase;
@@ -324,7 +365,7 @@ code {
   border-radius: 4px;
 }
 
-pre > code {
+pre>code {
   display: block;
   white-space: pre;
   line-height: 2;
@@ -332,7 +373,7 @@ pre > code {
   margin: 0;
 }
 
-pre.prettyprint > code {
+pre.prettyprint>code {
   border: none;
 }
 
@@ -589,7 +630,7 @@ form,
   transform: translate3d(-50%, -50%, 0);
 }
 
-#loader > div {
+#loader>div {
   content: "";
   background: #8D0B41;
   width: 6px;
@@ -600,26 +641,26 @@ form,
   border-radius: 50%;
 }
 
-#loader > div:nth-of-type(1) {
+#loader>div:nth-of-type(1) {
   left: 15px;
 }
 
-#loader > div:nth-of-type(3) {
+#loader>div:nth-of-type(3) {
   left: -15px;
 }
 
 /* dots jump */
-.dots-jump > div {
+.dots-jump>div {
   -webkit-animation: dots-jump 1.2s infinite ease;
   animation: dots-jump 1.2s infinite ease;
   animation-delay: 0.2s;
 }
 
-.dots-jump > div:nth-of-type(1) {
+.dots-jump>div:nth-of-type(1) {
   animation-delay: 0.4s;
 }
 
-.dots-jump > div:nth-of-type(3) {
+.dots-jump>div:nth-of-type(3) {
   animation-delay: 0s;
 }
 
@@ -654,17 +695,17 @@ form,
 }
 
 /* dots fade */
-.dots-fade > div {
+.dots-fade>div {
   -webkit-animation: dots-fade 1.6s infinite ease;
   animation: dots-fade 1.6s infinite ease;
   animation-delay: 0.4s;
 }
 
-.dots-fade > div:nth-of-type(1) {
+.dots-fade>div:nth-of-type(1) {
   animation-delay: 0.8s;
 }
 
-.dots-fade > div:nth-of-type(3) {
+.dots-fade>div:nth-of-type(3) {
   animation-delay: 0s;
 }
 
@@ -699,17 +740,17 @@ form,
 }
 
 /* dots pulse */
-.dots-pulse > div {
+.dots-pulse>div {
   -webkit-animation: dots-pulse 1.2s infinite ease;
   animation: dots-pulse 1.2s infinite ease;
   animation-delay: 0.2s;
 }
 
-.dots-pulse > div:nth-of-type(1) {
+.dots-pulse>div:nth-of-type(1) {
   animation-delay: 0.4s;
 }
 
-.dots-pulse > div:nth-of-type(3) {
+.dots-pulse>div:nth-of-type(3) {
   animation-delay: 0s;
 }
 
@@ -873,15 +914,15 @@ input[type="radio"] {
   display: inline;
 }
 
-label > .label-text {
+label>.label-text {
   display: inline-block;
   margin-left: 1rem;
   font-family: "Poppins";
   line-height: inherit;
 }
 
-label > input[type="checkbox"],
-label > input[type="radio"] {
+label>input[type="checkbox"],
+label>input[type="radio"] {
   margin: 0;
   position: relative;
   top: .2rem;
@@ -939,11 +980,9 @@ label > input[type="radio"] {
  * ------------------------------------------------------------------- */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
-input:-webkit-autofill:focus
-input:-webkit-autofill,
+input:-webkit-autofill:focus input:-webkit-autofill,
 textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover
-textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
@@ -1154,17 +1193,17 @@ input::-moz-focus-inner {
   margin: 0;
 }
 
-.lining dt + dt:before,
-.lining dd + dt:before {
+.lining dt+dt:before,
+.lining dd+dt:before {
   content: "\A";
   white-space: pre;
 }
 
-.lining dd + dd:before {
+.lining dd+dd:before {
   content: ", ";
 }
 
-.lining dd + dd:before {
+.lining dd+dd:before {
   content: ", ";
 }
 
@@ -1180,7 +1219,7 @@ input::-moz-focus-inner {
   counter-reset: definitions;
 }
 
-.dictionary-style dt + dt:before {
+.dictionary-style dt+dt:before {
   content: ", ";
   margin-left: -0.2em;
 }
@@ -1689,7 +1728,7 @@ input::-moz-focus-inner {
   top: 24px;
 }
 
-.s-header > .row {
+.s-header>.row {
   max-width: 1300px;
   height: 78px;
   position: relative;
@@ -1800,16 +1839,16 @@ input::-moz-focus-inner {
 }
 
 .header-cta__btn {
-    background-color: #8D0B41;
-    color: white;
-    border: none;
-    outline: none;
-    transition: all 0.3s ease;
+  background-color: #8D0B41;
+  color: white;
+  border: none;
+  outline: none;
+  transition: all 0.3s ease;
 }
 
 .header-cta__btn:hover {
-    background-color: white;
-    color: #8D0B41;
+  background-color: white;
+  color: #8D0B41;
 }
 
 
@@ -1955,7 +1994,7 @@ input::-moz-focus-inner {
     top: 0;
   }
 
-  .s-header > .row {
+  .s-header>.row {
     width: 100%;
     padding: 0 !important;
   }
@@ -2811,7 +2850,7 @@ html.no-csstransitions .home-content__main {
   overflow: hidden;
   height: 62.4rem;
   margin-top: calc((62.4rem/2) * -1);
-  background-image: url(../images/sasindai-hp1.png);
+  background-image: url(../images/mockup2.png);
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
