@@ -75,6 +75,11 @@
                       <i class="mdi mdi-plus-box" style="font-size: 20px; vertical-align: middle; margin-right: 5px; color:#8D0B41"></i>
                         TAMBAH MODEL 3D
                     </a>
+                    <a type="button" href="https://www.youtube.com/embed/Ku7kvhRWXjs?si=hrb_lmyfr8r3HMKp" target="_blank"
+                    style="font-size:14px; margin-right: 30px; color:#8D0B41; display: flex; align-items: center; text-decoration: none;">
+                      <i class="fas fa-external-link-alt" style="font-size: 16px; vertical-align: middle; margin-right: 5px; color:#8D0B41"></i>
+                        TUTORIAL MEMBUAT MODEL 3D
+                    </a>
                   </div>
 
                   <!-- Dropdown Menu for smaller screens -->
@@ -87,6 +92,10 @@
                           <a class="dropdown-item" type="button" data-toggle="modal" data-target="#modalTambah" onclick="setRedirectUrl('{{ route('tambah-berita') }}')">
                               <i class="mdi mdi-plus-box" style="font-size: 20px; vertical-align: middle; margin-right: 5px; color:#8D0B41"></i>
                               TAMBAH MODEL 3D
+                          </a>
+                          <a class="dropdown-item" type="button" href="https://www.youtube.com/embed/Ku7kvhRWXjs?si=hrb_lmyfr8r3HMKp" target="_blank">
+                              <i class="fas fa-external-link-alt" style="font-size: 16px; vertical-align: middle; margin-right: 5px; color:#8D0B41"></i>
+                              TUTORIAL MEMBUAT MODEL 3D
                           </a>
                       </div>
                     </div>

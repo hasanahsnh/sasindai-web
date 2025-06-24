@@ -251,8 +251,6 @@ class MitraController extends Controller
             'nama_toko' => 'required|string|max:50',
             'alamat_toko' => 'required|string|max:255',
             'no_telepon' => 'required|max:16',
-            'bank' => 'required',
-            'no_rekening' => 'required',
         ]);
 
         $uid = session('session.uid');
@@ -271,12 +269,11 @@ class MitraController extends Controller
         $data = [
             'uid' => $uid,
             'idToko' => $uniqueIdToko,
+            'email' => $request->email,
             'namaLengkap' => $namaLengkap,
             'namaToko' => $request->nama_toko,
             'alamatToko' => $request->alamat_toko,
             'noTelp' => $request->no_telepon,
-            'bank' => $request->bank,
-            'noRekening' => $request->no_rekening,
             'statusVerifikasiToko' => 'pending'
         ];
 

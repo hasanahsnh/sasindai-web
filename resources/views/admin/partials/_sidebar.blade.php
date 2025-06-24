@@ -29,7 +29,7 @@
             <div class="collapse" id="layanan">
               <ul class="nav flex-column sub-menu">                            
                 <li class="nav-item"> <a class="nav-link" href="{{ route('layanan.fitur.aplikasi') }}">Kelola Layanan</a></li>    
-                <li class="nav-item"> <a class="nav-link" href="{{ route('push.notifikasi') }}">Push Notifikasi</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('push.notifikasi') }}">Push Broadcast Notifikasi</a></li>
               </ul>
             </div>
           </li>
