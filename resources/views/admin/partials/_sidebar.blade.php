@@ -7,12 +7,6 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('/ka-pasar') }}">
-              <i class="mdi mdi-briefcase-outline menu-icon"></i>
-              <span class="menu-title">Mitra Sasindai</span>
-            </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#post" aria-expanded="false" aria-controls="ui-basic">
               <i class="mdi mdi-newspaper menu-icon"></i>
               <span class="menu-title">Unggahan</span>
