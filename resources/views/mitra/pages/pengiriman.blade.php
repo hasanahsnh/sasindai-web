@@ -146,9 +146,6 @@
                                               </p>
                                             </td>
                                             <td>
-                                              {{ $item['statusPengiriman'] ?? 'Status pengiriman tidak ditemukan'}}
-                                            </td>
-                                            <td>
                                               <p style="display: inline-block; font-size: 14px;">
                                                 {{ $item['updated_at'] ?? 'Waktu pembayaran tidak ditemukan'}}
                                               </p>
