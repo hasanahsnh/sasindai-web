@@ -2,7 +2,7 @@
         <ul class="nav">
           <li class="nav-item">
             <a class="nav-link" href="{{ url('/home') }}">
-              <i class="mdi mdi-view-dashboard-outline menu-icon"></i>
+              <i class="mdi mdi-view-dashboard menu-icon"></i>
               <span class="menu-title">Overview</span>
             </a>
           </li>
@@ -27,6 +27,19 @@
             </div>
           </li>
           <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#layanan" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-tooltip menu-icon"></i>
+              <span class="menu-title">Layanan</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="layanan">
+              <ul class="nav flex-column sub-menu">                            
+                <li class="nav-item"> <a class="nav-link" href="{{ route('layanan.fitur.aplikasi') }}">Kelola Layanan</a></li>    
+                <li class="nav-item"> <a class="nav-link" href="{{ route('push.notifikasi') }}">Push Notifikasi</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#user-management" aria-expanded="false" aria-controls="ui-basic">
               <i class="mdi mdi-account-multiple menu-icon"></i>
               <span class="menu-title">Users</span>
@@ -39,17 +52,6 @@
               </ul>
             </div>
           </li>
-          <!--<li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#app-management" aria-expanded="false" aria-controls="ui-basic">
-              <i class="mdi mdi-android menu-icon"></i>
-              <span class="menu-title">Analisis Data Aplikasi</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="app-management">
-              <ul class="nav flex-column sub-menu">
-              </ul>
-            </div>
-          </li>-->
           <li class="nav-item">
             <form id="logout-form" action="{{ route('keluar') }}" method="POST" style="display: none;">
                 @csrf

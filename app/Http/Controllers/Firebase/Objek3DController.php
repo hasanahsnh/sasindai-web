@@ -37,9 +37,22 @@ class Objek3DController extends Controller
             $dataMitraProfileRef = $this->database->getReference('mitra/' . $uid);
             $dataMitraProfile = $dataMitraProfileRef->getValue();
 
-            $statusVerifikasi = $dataMitraProfile['statusVerifikasiToko'] ?? 'pending';
+            $tokoBelumLengkap = false;
+            $statusVerifikasi = null;
 
-            return view('mitra.pages.input-objek-3d', compact('objek3d', 'statusVerifikasi'));
+            if (!$dataMitraProfile) {
+                // Belum isi data toko
+                $tokoBelumLengkap = true;
+            } else {
+                // Sudah isi, cek statusnya
+                $statusVerifikasi = $mitraProfile['statusVerifikasiToko'] ?? 'pending';
+
+                if ($statusVerifikasi !== 'accepted') {
+                    $tokoBelumLengkap = true;
+                }
+            }
+
+            return view('mitra.pages.input-objek-3d', compact('objek3d', 'statusVerifikasi', 'tokoBelumLengkap'));
         }
 
         if ($role === 'ROLE_ADMIN') {

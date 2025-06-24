@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('css/alerts/style-success.css') }}">
   <link rel="stylesheet" href="{{ asset('css/alerts/style-error.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/alerts/style-floating.css') }}">
+
   <!-- endinject -->
   <link rel="shortcut icon" href="{{ asset('pengunjung/images/sascode-logo.jpg') }}">
   <!-- Font Awesome -->
@@ -39,6 +41,12 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+
+          <div id="statusAlert" class="floating-alert-error-web" style="display: none; font-size: 14px;">
+            <div class="alert-content">
+                Status toko Anda belum terverifikasi.
+            </div>
+          </div>
 
           @if(session('success'))
           <div class="custom-alert-success">
@@ -285,6 +293,25 @@
   </div>
   <!-- container-scroller -->
 
+  <script>
+    function checkTokoStatus(status) {
+        if (status !== 'accepted') {
+            const alertBox = document.getElementById('statusAlert');
+            alertBox.style.display = 'block';
+    
+            // Auto close after 4s
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 4000);
+
+            return false;
+        } else {
+            // Redirect ke halaman tambah produk
+            window.location.href = "{{ route('produk') }}";
+            return true;
+        }
+    }
+  </script>
 
   <script>
     function resetForm(formId) {

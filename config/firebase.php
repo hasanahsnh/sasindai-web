@@ -51,7 +51,7 @@ return [
              */
 
             'credentials' => [
-                'file' => env('FIREBASE_CREDENTIALS', storage_path('sascode-aa3b7-firebase-adminsdk-8s9ya-3a08af82e2.json')),
+                'file' => base_path(env('FIREBASE_CREDENTIALS')),
             ],
 
             /*

@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('css/alerts/style-success.css') }}">
   <link rel="stylesheet" href="{{ asset('css/alerts/style-error.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/alerts/style-floating.css') }}">
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -45,6 +46,13 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+
+          <div id="statusAlert" class="floating-alert-error-web" style="display: none; font-size: 14px;">
+            <div class="alert-content">
+                Status toko Anda belum terverifikasi.
+            </div>
+          </div>
+  
 
           @if(session('success'))
           <div class="custom-alert-success">

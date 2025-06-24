@@ -26,6 +26,34 @@
     font-family: "Poppins";
 }
 
+.floating-alert-error-web,
+.floating-alert-success-web {
+    position: fixed;
+    top: 8%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    z-index: 9999;
+    font-size: 16px;
+    min-width: 250px;
+    text-align: center;
+    animation: fadeInOut 4s ease-in-out;
+}
+
+.floating-alert-success-web {
+    background-color: #F3F3F3;
+    color: #41ff6e;
+    font-family: "Poppins";
+}
+
+.floating-alert-error-web {
+    background-color: #F3F3F3;
+    color: #ff4e60;
+    font-family: "Poppins";
+}
+
 @keyframes fadeInOut {
     0%   { opacity: 0; transform: translate(-50%, -60%); }
     10%  { opacity: 1; transform: translate(-50%, -50%); }

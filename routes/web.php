@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\FCM\PushNotifikasiController;
 use App\Http\Controllers\Firebase\BeritaController;
 use App\Http\Controllers\Firebase\IndexController;
 use App\Http\Controllers\Firebase\KatalogController;
+use App\Http\Controllers\Firebase\LayananDanFiturAplikasiController;
 use App\Http\Controllers\Firebase\LoginController;
 use App\Http\Controllers\Firebase\MitraController;
 use App\Http\Controllers\Firebase\Objek3DController;
@@ -119,6 +121,16 @@ Route::middleware(['admin'])->group(function () {
         return view('pages.beranda-apk');
     });
 
+    // Layanan dan Fitur Aplikasi Section
+    Route::get('/layanan-fitur-aplikasi', [LayananDanFiturAplikasiController::class, 'index'])->name('layanan.fitur.aplikasi');
+    Route::post('/tambah-layanan', [LayananDanFiturAplikasiController::class, 'tambahLayanan'])->name('tambah.layanan');
+    Route::post('/perbarui-status-layanan', [LayananDanFiturAplikasiController::class, 'perbaruiStatusLayanan'])->name('perbarui.status.layanan');
+
+    // Notifikasi Section
+    Route::get('/push-notifikasi', [PushNotifikasiController::class, 'index'])->name('push.notifikasi');
+    Route::post('/kirim-notifikasi', [PushNotifikasiController::class, 'store'])->name('push.notifikasi.store');
+    Route::delete('/hapus-notifikasi/{id}', [PushNotifikasiController::class, 'hapusNotifikasi'])->name('hapus.notifikasi');
+
 });
 
 
@@ -146,6 +158,7 @@ Route::middleware(['mitra'])->group(function () {
     Route::post('/input-resi', [PengirimanController::class, 'createPengiriman'])->name('input.resi');
 
     Route::get('/print-rincian-pesanan/{order_id}', [PesananController::class, 'printRincianPesanan'])->name('print.rincian.pesanan');
+    
 });
 
 // Middleware admin atau mitra untuk input model 3d

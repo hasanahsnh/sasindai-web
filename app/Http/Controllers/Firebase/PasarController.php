@@ -23,11 +23,6 @@ class PasarController extends Controller
     function index() {
         $pasars = $this->database->getReference($this->refTableName)->getValue();
         return view('admin.pages.ka-pasar', compact('pasars'));
-
-    }
-
-    function tambahProdukMitra(Request $request) {
-        
     }
 
     function countPasar() {

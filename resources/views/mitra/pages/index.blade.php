@@ -40,12 +40,11 @@
       <div class="main-panel">
         <div class="content-wrapper">
 
-          <div id="statusAlert" class="floating-alert-error" style="display: none; font-size: 14px;">
+          <div id="statusAlert" class="floating-alert-error-web" style="display: none; font-size: 14px;">
             <div class="alert-content">
-                Status toko Anda belum terverifikasi. Anda tidak dapat menambahkan produk.
+                Status toko Anda belum terverifikasi.
             </div>
           </div>
-
 
           @if ($tokoBelumLengkap)
           <div style="width: 100%; background-color: #ffe5e5; border-left: 5px solid #f44336; padding: 16px; margin-bottom: 27px; font-size: 14px;">
@@ -64,7 +63,6 @@
                   </div>
               </div>
           </div>
-
           @endif        
 
           <div class="row"> 
@@ -249,7 +247,6 @@
                                             <td>
                                               @php
                                                   $statusBayar = strtolower($item['status'] ?? 'tidak diketahui');
-
                                                   switch ($statusBayar) {
                                                       case 'pending':
                                                           $class = 'status-pending';
