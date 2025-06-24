@@ -29,8 +29,8 @@ class PlCallbackController extends Controller
 
         $orderId = $input['order_id'] ?? '';
         $signature = $input['signature_key'] ?? '';
-        //$transactionStatus = $input['payload']['transaction_status'] ?? '';
-        $statusCode = $input['status_code'] ?? '';
+        $transactionStatus = $input['transaction_status'] ?? '';
+        //$statusCode = $input['status_code'] ?? '';
         $gross = $input['gross_amount'] ?? '';
         if (!$orderId) {
             Log::warning('order_id tidak tersedia di callback');
@@ -60,7 +60,7 @@ class PlCallbackController extends Controller
         $this->prosesLanjutan([
             'order_id' => $orderId,
             'gross_amount' => $gross,
-            'transaction_status' => $transaction['transaction_status'] ?? 'unknown'
+            'transaction_status' => $transaction['transaction_status'] ?? $transactionStatus,
         ]);
 
         return response()->json(['status' => 'ok']);
@@ -76,6 +76,7 @@ class PlCallbackController extends Controller
             return;
         }
 
+        Log::info("Proses callback untuk Order: $orderId, data: ", $data);
         $midtransStatus = $data['transaction_status'] ?? 'pending';
         $status = $this->mapTransactionStatus($midtransStatus);
         $statusPesanan = $this->mapStatusPesanan($status);
