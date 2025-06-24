@@ -92,7 +92,7 @@
                         <th>Sumber Arti</th>
                         <th>Gambar Motif</th>
                         <th>Sumber Gambar</th>
-                        <th>Tindakan</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -166,7 +166,7 @@
                                             </div>
                                           </div>
                                           <button type="submit" class="btn btn-primary mr-2">Update</button>
-                                          <button class="btn btn-light" data-dismiss="modal" onclick="clearForm('formEdit{{ $key }}')">Cancel</button>
+                                          <button class="btn btn-light" data-dismiss="modal" onclick="clearForm('formEdit{{ $key }}')">Batal</button>
                                         </form>
                                       </div>
                                   </div>

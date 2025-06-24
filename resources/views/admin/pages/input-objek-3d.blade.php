@@ -96,7 +96,7 @@
                         <th>Diunggah oleh</th>
                         <th>Diunggah pada</th>
                         <th>Diperbarui pada</th>
-                        <th>Action</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>

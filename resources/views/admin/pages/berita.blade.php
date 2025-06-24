@@ -96,7 +96,7 @@
                         <th>Foto Berita</th>
                         <th>Dibuat pada</th>
                         <th>Diperbarui pada</th>
-                        <th>Action</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
