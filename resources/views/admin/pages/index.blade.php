@@ -74,9 +74,9 @@
                     <li class="nav-item">
                       <a class="nav-link" id="akun-tab" data-toggle="tab" href="#akun" role="tab" aria-controls="akun" aria-selected="false">TENTANG AKUN</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                       <a class="nav-link" id="riwayat-tab" data-toggle="tab" href="#riwayat" role="tab" aria-controls="akun" aria-selected="false">RIWAYAT LOGIN</a>
-                    </li>
+                    </li>-->
                   </ul>
                   <div class="tab-content py-0 px-0">
                     <!-- Bagian Overview -->
@@ -222,7 +222,7 @@
                       </div>
                     </div>
 
-                    <!-- Bagian aktivitas login -->
+                    <!-- Bagian aktivitas login 
                     <div class="tab-pane fade" id="riwayat" role="tabpanel" aria-labelledby="riwayat-tab">
                       <h4 style="margin-left: 20px; margin-top: 20px; color: #522258;">Riwayat Login</h4>
                       <div class="d-flex flex-wrap justify-content-xl-between" style="padding: 20px">
@@ -242,7 +242,7 @@
                           </table>
                         </div>
                       </div>
-                    </div>
+                    </div>-->
 
                   </div>
                 </div>
