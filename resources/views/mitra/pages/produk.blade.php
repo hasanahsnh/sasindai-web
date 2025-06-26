@@ -215,7 +215,7 @@
                                                   <input type="file" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[gambar][]" placeholder="Gambar produk" value="{{ $varian['gambar'] ?? '' }}" class="form-control mb-1">    
                                                   <label class="d-block text-left">Ukuran</label>
                                                   <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[size][]" placeholder="Ukuran" value="{{ $varian['size'] ?? '' }}" class="form-control mb-1" required>
-                                                  <label class="d-block text-left">Harga</label>
+                                                  <label class="d-block text-left">Harga varian (Cth: 35000, hindari tanda koma (,) dan titik (.))</label>
                                                   <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[harga][]" placeholder="Harga" value="{{ $varian['harga'] ?? 0 }}" class="form-control mb-1" required>
                                                   <label class="d-block text-left">Stok tersedia</label>
                                                   <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[stok][]" placeholder="Stok" value="{{ $varian['stok'] ?? 0 }}" class="form-control mb-1" required>
@@ -382,7 +382,7 @@
                                           <input type="text" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[size][]" class="form-control" placeholder="Ukuran produk" required>
                                         </div>
                                         <div class="mb-2">
-                                          <label class="d-block text-left mt-15" style="margin-top: 8dp">Harga varian (Cth: 1000 atau 1.000, hindari tanda koma (,))</label>
+                                          <label class="d-block text-left mt-15" style="margin-top: 8dp">Harga varian (Cth: 35000, hindari tanda koma (,) dan titik (.))</label>
                                           <input type="number" style="border: 1px solid #8D0B41; border-radius: 4px;" name="varian[harga][]" class="form-control" placeholder="Harga Varian" min="0" required>
                                         </div>
                                         <div class="mb-2">
