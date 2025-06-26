@@ -71,6 +71,11 @@ Route::get('/api-key-update', function () {
     ]);
 });
 
+// form kepuasan
+Route::get('/form-kepuasan', function () {
+    return view('kuesioner-kepuasan-pengguna');
+});
+
 // Middleware admin
 Route::middleware(['admin'])->group(function () {
     // Beranda
