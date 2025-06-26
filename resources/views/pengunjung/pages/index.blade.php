@@ -107,9 +107,7 @@
                     Apa itu SASINDAI ?
                 </h1>
                 <p class="lead">
-                    Sasindai adalah aplikasi edukatif berbasis Android yang dirancang untuk memperkenalkan motif kain Sasirangan, 
-                    warisan budaya khas Kalimantan Selatan. Aplikasi ini menggabungkan teknologi modern seperti Augmented Reality (AR) untuk memberikan pengalaman 
-                    interaktif dan menarik bagi pengguna dalam mempelajari filosofi, jenis, serta penggunaan motif-motif Sasirangan.
+                    Sasindai adalah aplikasi lapak online edukatif berbasis Android yang dikembangkan oleh Toko Thiesa (By Thiesa) untuk memperkenalkan arti di balik motif kain Sasirangan sebagai warisan budaya khas Kalimantan Selatan. Aplikasi ini memadukan teknologi modern seperti Augmented Reality (AR) untuk menampilkan produk kain Sasirangan secara nyata, serta menyediakan fitur katalog tentang setiap motif kain. Dengan Sasindai, pengguna dapat belajar tentang sejarah, makna, dan keindahan kain Sasirangan dengan cara yang interaktif dan menyenangkan. Aplikasi ini bertujuan untuk melestarikan dan mempromosikan budaya lokal melalui teknologi digital, sehingga generasi muda dapat lebih mengenal dan mencintai warisan budaya mereka.
                 </p>
             </div>
         </div> <!-- end section-header -->
@@ -151,22 +149,23 @@
                     <div class="col-block step">
                         <h3 class="item-title">Ka Pasaran</h3>
                         <p>
-                            Ka Pasaran adalah fitur yang menampilkan toko-toko kain sasirangan yang menjalin kolaborasi dengan SASCODE. 
-                            Melalui fitur ini, pengguna dapat menemukan berbagai toko yang menawarkan kain sasirangan berkualitas.
+                            Ka Pasaran adalah fitur yang menghubungkan pengguna dengan produk kain sasirangan by Thiesa. 
+                            Dengan fitur ini, pengguna dapat menemukan dan membeli produk kain sasirangan khas Kalimantan Selatan.
                         </p> 
                     </div>
                
                     <div class="col-block step">
-                        <h3 class="item-title">Scan QR Code</h3>
-                        <p>memindai kain Sasirangan untuk mengungkap arti di balik setiap motif. Jadikan pengalaman budaya 
-                            lebih interaktif dan edukatif hanya dengan sekali scan. Temukan makna di balik seni tradisional dengan mudah!
+                        <h3 class="item-title">AR Produk</h3>
+                        <p>
+                            Fitur AR Produk memungkinkan pengguna untuk melihat produk kain sasirangan dalam bentuk Augmented Reality. 
+                            Dengan fitur ini, pengguna dapat merasakan pengalaman interaktif yang membawa mereka lebih dekat dengan produk yang ditawarkan.
                         </p> 
                     </div>
 
                     <div class="col-block step">
                         <h3 class="item-title">Rilis Media</h3>
                         <p>
-                            Dapatkan informasi terbaru dan terpercaya seputar aplikasi SASCODE, inovasi, serta kolaborasi kami. Ikuti rilis
+                            Dapatkan informasi terbaru dan terpercaya seputar aplikasi Sasindai, inovasi, serta kolaborasi kami. Ikuti rilis
                              media untuk menjelajahi cerita di balik pengembangan teknologi yang memadukan seni dan budaya tradisional.
                         </p> 
                     </div>  
@@ -203,9 +202,11 @@
                 <div class="item-feature__text">
                     <h3 class="item-title">Minimum</h3>
                     <p>
-                        <strong>Sistem Operasi:</strong> Android 10 <br>
-                        <strong>RAM:</strong> 2 GB <br>
-                        <strong>Hardware:</strong> Kamera Terintegrasi
+                        <strong>Sistem Operasi:</strong> Android 10 (API 29)<br>
+                        <strong>RAM:</strong> 2 GB<br>
+                        <strong>Penyimpanan:</strong> 150 MB kosong<br>
+                        <strong>Fitur Wajib:</strong> Kamera<br>
+                        <strong>Internet:</strong> Diperlukan<br>
                     </p>
                 </div>
             </div>
@@ -217,9 +218,11 @@
                 <div class="item-feature__text">
                     <h3 class="item-title">Disarankan</h3>
                     <p>
-                        <strong>Sistem Operasi:</strong> Android 10 atau terbaru <br>
-                        <strong>RAM:</strong> 2 GB <br>
-                        <strong>Hardware:</strong> Kamera Terintegrasi
+                        <strong>Sistem Operasi:</strong> Android 12 (API 31)<br>
+                        <strong>RAM:</strong> 4 GB<br>
+                        <strong>Penyimpanan:</strong> 300 MB kosong<br>
+                        <strong>Fitur Wajib:</strong> Kamera<br>
+                        <strong>Internet:</strong> Diperlukan<br>
                     </p>
                 </div>
             </div>
@@ -230,9 +233,13 @@
                 </div>
                 <div class="item-feature__text">
                     <h3 class="item-title">Ideal</h3>
-                        <strong>Sistem Operasi:</strong> Android 14 atau terbaru <br>
-                        <strong>RAM:</strong> 4 GB <br>
-                        <strong>Hardware:</strong> Kamera Terintegrasi
+                    <p>
+                        <strong>Sistem Operasi:</strong> Android 13 / 14<br>
+                        <strong>RAM:</strong> 6 GB atau lebih<br>
+                        <strong>Penyimpanan:</strong> 500 MB kosong<br>
+                        <strong>Fitur Wajib:</strong> Kamera<br>
+                        <strong>Internet:</strong> Diperlukan<br>
+                    </p>
                 </div>
             </div>
 
