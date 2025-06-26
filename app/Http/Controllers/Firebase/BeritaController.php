@@ -51,11 +51,14 @@ class BeritaController extends Controller
     
         if ($request->hasFile('foto_berita')) {
             $file = $request->file('foto_berita');
-            $uploadedFile = $this->storage->getBucket()->upload(
+            $fileName = 'berita/' . $file->getClientOriginalName();
+            $this->storage->getBucket()->upload(
                 fopen($file->getRealPath(), 'r'),
-                ['name' => 'berita/' . $file->getClientOriginalName()]
+                [
+                    'name' => $fileName,
+                ]
             );
-            $fotoBeritaUrl = $uploadedFile->info()['mediaLink'];
+            $fotoBeritaUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/' . $fileName;
         } else {
             $fotoBeritaUrl = null;
         }
@@ -116,14 +119,16 @@ class BeritaController extends Controller
 
         if($request->hasFile('foto_berita')) {
             $file = $request->file('foto_berita');
-
             try {
-                $uploadedFile = $this->storage->getBucket()->upload(
-                    file_get_contents($file->getRealPath()),
-                    ['name' => 'berita/' . $file->getClientOriginalName()]
+                $fileName = 'berita/' . $file->getClientOriginalName();
+                $this->storage->getBucket()->upload(
+                    fopen($file->getRealPath(), 'r'),
+                    [
+                        'name' => $fileName,
+                    ]
                 );
 
-                $fotoBeritaUrl = $uploadedFile->info()['mediaLink'];
+                $fotoBeritaUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/' . $fileName;
                 $updateData['fotoBeritaUrl'] = $fotoBeritaUrl;
             } catch (FirebaseException $e) {
                 return redirect()->route('berita')->with('error', 'Gagal mengunggah gambar: ' . $e->getMessage());
