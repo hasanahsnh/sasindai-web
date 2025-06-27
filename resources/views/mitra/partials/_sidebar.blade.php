@@ -7,26 +7,26 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ Route('objek.3d') }}" >
+            <a class="nav-link" href="{{ url('/objek-3d') }}" >
               <i class="mdi mdi-cube menu-icon"></i>
               <span class="menu-title">Model 3D Produk (AR)</span>
             </a>
           </li>
           <!-- Mitra Management -->
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('/produk') }}" onclick="return checkTokoStatus('{{ $statusVerifikasi }}')">
+            <a class="nav-link" href="{{ url('/produk') }}" onclick="return checkTokoStatus('{{ $statusVerifikasi ?? 'pending' }}')">
               <i class="mdi mdi-package menu-icon"></i>
               <span class="menu-title">Produk</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('/pesanan') }}" onclick="return checkTokoStatus('{{ $statusVerifikasi }}')">
+            <a class="nav-link" href="{{ url('/pesanan') }}" onclick="return checkTokoStatus('{{ $statusVerifikasi ?? 'pending' }}')">
               <i class="mdi mdi-cart menu-icon"></i>
               <span class="menu-title">Pesanan</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('/pengiriman') }}" onclick="return checkTokoStatus('{{ $statusVerifikasi }}')">
+            <a class="nav-link" href="{{ url('/pengiriman') }}" onclick="return checkTokoStatus('{{ $statusVerifikasi ?? 'pending' }}')">
               <i class="mdi mdi-motorbike menu-icon"></i>
               <span class="menu-title">Pengiriman Barang</span>
             </a>

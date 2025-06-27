@@ -30,11 +30,9 @@ class Objek3DController extends Controller
         $role = session('session.idRole');
         $uid = session('session.uid');
 
-        $statusVerifikasi = null;
-
         if ($role === 'ROLE_MITRA') {
             // Ambil status verifikasi toko
-            $dataMitraProfileRef = $this->database->getReference('mitra/' . $uid);
+            $dataMitraProfileRef = $this->database->getReference('mitras/' . $uid);
             $dataMitraProfile = $dataMitraProfileRef->getValue();
 
             $tokoBelumLengkap = false;
@@ -45,7 +43,7 @@ class Objek3DController extends Controller
                 $tokoBelumLengkap = true;
             } else {
                 // Sudah isi, cek statusnya
-                $statusVerifikasi = $mitraProfile['statusVerifikasiToko'] ?? 'pending';
+                $statusVerifikasi = $dataMitraProfile['statusVerifikasiToko'] ?? 'pending';
 
                 if ($statusVerifikasi !== 'accepted') {
                     $tokoBelumLengkap = true;

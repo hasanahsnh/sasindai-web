@@ -124,7 +124,7 @@
 
                 <div class="shadow-overlay"></div>
 
-                <a class="btn-video" href="https://youtu.be/KF9lPq3zOpU?feature=shared" data-lity>
+                <a class="btn-video" href="https://youtu.be/mkj301SUNCA?feature=shared" data-lity>
                     <span class="video-icon"></span>
                 </a>
            </div> <!-- end video-bg -->
