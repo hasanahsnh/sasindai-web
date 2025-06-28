@@ -76,6 +76,10 @@ Route::get('/form-kepuasan', function () {
     return view('kuesioner-kepuasan-pengguna');
 });
 
+Route::get('/pembayaran-sukses', function () {
+    return view('pembayaran-sukses');
+});
+
 // Middleware admin
 Route::middleware(['admin'])->group(function () {
     // Beranda
