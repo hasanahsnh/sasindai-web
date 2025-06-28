@@ -16,7 +16,7 @@
             </ul>
 
             <div class="header-cta">
-                <a href="https://mega.nz/file/ahxnlKQa#n1Gkw4_PpblPWzyB3gobvZvgtZnnt_rabsFgdtyYDa8" target="_blank" class="btn btn--primary header-cta__btn">Dapatkan Aplikasi</a>
+                <a href="https://mega.nz/folder/a54SSY7b#q_sX-VJdPqnAtpW2MX7p_g" target="_blank" class="btn btn--primary header-cta__btn">Dapatkan Aplikasi</a>
             </div>
         </nav> <!-- end header-nav-wrap -->
 

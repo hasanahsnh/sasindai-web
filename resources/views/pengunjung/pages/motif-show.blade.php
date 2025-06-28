@@ -91,7 +91,7 @@
 
     <!-- Java Script
     ================================================== -->
-    <script src="{{ asset('pengunjung/js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('pengunjung/js/vendor.js') }}"></script>
     <script src="{{ asset('pengunjung/js/plugins.js') }}"></script>
     <script src="{{ asset('pengunjung/js/main.js') }}"></script>
 </body>
