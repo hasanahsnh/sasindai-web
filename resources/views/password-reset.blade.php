@@ -76,7 +76,7 @@
                   <div class="form-group">
                       <i class="mdi mdi-account-check" style="margin-right:6px; margin-left:6px"></i>
                       <label>E-Mail</label>
-                      <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Masukkan E-Mail" style="border-radius: 18px; color:white;" required>
+                      <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Masukkan E-Mail" style="border-radius: 18px; color:white;" autocomplete="off" required>
                       @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                   </div>
                   <button type="submit" class="btn btn-primary btn-block" style="margin-top:30px; background: #890B3F; border:none; outline:none; box-shadow: none; border-radius: 15px;">Kirim link</button>
@@ -87,7 +87,6 @@
             </div>
           </div>
           <div class="col-lg-6 login-half-bg d-flex flex-row">
-            <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2018  All rights reserved.</p>
           </div>
         </div>
       </div>

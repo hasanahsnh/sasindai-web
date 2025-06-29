@@ -118,7 +118,7 @@ class ProdukController extends Controller
                 file_get_contents($foto->getRealPath()),
                 ['name' => $filename]
             );
-            $url = 'https://storage.googleapis.com/' . $defaultBucket->name() . '/' . $filename;
+            $url = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/' . $defaultBucket->name() . '/' . $filename;
             $fotoUrl[] = $url;
         }
 
@@ -130,7 +130,7 @@ class ProdukController extends Controller
             $gambar = $request->file('varian.gambar')[$i];
             $gambarFilename = 'varian_gambar/' . $uniqueIdProduk . '_varian_' . $i . '_' . Str::random(8) . '.' . $gambar->getClientOriginalExtension();
             $defaultBucket->upload(file_get_contents($gambar->getRealPath()), ['name' => $gambarFilename]);
-            $urlGambarVarian = 'https://storage.googleapis.com/' . $defaultBucket->name() . '/' . $gambarFilename;
+            $urlGambarVarian = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/' . $defaultBucket->name() . '/' . $gambarFilename;
             $idvarian = (string) Str::uuid();
             // Siapkan data varian
     
@@ -219,7 +219,7 @@ class ProdukController extends Controller
             foreach ($request->file('foto_produk') as $foto) {
                 $filename = 'foto_produk/' . $key . '_' . Str::random(10) . '.' . $foto->getClientOriginalExtension();
                 $defaultBucket->upload(file_get_contents($foto->getRealPath()), ['name' => $filename]);
-                $url = 'https://storage.googleapis.com/' . $defaultBucket->name() . '/' . $filename;
+                $url = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/' . $defaultBucket->name() . '/' . $filename;
                 $fotoUrl[] = $url;
             }
         }
@@ -244,7 +244,7 @@ class ProdukController extends Controller
                 $gambar = $request->file('varian.gambar')[$i];
                 $gambarFilename = 'varian_gambar/' . $key . '_varian_' . $i . '_' . Str::random(8) . '.' . $gambar->getClientOriginalExtension();
                 $defaultBucket->upload(file_get_contents($gambar->getRealPath()), ['name' => $gambarFilename]);
-                $urlGambarVarian = 'https://storage.googleapis.com/' . $defaultBucket->name() . '/' . $gambarFilename;
+                $urlGambarVarian = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/' . $defaultBucket->name() . '/' . $gambarFilename;
             } else {
                 $urlGambarVarian = $produkLama['varian'][$i]['gambar'] ?? null;
             }

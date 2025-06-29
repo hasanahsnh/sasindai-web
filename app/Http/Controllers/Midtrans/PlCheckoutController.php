@@ -124,6 +124,7 @@ class PlCheckoutController extends Controller
                 'unit' => 'days',
             ],
             'notification_url' => 'https://sasindai.sascode.my.id/api/midtrans/cpl_callback',
+            'finish_redirect_url' => 'https://sasindai.sascode.my.id/pembayaran-sukses',
         ];
 
         $response = Http::withHeaders([

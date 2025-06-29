@@ -76,18 +76,19 @@
                   <div class="form-group">
                       <i class="mdi mdi-account-check" style="margin-right:6px; margin-left:6px"></i>
                       <label>E-Mail</label>
-                      <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Masukkan E-Mail" style="border-radius: 18px; color:white" required>
+                      <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Masukkan E-Mail" style="border-radius: 18px; color:white" autocomplete="off" required>
                       @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                   </div>
                   <div class="form-group">
                       <i class="mdi mdi-lock" style="margin-right:6px; margin-left:6px"></i>
                       <label>Password</label>
-                      <input type="password" name="password" value="{{ old('password') }}" class="form-control" placeholder="Masukkan password" style="border-radius: 18px; color:white" required>
+                      <input type="password" name="password" value="{{ old('password') }}" class="form-control" placeholder="Masukkan password" style="border-radius: 18px; color:white" autocomplete="off" required>
                   </div>
                   <button type="submit" class="btn btn-primary btn-block" style="margin-top:30px; background: #890B3F; border:none; outline:none; box-shadow: none; border-radius: 15px;">Masuk</button>
                   <p style="font-size: 10px; margin-top: 20px; text-align: center;">Lupa password? <a href="{{ url('reset-password') }}" style="color: #890B3F; text-decoration:none">Reset password</a></p>
                   <p style="font-size: 10px; text-align: center;">Terdapat kendala saat mencoba masuk? <a href="https://wa.me/6289696210706" style="color: #890B3F
                   ; text-decoration:none">Hubungi Kami</a></p>
+                  <p style="font-size: 10px; text-align: center;"><a href="{{ url('/') }}" style="color: white; text-decoration:none">Halaman utama</a></p>
                   <!--<p style="font-size: 10px; text-align: center;">Atau</p>-->
                   <!--<p style="font-size: 10px; text-align: center;">Mitra Anda belum terdaftar? <a href="" style="color: #8C3061; text-decoration:none">Daftar Mitra</a></p>-->
                 </form>
@@ -95,7 +96,6 @@
             </div>
           </div>
           <div class="col-lg-6 login-half-bg d-flex flex-row">
-            <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2018  All rights reserved.</p>
           </div>
         </div>
       </div>

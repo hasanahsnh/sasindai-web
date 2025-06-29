@@ -52,13 +52,15 @@ class KatalogController extends Controller
     
         if ($request->hasFile('gambar_motif')) {
             $file = $request->file('gambar_motif');
-            $uploadedFile = $this->storage->getBucket()->upload(
+            $fileName = 'motif/' . $file->getClientOriginalName();
+            $this->storage->getBucket()->upload(
                 fopen($file->getRealPath(), 'r'),
-                ['name' => 'motif/' . $file->getClientOriginalName()]
+                ['name' => $fileName]
             );
-            $gambarUrl = $uploadedFile->info()['mediaLink'];
+
+            $gambarKatalogUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/' . $fileName;
         } else {
-            $gambarUrl = null;
+            $gambarKatalogUrl = null;
         }
     
         $existingItems = $this->database->getReference($this->refTableName)->getValue();
@@ -73,7 +75,7 @@ class KatalogController extends Controller
             'filosofi' => $request->filosofi_motif,
             'sumberFilosofi' => $request->sumber_filosofi,
             'sumberGambar' => $request->sumber_gambar,
-            'gambarUrl' => $gambarUrl,
+            'gambarUrl' => $gambarKatalogUrl,
         ];
         //dd($postData);
     
@@ -129,13 +131,14 @@ class KatalogController extends Controller
             $file = $request->file('gambar_motif');
     
             try {
-                $uploadedFile = $this->storage->getBucket()->upload(
+                $fileName = 'motif/' . $file->getClientOriginalName();
+                $this->storage->getBucket()->upload(
                     fopen($file->getRealPath(), 'r'),
-                    ['name' => 'motif/' . $file->getClientOriginalName()]
+                    ['name' => $fileName]
                 );
     
-                $gambarUrl = $uploadedFile->info()['mediaLink'];
-                $updateData['gambarUrl'] = $gambarUrl;
+                $fotoBeritaUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/' . $fileName;
+                $updateData['gambarUrl'] = $fotoBeritaUrl;
             } catch (FirebaseException $e) {
                 return redirect()->route('katalog')->with('error', 'Gagal mengunggah gambar: ' . $e->getMessage());
             }
