@@ -76,13 +76,12 @@ class Objek3DController extends Controller
 
         if ($request->hasFile('file_objek')) {
             $file = $request->file('file_objek');
-            $filename = Str::slug($request->nama_objek, '_') . '_' . Str::random(4) . '.' . $file->getClientOriginalExtension();
-            $this->storage->getBucket()->upload(
+            $uploadedFile = $this->storage->getBucket()->upload(
                 fopen($file->getRealPath(), 'r'),
-                ['name' => 'objek3d/' . $filename]
+                ['name' => 'objek3d/' . $file->getClientOriginalName()]
             );
 
-            $glbUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/' . $filename;
+            $glbUrl = $uploadedFile->info()['mediaLink'];
         } else {
             return back()->withErrors(['file_objek' => 'File .glb tidak ditemukan.']);
         }
@@ -153,13 +152,12 @@ class Objek3DController extends Controller
         // Jika ada file objek baru, replace
         if ($request->hasFile('file_objek')) {
             $file = $request->file('file_objek');
-            $filename = Str::slug($request->nama_objek, '_') . '_' . Str::random(4) . '.' . $file->getClientOriginalExtension();
-            $this->storage->getBucket()->upload(
+            $uploadedFile = $this->storage->getBucket()->upload(
                 fopen($file->getRealPath(), 'r'),
-                ['name' => 'objek3d/' . $filename]
+                ['name' => 'objek3d/' . $file->getClientOriginalName()]
             );
 
-            $glbUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/' . $filename;
+            $glbUrl = $uploadedFile->info()['mediaLink'];
         } else {
             $glbUrl = $existingData['glbUrl'] ?? null;
         }
@@ -194,7 +192,7 @@ class Objek3DController extends Controller
             'createdBy' => $existingData['createdBy'] ?? $updatedBy
         ];
 
-        dd($updateData);
+        //dd($updateData);
 
         $this->database->getReference($this->refTableName . '/' . $key)->update($updateData);
 
