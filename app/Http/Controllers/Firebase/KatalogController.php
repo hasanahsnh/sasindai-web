@@ -80,22 +80,6 @@ class KatalogController extends Controller
         //dd($postData);
     
         $this->database->getReference("{$this->refTableName}/{$newId}")->set($postData);
-        
-    
-        // Generate QR Code Motif
-        $qrCodeContent = route('motif-show', ['id' => $newId]);
-        $qrCodeImage = QrCode::format('png')->size(300)->errorCorrection('H')->generate($qrCodeContent);
-    
-        $tempQrCodePath = sys_get_temp_dir() . '/qrcode.png';
-        file_put_contents($tempQrCodePath, $qrCodeImage);
-    
-        $qrCodeUploadedFile = $this->storage->getBucket()->upload(
-            fopen($tempQrCodePath, 'r'),
-            ['name' => 'qrcodes/' . uniqid() . '.png']
-        );
-        $qrCodeUrl = $qrCodeUploadedFile->info()['mediaLink'];
-    
-        $this->database->getReference("{$this->refTableName}/{$newId}/qrCodeUrl")->set($qrCodeUrl);
     
         return redirect()->route('katalog')->with('success', 'Motif berhasil disimpan');
     }
@@ -145,22 +129,7 @@ class KatalogController extends Controller
         }
     
         $resUpdate = $this->database->getReference($this->refTableName.'/'.$key)->update($updateData);
-
-        $qrCodeContent = route('motif-show', ['id' => $key]);
-        $qrCodeImage = QrCode::format('png')->size(300)->errorCorrection('H')->generate($qrCodeContent);
-    
-        $tempQrCodePath = sys_get_temp_dir() . '/qrcode.png';
-        file_put_contents($tempQrCodePath, $qrCodeImage);
-    
-        $qrCodeUploadedFile = $this->storage->getBucket()->upload(
-            fopen($tempQrCodePath, 'r'),
-            ['name' => 'qrcodes/' . uniqid() . '.png']
-        );
-    
-        $qrCodeUrl = $qrCodeUploadedFile->info()['mediaLink'];
-        
-        $this->database->getReference("{$this->refTableName}/{$key}/qrCodeUrl")->set($qrCodeUrl);
-        
+                
         if ($resUpdate) {
             return redirect()->route('katalog')->with('success', 'Motif berhasil disimpan');
         } else {
