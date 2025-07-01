@@ -76,24 +76,27 @@ class Objek3DController extends Controller
 
         if ($request->hasFile('file_objek')) {
             $file = $request->file('file_objek');
-            $uploadedFile = $this->storage->getBucket()->upload(
+            $filename = $file->getClientOriginalName();
+            $this->storage->getBucket()->upload(
                 fopen($file->getRealPath(), 'r'),
-                ['name' => 'objek3d/' . $file->getClientOriginalName()]
+                ['name' => 'objek3d/' . $filename]
             );
 
-            $glbUrl = $uploadedFile->info()['mediaLink'];
+            $glbUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/' . $filename;
         } else {
             return back()->withErrors(['file_objek' => 'File .glb tidak ditemukan.']);
         }
 
         if ($request->hasFile('preview_objek')) {
             $file = $request->file('preview_objek');
-            $uploadedFile = $this->storage->getBucket()->upload(
+            $filename = $file->getClientOriginalName();
+            $this->storage->getBucket()->upload(
                 fopen($file->getRealPath(), 'r'),
-                ['name' => 'previewObjek3d/' . $file->getClientOriginalName()]
+                ['name' => 'previewObjek3d/' . $filename]
             );
 
-            $previewObjekUrl = $uploadedFile->info()['mediaLink'];
+            // Menyesuaikan seperti file_objek
+            $previewObjekUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/previewObjek3d/' . $filename;
         } else {
             return back()->withErrors(['preview_objek' => 'File tidak ditemukan.']);
         }
@@ -150,27 +153,32 @@ class Objek3DController extends Controller
         }
 
         // Jika ada file objek baru, replace
+        // Update file_objek (GLB)
         if ($request->hasFile('file_objek')) {
             $file = $request->file('file_objek');
-            $uploadedFile = $this->storage->getBucket()->upload(
+            $filename = $file->getClientOriginalName();
+
+            $this->storage->getBucket()->upload(
                 fopen($file->getRealPath(), 'r'),
-                ['name' => 'objek3d/' . $file->getClientOriginalName()]
+                ['name' => 'objek3d/' . $filename]
             );
 
-            $glbUrl = $uploadedFile->info()['mediaLink'];
+            $glbUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/objek3d/' . $filename;
         } else {
             $glbUrl = $existingData['glbUrl'] ?? null;
         }
 
-        // Jika ada preview baru, replace
+        // Update preview_objek
         if ($request->hasFile('preview_objek')) {
             $file = $request->file('preview_objek');
-            $uploadedFile = $this->storage->getBucket()->upload(
+            $filename = $file->getClientOriginalName();
+
+            $this->storage->getBucket()->upload(
                 fopen($file->getRealPath(), 'r'),
-                ['name' => 'previewObjek3d/' . $file->getClientOriginalName()]
+                ['name' => 'previewObjek3d/' . $filename]
             );
 
-            $previewObjekUrl = $uploadedFile->info()['mediaLink'];
+            $previewObjekUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/previewObjek3d/' . $filename;
         } else {
             $previewObjekUrl = $existingData['previewObjek'] ?? null;
         }
