@@ -72,14 +72,14 @@ class Objek3DController extends Controller
             'preview_objek' => 'required|file|max:10240',
         ]);
     
-        $uniqueIdProduk = Str::slug($request->nama_objek, '_') . '_' . Str::random(4);
+        $uniqueId = Str::slug($request->nama_objek, '_') . '_' . Str::random(4);
 
         if ($request->hasFile('file_objek')) {
             $file = $request->file('file_objek');
-            $filename = $file->getClientOriginalName();
+            $filename = 'objek3d/' . $uniqueId . '.' . $file->getClientOriginalExtension();
             $this->storage->getBucket()->upload(
                 fopen($file->getRealPath(), 'r'),
-                ['name' => 'objek3d/' . $filename]
+                ['name' => $filename]
             );
 
             $glbUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/' . $filename;
@@ -89,14 +89,14 @@ class Objek3DController extends Controller
 
         if ($request->hasFile('preview_objek')) {
             $file = $request->file('preview_objek');
-            $filename = $file->getClientOriginalName();
+            $filename = 'previewObjek3d/' . $uniqueId . '.' . $file->getClientOriginalExtension();
             $this->storage->getBucket()->upload(
                 fopen($file->getRealPath(), 'r'),
-                ['name' => 'previewObjek3d/' . $filename]
+                ['name' => $filename]
             );
 
             // Menyesuaikan seperti file_objek
-            $previewObjekUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/previewObjek3d/' . $filename;
+            $previewObjekUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/' . $filename;
         } else {
             return back()->withErrors(['preview_objek' => 'File tidak ditemukan.']);
         }
@@ -114,7 +114,7 @@ class Objek3DController extends Controller
         }
 
         $postData = [
-            'idObjek' => $uniqueIdProduk,
+            'idObjek' => $uniqueId,
             'namaObjek' => $request->nama_objek,
             'deskripsiObjek' => $request->deskripsi_objek,
             'glbUrl' => $glbUrl,
@@ -125,7 +125,7 @@ class Objek3DController extends Controller
         ];
 
         //dd($postData);
-        $this->database->getReference($this->refTableName . '/' . $uniqueIdProduk)->set($postData);
+        $this->database->getReference($this->refTableName . '/' . $uniqueId)->set($postData);
 
         return redirect()->route('objek.3d')->with('success', 'Objek berhasil disimpan.');
     }
@@ -152,33 +152,35 @@ class Objek3DController extends Controller
             return back()->withErrors(['error' => 'Data tidak ditemukan.']);
         }
 
-        // Jika ada file objek baru, replace
-        // Update file_objek (GLB)
+        // Gunakan nama file unik yang sama (slug + ID)
+        $uniqueId = Str::slug($request->nama_objek, '_') . '_' . Str::random(4);
+
+        // Upload file objek GLB jika ada
         if ($request->hasFile('file_objek')) {
             $file = $request->file('file_objek');
-            $filename = $file->getClientOriginalName();
+            $filename = 'objek3d/' . $uniqueId . '.' . $file->getClientOriginalExtension();
 
             $this->storage->getBucket()->upload(
                 fopen($file->getRealPath(), 'r'),
-                ['name' => 'objek3d/' . $filename]
+                ['name' => $filename]
             );
 
-            $glbUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/objek3d/' . $filename;
+            $glbUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/' . $filename;
         } else {
             $glbUrl = $existingData['glbUrl'] ?? null;
         }
 
-        // Update preview_objek
+        // Upload preview jika ada
         if ($request->hasFile('preview_objek')) {
             $file = $request->file('preview_objek');
-            $filename = $file->getClientOriginalName();
+            $filename = 'previewObjek3d/' . $uniqueId . '.' . $file->getClientOriginalExtension();
 
             $this->storage->getBucket()->upload(
                 fopen($file->getRealPath(), 'r'),
-                ['name' => 'previewObjek3d/' . $filename]
+                ['name' => $filename]
             );
 
-            $previewObjekUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/previewObjek3d/' . $filename;
+            $previewObjekUrl = 'https://storage.googleapis.com/sascode-aa3b7.appspot.com/' . $filename;
         } else {
             $previewObjekUrl = $existingData['previewObjek'] ?? null;
         }
