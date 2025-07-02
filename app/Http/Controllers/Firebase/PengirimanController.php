@@ -38,24 +38,10 @@ class PengirimanController extends Controller
             }
 
             // Ambil semua data pesanan
-            $dataPesanans = $this->database->getReference($this->refTableName)->getValue() ?? [];
-
-            $filteredPesanan = [];
-
-            foreach ($dataPesanans as $key => $item) {
-
-                // Hanya tampilkan status dikirim
-                if (!isset($item['statusPesanan']) || strtolower($item['statusPesanan']) !== 'dikirim') {
-                    continue;
-                }
-
-
-                $item['orderId'] = $key;
-                $filteredPesanan[$key] = $item;
-            }
+            $dataPengiriman = $this->database->getReference($this->refTableNamePengiriman)->getValue() ?? [];
 
             // Ambil data mitra
-            $dataMitraProfileRef = $this->database->getReference('mitra/' . $uid);
+            $dataMitraProfileRef = $this->database->getReference('mitras/' . $uid);
             $dataMitraProfile = $dataMitraProfileRef->getValue();
 
             // Cek apakah toko sudah lengkap
@@ -72,7 +58,7 @@ class PengirimanController extends Controller
             }
 
             return view('mitra.pages.pengiriman', compact(
-                'filteredPesanan',
+                'dataPengiriman',
                 'dataMitraProfile',
                 'tokoBelumLengkap',
                 'statusVerifikasi'

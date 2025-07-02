@@ -63,98 +63,44 @@
                         <table class="table table-hover w-100">
                           <thead>
                             <tr>
-                              <th>Cetak Rincian Pesanan</th>
                               <th>ID Pesanan</th>
-                              <th>Status Pesanan</th>
-                              <th>Status Pembayaran</th>
                               <th>Status Pengiriman</th>
-                              <th>Telah dibayar pada</th>
+                              <th>Kurir</th>
+                              <th>Resi</th>
                             </tr>
                           </thead>
                           <tbody>
-                            @if (!empty($filteredPesanan))
-                            @foreach ($filteredPesanan as $key => $item)
-                                          <tr>
-                                            <td>
-                                              <a href="{{ route('print.rincian.pesanan', ['order_id' => $key]) }}" 
-                                                title="Cetak rincian pesanan"
-                                                style="background-color: rgb(172, 33, 89); padding: 10px; border-radius: 5px"
-                                                target="_blank">
-                                                  <i class="fas fa-print" style="color: white;"></i>
-                                              </a> 
-                                            </td>
-                                            <td>
-                                              {{ $item['order_id'] ?? 'ID Pesanan tidak ditemukan'}}
-                                            </td>
-                                            <td>
-                                             @php
-                                                  $status = strtolower($item['statusPesanan'] ?? 'tidak diketahui');
+                            @if (isset($dataPengiriman) && count($dataPengiriman) > 0)
+                              @foreach ($dataPengiriman as $pengiriman)
+                                <tr>
+                                  <td>{{ $pengiriman['idPesanan'] }}</td>
+                                  <td>
+                                    @php
+                                        $status = strtolower($pengiriman['statusPengiriman'] ?? 'Status tidak diketahui');
+                                        switch ($status) {
+                                          case 'aktif':
+                                            $class = 'status-dikirim';
+                                            $text = 'Pengiriman aktif';
+                                            break;
+                                          case 'pengiriman selesai':
+                                            $class = 'status-diterima';
+                                            $text = 'Pesanan diterima';
+                                            break;
+                                          default:
+                                            $class = 'status-default';
+                                            $text = 'Status pengiriman tidak diketahui';
+                                        }
+                                    @endphp
 
-                                                  switch ($status) {
-                                                      case 'menunggu pembayaran':
-                                                          $class = 'status-menunggu';
-                                                          $text = 'Menunggu Pembayaran';
-                                                          break;
-                                                      case 'dikemas':
-                                                          $class = 'status-dikemas';
-                                                          $text = 'Segera lakukan pengiriman';
-                                                          break;
-                                                      case 'dikirim':
-                                                          $class = 'status-dikirim';
-                                                          $text = 'Dikirim';
-                                                          break;
-                                                      case 'cancel':
-                                                      case 'dibatalkan':
-                                                          $class = 'status-cancel';
-                                                          $text = 'Dibatalkan';
-                                                          break;
-                                                      default:
-                                                          $class = 'status-default';
-                                                          $text = 'Status tidak diketahui';
-                                                  }
-                                              @endphp
-
-                                              <p class="status-badge {{ $class }}">
-                                                  {{ $text }}
-                                              </p>
-                                            </td>
-                                            <td>
-                                              @php
-                                                  $statusBayar = strtolower($item['status'] ?? 'tidak diketahui');
-
-                                                  switch ($statusBayar) {
-                                                      case 'pending':
-                                                          $class = 'status-pending';
-                                                          $text = 'Tertunda';
-                                                          break;
-                                                      case 'success':
-                                                          $class = 'status-success';
-                                                          $text = 'Berhasil';
-                                                          break;
-                                                      case 'cancel':
-                                                          $class = 'status-cancel';
-                                                          $text = 'Dibatalkan';
-                                                          break;
-                                                      default:
-                                                          $class = 'status-default';
-                                                          $text = 'Status Pembayaran tidak ditemukan';
-                                                  }
-                                              @endphp
-
-                                              <p class="status-badge {{ $class }}">
-                                                  {{ $text }}
-                                              </p>
-                                            </td>
-                                            <td>
-                                              <p style="display: inline-block; font-size: 14px;">
-                                                {{ $item['updated_at'] ?? 'Waktu pembayaran tidak ditemukan'}}
-                                              </p>
-                                            </td>
-                                          </tr>
+                                    <p class="status-badge {{ $class }}">{{ $text }}</p>
+                                  </td>
+                                  <td>{{ $pengiriman['kurirPesanan'] ?? 'Tidak ada' }}</td>
+                                  <td>{{ $pengiriman['resiPesanan'] ?? 'Tidak ada' }}</td>
+                                </tr>
                               @endforeach
-                              @else
+                            @else
                               <tr>
-                                <td colspan="6" class="text-center">Tidak ada data pengiriman.</td>
+                                <td colspan="4" class="text-center">Tidak ada data pengiriman</td>
                               </tr>
                             @endif
                           </tbody>

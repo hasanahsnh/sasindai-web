@@ -22027,8 +22027,12 @@ dl li {
 
 .status-dikirim {
     background-color: #66bb6a; /* hijau */
+    color: #fff;  
+}
+
+.status-diterima {
+    background-color: #333333; /* hijau */
     color: #fff;
-    
 }
 
 .status-cancel {

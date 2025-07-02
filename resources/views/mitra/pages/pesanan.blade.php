@@ -95,7 +95,6 @@
                               <th>Status Pesanan</th>
                               <th>Status Pembayaran</th>
                               <th>Telah dibayar pada</th>
-                              <th>Aksi</th> 
                             </tr>
                           </thead>
                           <tbody>
@@ -180,11 +179,6 @@
                                               <p style="display: inline-block; font-size: 14px;">
                                                 {{ $item['updated_at'] ?? 'Waktu pembayaran tidak ditemukan'}}
                                               </p>
-                                            </td>
-                                            <td>
-                                              <a href="" data-toggle="modal" data-target="#modalInputResi{{ $key }}" title="Input resi" style="background-color: orange; padding: 10px; border-radius: 5px">
-                                                <i class="fas fa-truck" style="color: black;"></i>
-                                              </a> 
                                             </td>
                                           </tr>
 
