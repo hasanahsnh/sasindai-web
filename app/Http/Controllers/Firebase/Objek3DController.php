@@ -137,7 +137,7 @@ class Objek3DController extends Controller
         $request->validate([
             'nama_objek' => 'required|string|max:255',
             'deskripsi_objek' => 'nullable|string',
-            'file_objek' => 'nullable|file|mimetypes:model/gltf-binary|max:10240',
+            'file_objek' => 'nullable|file|max:10240',
             'preview_objek' => 'nullable|file|max:10240',
 
             'key' => 'required|string'
