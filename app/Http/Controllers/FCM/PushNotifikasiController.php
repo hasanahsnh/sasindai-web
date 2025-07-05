@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 use Kreait\Firebase\Contract\Database;
 
@@ -14,11 +15,10 @@ use Google\Auth\OAuth2;
 class PushNotifikasiController extends Controller
 {
     protected $database;
-    protected $refTableNotifikasi, $refTableUser;
+    protected $refTableNotifikasi;
     public function __construct(Database $database) {
         $this->database = $database;
         $this->refTableNotifikasi = 'notifikasi';
-        $this->refTableUser = 'users';
     }
 
     public function index()
@@ -62,15 +62,11 @@ class PushNotifikasiController extends Controller
 
     private function ambilSemuaToken(): array
     {
-        $users = $this->database->getReference('users')->getValue();
+        $pushTokens = $this->database->getReference('push_tokens')->getValue();
         $tokens = [];
 
-        if ($users) {
-            foreach ($users as $user) {
-                if (!empty($user['device_token'])) {
-                    $tokens[] = $user['device_token'];
-                }
-            }
+        if ($pushTokens && is_array($pushTokens)) {
+            $tokens = array_keys($pushTokens); // token disimpan sebagai key
         }
 
         return $tokens;
@@ -124,6 +120,14 @@ class PushNotifikasiController extends Controller
 
         $response = Http::withToken($accessToken)
             ->post($url, $payload);
+
+        if ($response->failed()) {
+            $body = $response->json();
+            if (isset($body['error']['status']) && $body['error']['status'] === 'NOT_FOUND') {
+                $this->database->getReference('push_tokens/' . $token)->remove();
+                Log::warning("Token $token tidak valid, dihapus dari database.");
+            }
+        }
 
         return $response->successful();
     }
