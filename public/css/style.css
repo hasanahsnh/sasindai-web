@@ -10398,6 +10398,22 @@ pre code {
   border: 0;
 }
 
+.limit-deskripsi {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  /* WAJIB ditambahkan */
+  white-space: normal;
+  
+  /* Agar benar-benar potong setelah 5 baris */
+  line-height: 1.5em;
+  max-height: calc(1.5em * 4.4);
+}
+
 .form-control, .dataTables_wrapper select {
   display: block;
   width: 100%;

@@ -135,7 +135,7 @@
                                   Foto produk tidak ditemukan
                               @endif
                             </td>
-                            <td>{{ $item['deskripsiProduk'] ?? 'Deskripsi tidak ditemukan'}}</td>
+                            <td class="limit-deskripsi">{{ $item['deskripsiProduk'] ?? 'Deskripsi tidak ditemukan'}}</td>
                             <td>
                               <a href="" data-toggle="modal" data-target="#modalLihat{{ $key }}" title="Detail">Lihat Varian</a>    
                             </td>
